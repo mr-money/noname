@@ -124,8 +124,8 @@
                     <h1>不知名APP后台登录</h1>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-icon layui-icon-username" for="username"></label>
-                    <input type="text" name="username" lay-verify="required|account" placeholder="用户名或者邮箱"
+                    <label class="layui-icon layui-icon-username" for="account"></label>
+                    <input type="text" name="account" lay-verify="required|account" placeholder="用户名或者邮箱"
                            autocomplete="off" class="layui-input">
                 </div>
                 <div class="layui-form-item">
@@ -175,7 +175,7 @@
         // 进行登录操作
         form.on('submit(login)', function (data) {
             data = data.field;
-            if (data.username == '') {
+            if (data.account == '') {
                 layer.msg('用户名不能为空');
                 return false;
             }
@@ -191,16 +191,18 @@
             $.post(
                 "{{url('api/admin/loginAjax')}}",
                 {
-                    data:data,
+                    account:data.account,
+                    password:data.password,
+                    rememberMe:data.rememberMe,
                 },
-                function(data){
-                    console.log(data);
+                function(res){
+                    console.log(res);
                     return;
                     layer.msg('登录成功', function () {
                         window.location = "{{url('admin')}}";
                     });
                 },
-                "json"
+                'json'
             );
 
 

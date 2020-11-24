@@ -45,7 +45,7 @@ class ApiReturn extends BaseController
      * @param array $data
      * @return \Illuminate\Http\JsonResponse
      */
-    static public function ApiReturn($data = [],$code = null,$msg = '操作成功')
+    static public function jsonApi($code = null,$msg = '操作成功',$data = [])
     {
         $returnData = array(
             'code' => is_null($code) ? Self::SUCCESS : $code,
@@ -56,6 +56,6 @@ class ApiReturn extends BaseController
             $returnData['debug'] = self::$debugInfo;
         }
 
-        return response()->json($returnData);
+        return response()->json($returnData)->header('Content-Type', 'application/json; charset=UTF-8');
     }
 }

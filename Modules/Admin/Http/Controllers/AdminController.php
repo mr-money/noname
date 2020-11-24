@@ -40,30 +40,6 @@ class AdminController extends AdminBaseController
     }
 
 
-    /**
-     * 递归获取子菜单
-     * @param $pid 父级id
-     * @param $menuList 父级菜单组
-     * @return array
-     */
-    protected function buildMenuChild($pid, $menuList)
-    {
-        $treeList = [];
-        foreach ($menuList as $v) {
-            if ($pid == $v->pid) {
-                $node = $v->toArray();
-                $child = $this->buildMenuChild($v->id, $menuList);
-                if (!empty($child)) {
-                    $node['child'] = $child;
-                }
-                // todo 后续此处加上用户的权限判断
-                $treeList[] = $node;
-            }
-        }
-        return $treeList;
-    }
-
-
     public function addMenu()
     {
         $lint = json_decode(file_get_contents(public_path().'/layuimini/api/init.json'),true);
@@ -164,6 +140,6 @@ class AdminController extends AdminBaseController
             'homeInfo' => $homeInfo,
             'logoInfo' => $logoInfo,
         ];
-        return ApiReturn::ApiReturn($systemInit);
+        return ApiReturn::jsonApi($systemInit);
     }
 }

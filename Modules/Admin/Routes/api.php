@@ -20,7 +20,5 @@ Route::middleware('auth:api')->get('/admin', function (Request $request) {
 //后台初始化信息
 Route::get('/getSystemInit', 'AdminController@getSystemInit');
 
-//api接口
-Route::prefix('api')->group(function() {
-    Route::post('admin/loginAjax', 'AdminController@loginAjax');
-});
+//后台api接口 不需要验证登录group
+Route::post('admin/loginAjax', 'AdminBaseController@loginAjax');
