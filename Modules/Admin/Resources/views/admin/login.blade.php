@@ -125,12 +125,14 @@
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-icon layui-icon-username" for="account"></label>
-                    <input type="text" name="account" lay-verify="required|account" placeholder="用户名或者邮箱"
+                    <input type="text" name="account" value="{{empty($admin['account'])?'':$admin['account']}}"
+                           lay-verify="required|account" placeholder="用户名或者邮箱"
                            autocomplete="off" class="layui-input">
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-icon layui-icon-password" for="password"></label>
-                    <input type="password" name="password" lay-verify="required|password" placeholder="密码"
+                    <input type="password" name="password" value="{{empty($admin['password'])?'':$admin['password']}}"
+                           lay-verify="required|password" placeholder="密码"
                            autocomplete="off" class="layui-input">
                 </div>
                 {{--<div class="layui-form-item">
@@ -142,7 +144,7 @@
                     </div>
                 </div>--}}
                 <div class="layui-form-item">
-                    <input type="checkbox" name="rememberMe" value="true" lay-skin="primary" title="记住密码">
+                    <input type="checkbox" name="rememberMe" {{empty($admin['rememberMe'])?'':'checked'}} lay-skin="primary" title="记住密码">
                 </div>
                 <div class="layui-form-item">
                     <button class="layui-btn layui-btn layui-btn-normal layui-btn-fluid" lay-submit=""
@@ -191,11 +193,12 @@
             $.post(
                 "{{url('api/admin/loginAjax')}}",
                 {
-                    account:data.account,
-                    password:data.password,
-                    rememberMe:data.rememberMe,
+                    account: data.account,
+                    password: data.password,
+                    rememberMe: data.rememberMe,
+                    _token: "{!! csrf_token() !!}"
                 },
-                function(res){
+                function (res) {
                     console.log(res);
                     return;
                     layer.msg('登录成功', function () {

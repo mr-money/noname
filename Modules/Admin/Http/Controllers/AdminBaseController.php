@@ -1,10 +1,12 @@
 <?php
+
 namespace Modules\Admin\Http\Controllers;
 
 use App\AdminUser;
 use App\Http\Controllers\ApiReturn;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Hash;
 use Modules\Admin\Models\AdminLogModel;
 use Modules\Admin\Models\AdminUsersModel;
@@ -25,12 +27,18 @@ class AdminBaseController extends Controller
     }
 
     //登录页面
-    public function login()
+    public function login(Request $request)
     {
-        $admin = session('admin');
+        //记住密码
+        $admin = $request->cookie('admin_remember');
 
-        return view('admin::admin.login');
+        return view('admin::admin.login')->with([
+            'admin' => json_decode($admin,true),
+        ]);
     }
+
+
+    //TODO 检查登录 注册中间件
 
 
     /**
@@ -42,30 +50,31 @@ class AdminBaseController extends Controller
     {
         $post = $request->post();
 
+
         //查询管理员
         $admin = $this->adminUsersModel::where('account', $post['account'])->first();
 
         if (empty($admin)) {
-            return ApiReturn::jsonApi(ApiReturn::LOGIN_ERROR,'账号不存在');
+            return ApiReturn::jsonApi(ApiReturn::LOGIN_ERROR, '账号不存在');
         }
 
         //检查密码
         if (!Hash::check($post['password'], $admin->password)) {
-            return ApiReturn::jsonApi(ApiReturn::LOGIN_ERROR,'密码输入不正确');
+            return ApiReturn::jsonApi(ApiReturn::LOGIN_ERROR, '密码输入不正确');
         }
 
         //登录成功
         $request->session()->put('admin', $admin);
 
-        //TODO 记住密码
-        if($post['rememberMe']){
-
+        //记住密码
+        if ($post['rememberMe'] === 'on') {
+            Cookie::queue('admin_remember',json_encode($post),7*24*60);
         }
 
         //记录登录日志
-        $this->saveLoginLog($request,$admin);
+        $this->saveLoginLog($request, $admin);
 
-        return ApiReturn::jsonApi(200,'登录成功',$request->post());
+        return ApiReturn::jsonApi(200, '登录成功', $request->post());
     }
 
     /**
@@ -74,7 +83,7 @@ class AdminBaseController extends Controller
      * @param $admin
      * @return bool
      */
-    public function saveLoginLog(Request $request,$admin)
+    public function saveLoginLog(Request $request, $admin)
     {
         $this->adminLogModel->fill([
             'admin_id' => $admin->id,

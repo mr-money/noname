@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use Illuminate\Routing\Controller as BaseController;
@@ -30,13 +31,13 @@ class ApiReturn extends BaseController
      * 设置Debug信息
      * @param $info
      */
-    static public function debug($info) {
+    static public function debug($info)
+    {
         if (APP_DEBUG) {
             //array_push(self::$debugInfo, $info);
             self::$debugInfo = $info;
         }
     }
-
 
     /**
      * api返回
@@ -45,11 +46,11 @@ class ApiReturn extends BaseController
      * @param array $data
      * @return \Illuminate\Http\JsonResponse
      */
-    static public function jsonApi($code = null,$msg = '操作成功',$data = [])
+    static public function jsonApi($code = null, $msg = '操作成功', $data = [])
     {
         $returnData = array(
             'code' => is_null($code) ? Self::SUCCESS : $code,
-            'msg'  => trim($msg),
+            'msg' => trim($msg),
             'data' => $data
         );
         if (!empty(self::$debugInfo)) {
