@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Middleware;
+namespace Modules\Admin\Http\Middleware;
 
 use Closure;
+use Illuminate\Http\Request;
 
-class CheckAdmin
+class AdminCheckLoginMiddleware
 {
     /**
      * Handle an incoming request.
@@ -13,8 +14,9 @@ class CheckAdmin
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle(Request $request, Closure $next)
     {
+        echo '233333333';
         return $next($request);
     }
 }

@@ -65,5 +65,7 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'cors' => \App\Http\Middleware\AccessControlAllowOrigin::class,
+
+        'admin.checkLogin' => \Modules\Admin\Http\Middleware\AdminCheckLoginMiddleware::class, //后台检查登录
     ];
 }

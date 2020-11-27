@@ -17,5 +17,5 @@ Route::prefix('admin')->group(function() {
 //    Route::get('/addMenu', 'AdminController@addMenu');
     Route::get('/testOut', 'AdminController@testOut');
 
-    Route::get('/login', 'AdminController@login');
+    Route::get('/login', 'AdminController@login')->middleware('admin.checkLogin');
 });

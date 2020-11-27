@@ -19,7 +19,8 @@ Route::middleware('auth:api')->get('/admin', function (Request $request) {
 
 //后台初始化信息
 Route::get('/getSystemInit', 'AdminController@getSystemInit');
-//后台api接口 不需要验证登录group
+
+//后台api接口
 Route::group([
         'middleware' => ['web']
     ],
