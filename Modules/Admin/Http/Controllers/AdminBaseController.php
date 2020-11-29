@@ -29,8 +29,11 @@ class AdminBaseController extends Controller
     //登录页面
     public function login(Request $request)
     {
-        $res = session('admin');
-        dump($res);
+        //已登录 跳转首页
+        if($request->session()->has('admin')){
+            redirect('admin');
+        }
+        
         //记住密码
         $admin = $request->cookie('admin_remember');
 
