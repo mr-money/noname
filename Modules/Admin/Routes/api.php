@@ -27,5 +27,7 @@ Route::group([
     function () {
         Route::post('admin/loginAjax', 'AdminBaseController@loginAjax'); //后台登录ajax
         Route::post('admin/logoutAjax', 'AdminBaseController@logoutAjax'); //后台退出登录ajax
+
+        Route::get('admin/getMenuListAjax', 'AdminController@getMenuListAjax'); //后台退出登录ajax
     }
 );

@@ -207,7 +207,7 @@
                         res.msg,
                         {shift: -1, time: 1000},
                         function () {
-                            {{--window.location = "{{url('admin')}}";--}}
+                            window.location = "{{url('admin')}}";
                         });
 
                 },

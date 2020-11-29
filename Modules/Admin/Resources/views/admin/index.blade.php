@@ -162,9 +162,8 @@
         });
 
         $('.login-out').on("click", function () {
-
-
             var load = layer.load();
+
             $.post(
                 "{{url('api/admin/logoutAjax')}}",
                 {

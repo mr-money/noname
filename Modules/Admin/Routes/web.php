@@ -12,10 +12,10 @@
 */
 
 Route::prefix('admin')->group(function() {
-    Route::get('/', 'AdminController@index');
+    Route::get('/', 'AdminController@index'); //首页
 
 //    Route::get('/addMenu', 'AdminController@addMenu');
-    Route::get('/testOut', 'AdminController@testOut');
 
-    Route::get('/login', 'AdminController@login')->middleware('admin.checkLogin');
+    Route::get('/login', 'AdminController@login'); //登录页面
+    Route::get('/menuList', 'AdminController@menuList')->middleware('admin.checkLogin'); //菜单列表
 });

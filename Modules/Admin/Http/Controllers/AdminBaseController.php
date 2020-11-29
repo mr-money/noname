@@ -26,14 +26,19 @@ class AdminBaseController extends Controller
         $this->adminLogModel = new AdminLogModel();
     }
 
-    //登录页面
+
+    /**
+     * 登录页面
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function login(Request $request)
     {
         //已登录 跳转首页
         if($request->session()->has('admin')){
-            redirect('admin');
+            return redirect('admin');
         }
-        
+
         //记住密码
         $admin = $request->cookie('admin_remember');
 
@@ -77,7 +82,12 @@ class AdminBaseController extends Controller
         return ApiReturn::jsonApi(ApiReturn::SUCCESS, '登录成功', $request->post());
     }
 
-    //退出登录ajax
+
+    /**
+     * 退出登录ajax
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function logoutAjax(Request $request)
     {
         if($request->session()->has('admin')){

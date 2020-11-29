@@ -21,7 +21,7 @@ class AdminCheckLoginMiddleware
     {
         $admin_has = $request->session()->has('admin');
         if(!$admin_has){
-            redirect('admin/login');
+            return redirect('admin/login');
         }
         return $next($request);
     }

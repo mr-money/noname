@@ -9,6 +9,9 @@ use Illuminate\Http\Request;
 
 class AdminController extends AdminBaseController
 {
+    protected $adminViewDir = 'admin::admin.';
+
+
     public function __construct()
     {
         parent::__construct();
@@ -20,11 +23,33 @@ class AdminController extends AdminBaseController
      */
     public function index()
     {
-        return view('admin::admin.index');
+        return view($this->adminViewDir . 'index');
+    }
+
+
+    /**
+     * 菜单管理列表页面
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function menuList()
+    {
+        return view($this->adminViewDir . 'menuList');
+    }
+
+    //获取菜单列表ajax
+    public function getMenuListAjax()
+    {
+        $menuList = $this->SystemMenuModel
+            ->select(['id', 'pid', 'title', 'icon', 'href', 'target', 'sort', 'status', 'created_at'])
+//            ->where('status', 1)
+            ->orderBy('sort', 'desc')
+            ->get();
+
+        return ApiReturn::jsonApi(ApiReturn::SUCCESS, '', $menuList);
     }
 
     /**
-     * 获取菜单列表
+     * 获取菜单列表fun
      * @return array
      */
     protected function getMenuList()
@@ -40,14 +65,17 @@ class AdminController extends AdminBaseController
     }
 
 
+    /**
+     * 循环添加默认菜单
+     */
     public function addMenu()
     {
-        $lint = json_decode(file_get_contents(public_path().'/layuimini/api/init.json'),true);
+        $lint = json_decode(file_get_contents(public_path() . '/layuimini/api/init.json'), true);
 
         $menu_info = $lint['menuInfo'];
 
         $add_data = [];
-        foreach ($menu_info as $value){
+        foreach ($menu_info as $value) {
             $data = array(
                 'pid' => 0,
                 'title' => $value['title'],
@@ -61,7 +89,7 @@ class AdminController extends AdminBaseController
 
             $id = $this->SystemMenuModel->create($data)->id;
 
-            if(!isset($value['child'])){
+            if (!isset($value['child'])) {
                 continue;
             }
             foreach ($value['child'] as $val) {
@@ -78,7 +106,7 @@ class AdminController extends AdminBaseController
 
                 $id2 = $this->SystemMenuModel->create($data2)->id;
 
-                if(!isset($val['child'])){
+                if (!isset($val['child'])) {
                     continue;
                 }
                 foreach ($val['child'] as $v) {
@@ -126,20 +154,4 @@ class AdminController extends AdminBaseController
         return response()->json($systemInit);
     }
 
-    public function testOut()
-    {
-        $homeInfo = [
-            'title' => '首页',
-            'href' => 'page/welcome-1.html?t=1',
-        ];
-        $logoInfo = [
-            'title' => '不知名APP',
-            'image' => '/layuimini/images/logo.png',
-        ];
-        $systemInit = [
-            'homeInfo' => $homeInfo,
-            'logoInfo' => $logoInfo,
-        ];
-        return ApiReturn::jsonApi($systemInit);
-    }
 }
