@@ -29,6 +29,8 @@ class AdminBaseController extends Controller
     //登录页面
     public function login(Request $request)
     {
+        $res = session('admin');
+        dump($res);
         //记住密码
         $admin = $request->cookie('admin_remember');
 
@@ -36,10 +38,6 @@ class AdminBaseController extends Controller
             'admin' => json_decode($admin,true),
         ]);
     }
-
-
-    //TODO 检查登录 注册中间件
-
 
     /**
      * 后台登录ajax
@@ -49,7 +47,6 @@ class AdminBaseController extends Controller
     public function loginAjax(Request $request)
     {
         $post = $request->post();
-
 
         //查询管理员
         $admin = $this->adminUsersModel::where('account', $post['account'])->first();
@@ -74,7 +71,17 @@ class AdminBaseController extends Controller
         //记录登录日志
         $this->saveLoginLog($request, $admin);
 
-        return ApiReturn::jsonApi(200, '登录成功', $request->post());
+        return ApiReturn::jsonApi(ApiReturn::SUCCESS, '登录成功', $request->post());
+    }
+
+    //退出登录ajax
+    public function logoutAjax(Request $request)
+    {
+        if($request->session()->has('admin')){
+            $request->session()->forget('admin');
+        }
+
+        return ApiReturn::jsonApi(ApiReturn::SUCCESS,'退出登录');
     }
 
     /**

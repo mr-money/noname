@@ -25,6 +25,7 @@ Route::group([
         'middleware' => ['web']
     ],
     function () {
-        Route::post('admin/loginAjax', 'AdminBaseController@loginAjax');
+        Route::post('admin/loginAjax', 'AdminBaseController@loginAjax'); //后台登录ajax
+        Route::post('admin/logoutAjax', 'AdminBaseController@logoutAjax'); //后台退出登录ajax
     }
 );

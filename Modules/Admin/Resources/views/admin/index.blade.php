@@ -63,10 +63,12 @@
                     <a href="javascript:;">admin</a>
                     <dl class="layui-nav-child">
                         <dd>
-                            <a href="javascript:;" layuimini-content-href="page/user-setting.html" data-title="基本资料" data-icon="fa fa-gears">基本资料<span class="layui-badge-dot"></span></a>
+                            <a href="javascript:;" layuimini-content-href="page/user-setting.html" data-title="基本资料"
+                               data-icon="fa fa-gears">基本资料<span class="layui-badge-dot"></span></a>
                         </dd>
                         <dd>
-                            <a href="javascript:;" layuimini-content-href="page/user-password.html" data-title="修改密码" data-icon="fa fa-gears">修改密码</a>
+                            <a href="javascript:;" layuimini-content-href="page/user-password.html" data-title="修改密码"
+                               data-icon="fa fa-gears">修改密码</a>
                         </dd>
                         <dd>
                             <hr>
@@ -130,7 +132,7 @@
 <script src="/layuimini/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
 <script src="/layuimini/js/lay-config.js?v=2.0.0" charset="utf-8"></script>
 <script>
-    layui.use(['jquery', 'layer', 'miniAdmin','miniTongji'], function () {
+    layui.use(['jquery', 'layer', 'miniAdmin', 'miniTongji'], function () {
         var $ = layui.jquery,
             layer = layui.layer,
             miniAdmin = layui.miniAdmin,
@@ -160,9 +162,27 @@
         });
 
         $('.login-out').on("click", function () {
-            layer.msg('退出登录成功', function () {
-                window.location = 'page/login-3.html';
-            });
+
+
+            var load = layer.load();
+            $.post(
+                "{{url('api/admin/logoutAjax')}}",
+                {
+                    _token: "{!! csrf_token() !!}"
+                },
+                function (res) {
+                    // console.log(res);
+                    layer.close(load);
+                    layer.msg(
+                        res.msg,
+                        {shift: -1, time: 2000},
+                        function () {
+                            window.location = "{{url('admin/login')}}";
+                        });
+
+                },
+                'json'
+            );
         });
     });
 </script>

@@ -144,7 +144,8 @@
                     </div>
                 </div>--}}
                 <div class="layui-form-item">
-                    <input type="checkbox" name="rememberMe" {{empty($admin['rememberMe'])?'':'checked'}} lay-skin="primary" title="记住密码">
+                    <input type="checkbox" name="rememberMe"
+                           {{empty($admin['rememberMe'])?'':'checked'}} lay-skin="primary" title="记住密码">
                 </div>
                 <div class="layui-form-item">
                     <button class="layui-btn layui-btn layui-btn-normal layui-btn-fluid" lay-submit=""
@@ -190,6 +191,7 @@
                 return false;
             }*/
 
+            var load = layer.load();
             $.post(
                 "{{url('api/admin/loginAjax')}}",
                 {
@@ -199,11 +201,15 @@
                     _token: "{!! csrf_token() !!}"
                 },
                 function (res) {
-                    console.log(res);
-                    return;
-                    layer.msg('登录成功', function () {
-                        window.location = "{{url('admin')}}";
-                    });
+                    // console.log(res);
+                    layer.close(load);
+                    layer.msg(
+                        res.msg,
+                        {shift: -1, time: 1000},
+                        function () {
+                            {{--window.location = "{{url('admin')}}";--}}
+                        });
+
                 },
                 'json'
             );

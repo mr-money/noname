@@ -1,4 +1,7 @@
 <?php
+/**
+ * 检查登录
+ */
 
 namespace Modules\Admin\Http\Middleware;
 
@@ -16,7 +19,10 @@ class AdminCheckLoginMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        echo '233333333';
+        $admin_has = $request->session()->has('admin');
+        if(!$admin_has){
+            redirect('admin/login');
+        }
         return $next($request);
     }
 }
