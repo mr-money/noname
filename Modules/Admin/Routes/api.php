@@ -22,7 +22,7 @@ Route::get('/getSystemInit', 'AdminController@getSystemInit');
 
 //后台api接口
 Route::group([
-        'middleware' => ['web']
+//        'middleware' => ['web']
     ],
     function () {
         Route::post('admin/loginAjax', 'AdminBaseController@loginAjax'); //后台登录ajax
