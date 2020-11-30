@@ -145,7 +145,7 @@
                 </div>--}}
                 <div class="layui-form-item">
                     <input type="checkbox" name="rememberMe"
-                           {{empty($admin['rememberMe'])?'':'checked'}} lay-skin="primary" title="记住密码">
+                           {{$admin['rememberMe']==true?'':'checked'}} lay-skin="primary" title="记住密码">
                 </div>
                 <div class="layui-form-item">
                     <button class="layui-btn layui-btn layui-btn-normal layui-btn-fluid" lay-submit=""
@@ -197,7 +197,7 @@
                 {
                     account: data.account,
                     password: data.password,
-                    rememberMe: data.rememberMe,
+                    rememberMe: data.rememberMe == 'on' ? 1 : 0,
                     _token: "{!! csrf_token() !!}"
                 },
                 function (res) {

@@ -71,9 +71,12 @@ class AdminBaseController extends Controller
         //登录成功
         $request->session()->put('admin', $admin);
 
-        //记住密码
-        if ($post['rememberMe'] === 'on') {
+        //记住密码 存入cookie
+        if ((bool)$post['rememberMe']) {
             Cookie::queue('admin_remember',json_encode($post),7*24*60);
+        }else{
+            //取消记住密码
+            Cookie::queue(Cookie::forget('admin_remember'));
         }
 
         //记录登录日志

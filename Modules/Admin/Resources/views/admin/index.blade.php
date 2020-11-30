@@ -151,13 +151,13 @@
         };
         miniAdmin.render(options);
 
-        // 百度统计代码，只统计指定域名1
+        // 百度统计代码，只统计指定域名
         miniTongji.render({
             specific: true,
             domains: [
-                '99php.cn',
-                'layuimini.99php.cn',
-                'layuimini-onepage.99php.cn',
+                // '99php.cn',
+                // 'layuimini.99php.cn',
+                // 'layuimini-onepage.99php.cn',
             ],
         });
 
