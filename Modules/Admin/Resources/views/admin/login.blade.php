@@ -145,7 +145,7 @@
                 </div>--}}
                 <div class="layui-form-item">
                     <input type="checkbox" name="rememberMe"
-                           {{$admin['rememberMe']==true?'':'checked'}} lay-skin="primary" title="记住密码">
+                           {{!empty($admin['rememberMe']) && $admin['rememberMe']==true?'checked':''}} lay-skin="primary" title="记住密码">
                 </div>
                 <div class="layui-form-item">
                     <button class="layui-btn layui-btn layui-btn-normal layui-btn-fluid" lay-submit=""
