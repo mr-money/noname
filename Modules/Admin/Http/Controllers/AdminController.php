@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 
 class AdminController extends AdminBaseController
 {
-    protected $adminViewDir = 'admin::admin.';
+    protected $adminViewDir = 'admin::admin.'; //admin页面view路径
 
 
     public function __construct()
@@ -26,6 +26,28 @@ class AdminController extends AdminBaseController
         return view($this->adminViewDir . 'index');
     }
 
+    /**
+     * 获取初始化菜单
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getSystemInit()
+    {
+        $homeInfo = [
+            'title' => '首页',
+            'href' => 'page/welcome-1.html?t=1',
+        ];
+        $logoInfo = [
+            'title' => '不知名APP',
+            'image' => '/layuimini/images/logo.png',
+        ];
+        $menuInfo = $this->getMenuList(true);
+        $systemInit = [
+            'homeInfo' => $homeInfo,
+            'logoInfo' => $logoInfo,
+            'menuInfo' => $menuInfo,
+        ];
+        return response()->json($systemInit);
+    }
 
     /**
      * 菜单管理列表页面
@@ -36,32 +58,57 @@ class AdminController extends AdminBaseController
         return view($this->adminViewDir . 'menuList');
     }
 
-    //获取菜单列表ajax
+
+    /**
+     * 获取菜单列表ajax
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getMenuListAjax()
     {
-        $menuList = $this->SystemMenuModel
-            ->select(['id', 'pid', 'title', 'icon', 'href', 'target', 'sort', 'status', 'created_at'])
-//            ->where('status', 1)
-            ->orderBy('sort', 'desc')
-            ->get();
+        //获取菜单列表
+        $menuList = $this->getMenuList();
 
         return ApiReturn::jsonApi(ApiReturn::SUCCESS, '', $menuList);
     }
 
+    //修改菜单状态ajax
+    public function changeMenuStateAjax(int $id,int $status)
+    {
+        //TODO id下所有子菜单都修改状态
+
+        return [$id,$status];
+    }
+
+
+////////////////////////////////////////////////////////////
+///控制器方法
+////////////////////////////////////////////////////////////
+
     /**
      * 获取菜单列表fun
+     * @param bool $buildMenuChild
      * @return array
      */
-    protected function getMenuList()
+    protected function getMenuList($buildMenuChild = false)
     {
         $menuList = $this->SystemMenuModel
-            ->select(['id', 'pid', 'title', 'icon', 'href', 'target'])
-            ->where('status', 1)
+            ->select(['id', 'pid', 'title', 'icon', 'href', 'target', 'sort', 'status', 'created_at'])
+            //需要构建子菜单 查询状态为1已启用
+            ->when($buildMenuChild, function ($query) {
+                return $query->where('status', 1);
+
+            //查询所有菜单
+            }, function ($query) {
+                return $query->whereNotNull('created_at');
+            })
             ->orderBy('sort', 'desc')
             ->get();
 
-        $menuList = $this->buildMenuChild(0, $menuList);
-        return (array)$menuList;
+        //构建子菜单
+        if ($buildMenuChild){
+            (array)$menuList = $this->buildMenuChild(0, $menuList);
+        }
+        return $menuList;
     }
 
 
@@ -128,30 +175,6 @@ class AdminController extends AdminBaseController
 
         dump($add_data);
 
-    }
-
-
-    /**
-     * 获取初始化菜单
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function getSystemInit()
-    {
-        $homeInfo = [
-            'title' => '首页',
-            'href' => 'page/welcome-1.html?t=1',
-        ];
-        $logoInfo = [
-            'title' => '不知名APP',
-            'image' => '/layuimini/images/logo.png',
-        ];
-        $menuInfo = $this->getMenuList();
-        $systemInit = [
-            'homeInfo' => $homeInfo,
-            'logoInfo' => $logoInfo,
-            'menuInfo' => $menuInfo,
-        ];
-        return response()->json($systemInit);
     }
 
 }

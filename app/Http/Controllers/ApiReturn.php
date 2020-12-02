@@ -50,8 +50,8 @@ class ApiReturn extends BaseController
     {
         $returnData = array(
             'code' => is_null($code) ? Self::SUCCESS : $code,
-            'msg' => trim($msg),
-            'data' => $data
+            'msg' => empty($msg) ? '操作成功' : trim($msg),
+            'data' => $data,
         );
         if (!empty(self::$debugInfo)) {
             $returnData['debug'] = self::$debugInfo;

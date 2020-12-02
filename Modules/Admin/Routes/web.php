@@ -19,6 +19,7 @@
 
 Route::get('admin/login', 'AdminController@login'); //登录页面
 
+
 //验证登录组
 Route::group(
     [

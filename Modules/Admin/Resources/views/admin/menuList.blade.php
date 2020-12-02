@@ -56,13 +56,12 @@
                 {field: 'href', title: '链接'},
                 {field: 'target', title: '打开方式'},
                 {field: 'sort', width: 80, align: 'center', title: '排序'},
-                {field: 'status', width: 80, align: 'center', title: '状态值'},
                 {
                     field: 'status', width: 80, align: 'center', templet: function (d) {
                         if (d.status == 1) {
-                            return '<a class="layui-btn layui-btn-primary layui-btn-xs">禁用</a>';
-                        }else {
-                            return '<a class="layui-btn layui-btn-danger layui-btn-xs">启用</a>';
+                            return '<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="disable">禁用</a>';
+                        } else {
+                            return '<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="enable">启用</a>';
                         }
                     }, title: '状态'
                 },
@@ -86,10 +85,25 @@
             var data = obj.data;
             var layEvent = obj.event;
 
+
             if (layEvent === 'del') {
                 layer.msg('删除' + data.id);
             } else if (layEvent === 'edit') {
                 layer.msg('修改' + data.id);
+            } else if (layEvent === 'disable' || layEvent === 'enable') {
+                layer.msg('禁用启用' + data.id);
+
+                //状态取反
+                var changeStatus = data.status == 1 ? 0 : 1;
+
+                //菜单状态修改
+                $.get(
+                    "{{url('api/admin/changeMenuStateAjax')}}/" + data.id + '/' + changeStatus,
+                    {},
+                    function (data) {
+                        console.log(data);
+                    }
+                );
             }
         });
     });
