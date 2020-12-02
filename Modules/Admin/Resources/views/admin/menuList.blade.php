@@ -97,9 +97,11 @@
                 var changeStatus = data.status == 1 ? 0 : 1;
 
                 //菜单状态修改
-                $.get(
+                $.post(
                     "{{url('api/admin/changeMenuStateAjax')}}/" + data.id + '/' + changeStatus,
-                    {},
+                    {
+                        _token: "{!! csrf_token() !!}"
+                    },
                     function (data) {
                         console.log(data);
                     }

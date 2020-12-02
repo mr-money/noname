@@ -29,6 +29,6 @@ Route::group([
         Route::post('admin/logoutAjax', 'AdminBaseController@logoutAjax'); //后台退出登录ajax
 
         Route::get('admin/getMenuListAjax', 'AdminController@getMenuListAjax'); //后台退出登录ajax
-        Route::get('admin/changeMenuStateAjax/{id}/{status}', 'AdminController@changeMenuStateAjax'); //修改菜单状态ajax
+        Route::post('admin/changeMenuStateAjax/{id}/{status}', 'AdminController@changeMenuStateAjax'); //修改菜单状态ajax
     }
 );
