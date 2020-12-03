@@ -20,7 +20,26 @@ class SystemMenuModel extends Model
      * @param \DateTime|int $value
      * @return false|int
      */
-    public function fromDateTime($value){
+    public function fromDateTime($value)
+    {
         return strtotime(parent::fromDateTime($value));
+    }
+
+    /**
+     * 当前菜单关联
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function menus()
+    {
+        return $this->hasMany(self::class, 'pid', 'id');
+    }
+
+    /**
+     * 子菜单关联
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function childMenus()
+    {
+        return $this->hasMany(self::class, 'pid', 'id')->with('menus');
     }
 }
