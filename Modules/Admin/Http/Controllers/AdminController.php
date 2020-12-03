@@ -6,6 +6,7 @@ use App\Http\Controllers\ApiReturn;
 use App\Http\Controllers\ResponseCtrl;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AdminController extends AdminBaseController
 {
@@ -72,11 +73,24 @@ class AdminController extends AdminBaseController
     }
 
     //修改菜单状态ajax
-    public function changeMenuStateAjax(int $id,int $status)
+    public function changeMenuStateAjax(int $id, int $status)
     {
-        //TODO id下所有子菜单都修改状态
+        //id下所有子菜单都修改状态
+        $data = [
+            'status' => $status
+        ];
 
-        return [$id,$status];
+//        DB::connection()->enableQueryLog();
+        $menuList = $this->SystemMenuModel->select(['id'])->where('id', $id)->with('childMenus')->get();
+
+        $child_menus_ids = [];
+        /*foreach ($menuList['child_menus'] as $value) {
+            $child_menus_ids[] = $value['id'];
+        }*/
+
+//        $sql = DB::getQueryLog();
+
+        return $menuList;
     }
 
 
@@ -97,7 +111,7 @@ class AdminController extends AdminBaseController
             ->when($buildMenuChild, function ($query) {
                 return $query->where('status', 1);
 
-            //查询所有菜单
+                //查询所有菜单
             }, function ($query) {
                 return $query->whereNotNull('created_at');
             })
@@ -105,7 +119,7 @@ class AdminController extends AdminBaseController
             ->get();
 
         //构建子菜单
-        if ($buildMenuChild){
+        if ($buildMenuChild) {
             (array)$menuList = $this->buildMenuChild(0, $menuList);
         }
         return $menuList;
