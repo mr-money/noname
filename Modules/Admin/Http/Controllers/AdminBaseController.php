@@ -35,7 +35,7 @@ class AdminBaseController extends Controller
     public function login(Request $request)
     {
         //已登录 跳转首页
-        if($request->session()->has('admin')){
+        if ($request->session()->has('admin')) {
             return redirect('admin');
         }
 
@@ -43,7 +43,7 @@ class AdminBaseController extends Controller
         $admin = $request->cookie('admin_remember');
 
         return view('admin::admin.login')->with([
-            'admin' => json_decode($admin,true),
+            'admin' => json_decode($admin, true),
         ]);
     }
 
@@ -73,8 +73,8 @@ class AdminBaseController extends Controller
 
         //记住密码 存入cookie
         if ((bool)$post['rememberMe']) {
-            Cookie::queue('admin_remember',json_encode($post),7*24*60);
-        }else{
+            Cookie::queue('admin_remember', json_encode($post), 7 * 24 * 60);
+        } else {
             //取消记住密码
             Cookie::queue(Cookie::forget('admin_remember'));
         }
@@ -93,11 +93,11 @@ class AdminBaseController extends Controller
      */
     public function logoutAjax(Request $request)
     {
-        if($request->session()->has('admin')){
+        if ($request->session()->has('admin')) {
             $request->session()->forget('admin');
         }
 
-        return ApiReturn::jsonApi(ApiReturn::SUCCESS,'退出登录');
+        return ApiReturn::jsonApi(ApiReturn::SUCCESS, '退出登录');
     }
 
     /**
@@ -114,6 +114,33 @@ class AdminBaseController extends Controller
         ]);
         $res = $this->adminLogModel->save();
         return $res;
+    }
+
+    /**
+     * 获取菜单列表fun
+     * @param bool $buildMenuChild
+     * @return array
+     */
+    protected function getMenuList($buildMenuChild = false)
+    {
+        $menuList = $this->SystemMenuModel
+            ->select(['id', 'pid', 'title', 'icon', 'href', 'target', 'sort', 'status', 'created_at'])
+            //需要构建子菜单 查询状态为1已启用
+            ->when($buildMenuChild, function ($query) {
+                return $query->where('status', 1);
+
+                //查询所有菜单
+            }, function ($query) {
+                return $query->whereNotNull('created_at');
+            })
+            ->orderBy('sort', 'desc')
+            ->get();
+
+        //构建子菜单
+        if ($buildMenuChild) {
+            (array)$menuList = $this->buildMenuChild(0, $menuList);
+        }
+        return $menuList;
     }
 
     /**
@@ -137,5 +164,31 @@ class AdminBaseController extends Controller
             }
         }
         return $treeList;
+    }
+
+    //多维子菜单展开一维
+    protected function openMenuChild($menuList)
+    {
+//        $openMenuList = [$menuList->id]; //第一层菜单id
+        $list = [];
+
+        foreach ($menuList['child_menus'] as $value) {
+//            $id = $value['id'];
+            $child = $this->openMenuChild($value);
+            if (!empty($child)) {
+                $list[] = $child;
+            }
+        }
+
+        return $list;
+        /*foreach ($menuList->childMenus as $value) {
+            $list[] = $value['id'];
+            $child = $this->openMenuChild($value, $menu_ids);
+            if (!empty($child)) {
+                $list[] = $child;
+            }
+        }
+
+        return $list;*/
     }
 }

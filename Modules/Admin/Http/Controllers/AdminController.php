@@ -56,6 +56,16 @@ class AdminController extends AdminBaseController
      */
     public function menuList()
     {
+        $menuList = $this->SystemMenuModel->select(['pid','id'])->where('id', '291')
+            ->with(['childMenus' => function ($query) {
+                return $query->select(['pid','id']);
+            }])->first()->toArray();
+
+        dump($menuList);
+        $openMenuList = $this->openMenuChild($menuList);
+
+        dump($openMenuList);
+
         return view($this->adminViewDir . 'menuList');
     }
 
@@ -81,50 +91,22 @@ class AdminController extends AdminBaseController
         ];
 
 //        DB::connection()->enableQueryLog();
-        $menuList = $this->SystemMenuModel->select(['id'])->where('id', $id)->with('childMenus')->get();
+        $menuList = $this->SystemMenuModel->select(['id'])->where('id', $id)
+            ->with(['childMenus' => function ($query) {
+                return $query->select(['pid','id']);
+            }])->first();
 
-        $child_menus_ids = [];
+        $openMenuList = $this->openMenuChild($menuList);
+        return $openMenuList;
+
+//        $child_menus_ids = [];
         /*foreach ($menuList['child_menus'] as $value) {
             $child_menus_ids[] = $value['id'];
         }*/
 
 //        $sql = DB::getQueryLog();
 
-        return $menuList;
     }
-
-
-////////////////////////////////////////////////////////////
-///控制器方法
-////////////////////////////////////////////////////////////
-
-    /**
-     * 获取菜单列表fun
-     * @param bool $buildMenuChild
-     * @return array
-     */
-    protected function getMenuList($buildMenuChild = false)
-    {
-        $menuList = $this->SystemMenuModel
-            ->select(['id', 'pid', 'title', 'icon', 'href', 'target', 'sort', 'status', 'created_at'])
-            //需要构建子菜单 查询状态为1已启用
-            ->when($buildMenuChild, function ($query) {
-                return $query->where('status', 1);
-
-                //查询所有菜单
-            }, function ($query) {
-                return $query->whereNotNull('created_at');
-            })
-            ->orderBy('sort', 'desc')
-            ->get();
-
-        //构建子菜单
-        if ($buildMenuChild) {
-            (array)$menuList = $this->buildMenuChild(0, $menuList);
-        }
-        return $menuList;
-    }
-
 
     /**
      * 循环添加默认菜单

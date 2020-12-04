@@ -26,20 +26,11 @@ class SystemMenuModel extends Model
     }
 
     /**
-     * 当前菜单关联
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function menus()
-    {
-        return $this->hasMany(self::class, 'pid', 'id');
-    }
-
-    /**
      * 子菜单关联
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function childMenus()
     {
-        return $this->hasMany(self::class, 'pid', 'id')->with('menus');
+        return $this->hasMany(self::class, 'pid', 'id')->with('childMenus');
     }
 }
