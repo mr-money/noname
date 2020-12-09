@@ -169,26 +169,29 @@ class AdminBaseController extends Controller
     //多维子菜单展开一维
     protected function openMenuChild($menuList)
     {
-//        $openMenuList = [$menuList->id]; //第一层菜单id
-        $list = [];
+        static $i = 0; //调用次数
+        $list = []; //菜单list
 
-        foreach ($menuList['child_menus'] as $value) {
-//            $id = $value['id'];
+        $i++;  //次数加1
+
+        //首次调用push当前菜单id
+        if($i === 1){
+            $list[] = $menuList->id;
+        }
+
+        foreach ($menuList->childMenus as $value) {
+            //push当前子菜单id
+            $list[] = $value['id'];
+
+            //递归获取子菜单id
             $child = $this->openMenuChild($value);
+
+            //合并菜单list
             if (!empty($child)) {
-                $list[] = $child;
+                $list = array_merge($list,$child);
             }
         }
 
         return $list;
-        /*foreach ($menuList->childMenus as $value) {
-            $list[] = $value['id'];
-            $child = $this->openMenuChild($value, $menu_ids);
-            if (!empty($child)) {
-                $list[] = $child;
-            }
-        }
-
-        return $list;*/
     }
 }

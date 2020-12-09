@@ -56,16 +56,6 @@ class AdminController extends AdminBaseController
      */
     public function menuList()
     {
-        $menuList = $this->SystemMenuModel->select(['pid','id'])->where('id', '291')
-            ->with(['childMenus' => function ($query) {
-                return $query->select(['pid','id']);
-            }])->first()->toArray();
-
-        dump($menuList);
-        $openMenuList = $this->openMenuChild($menuList);
-
-        dump($openMenuList);
-
         return view($this->adminViewDir . 'menuList');
     }
 
@@ -90,21 +80,20 @@ class AdminController extends AdminBaseController
             'status' => $status
         ];
 
-//        DB::connection()->enableQueryLog();
+        //查询包括本身所有子菜单id
         $menuList = $this->SystemMenuModel->select(['id'])->where('id', $id)
             ->with(['childMenus' => function ($query) {
                 return $query->select(['pid','id']);
             }])->first();
 
-        $openMenuList = $this->openMenuChild($menuList);
-        return $openMenuList;
+        //展开子菜单id构建list
+        $openMenuIds = $this->openMenuChild($menuList);
 
-//        $child_menus_ids = [];
-        /*foreach ($menuList['child_menus'] as $value) {
-            $child_menus_ids[] = $value['id'];
-        }*/
 
-//        $sql = DB::getQueryLog();
+        //修改状态
+        $this->SystemMenuModel->whereIn('id',$openMenuIds)->update($data);
+
+        return ApiReturn::jsonApi(ApiReturn::SUCCESS, '退出登录');
 
     }
 
