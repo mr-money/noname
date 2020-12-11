@@ -72,7 +72,13 @@ class AdminController extends AdminBaseController
         return ApiReturn::jsonApi(ApiReturn::SUCCESS, '', $menuList);
     }
 
-    //修改菜单状态ajax
+
+    /**
+     * 修改菜单状态ajax
+     * @param int $id
+     * @param int $status
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function changeMenuStateAjax(int $id, int $status)
     {
         //id下所有子菜单都修改状态
@@ -83,7 +89,7 @@ class AdminController extends AdminBaseController
         //查询包括本身所有子菜单id
         $menuList = $this->SystemMenuModel->select(['id'])->where('id', $id)
             ->with(['childMenus' => function ($query) {
-                return $query->select(['pid','id']);
+                return $query->select(['pid', 'id']);
             }])->first();
 
         //展开子菜单id构建list
@@ -91,9 +97,14 @@ class AdminController extends AdminBaseController
 
 
         //修改状态
-        $this->SystemMenuModel->whereIn('id',$openMenuIds)->update($data);
+        $res = $this->SystemMenuModel->whereIn('id', $openMenuIds)->update($data);
 
-        return ApiReturn::jsonApi(ApiReturn::SUCCESS, '退出登录');
+        if($res > 0){
+            return ApiReturn::jsonApi(ApiReturn::SUCCESS, '修改成功', $res);
+        }else{
+            return ApiReturn::jsonApi(ApiReturn::DB_SAVE_ERROR, '修改失败', $res);
+        }
+
 
     }
 
