@@ -5,6 +5,7 @@
     <title>@yield('title')</title>
     <link rel="stylesheet" href="/layuimini/lib/layui-v2.5.5/css/layui.css" media="all">
     <link rel="stylesheet" href="/layuimini/css/public.css" media="all">
+    @yield('stylesheet')
     <style>
         .layui-btn:not(.layui-btn-lg ):not(.layui-btn-sm):not(.layui-btn-xs) {
             height: 34px;

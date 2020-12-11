@@ -6,7 +6,6 @@ use App\Http\Controllers\ApiReturn;
 use App\Http\Controllers\ResponseCtrl;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class AdminController extends AdminBaseController
 {
@@ -104,10 +103,23 @@ class AdminController extends AdminBaseController
         }else{
             return ApiReturn::jsonApi(ApiReturn::DB_SAVE_ERROR, '修改失败', $res);
         }
-
-
     }
 
+
+    //菜单编辑页面  添加/修改
+    public function editMenu(Request $request)
+    {
+        $get = $request->get('id');
+
+        dump($get);
+
+        return view($this->adminViewDir . 'editMenu');
+    }
+
+
+
+
+/////////////////////////////////////////////////////////////////////
     /**
      * 循环添加默认菜单
      */

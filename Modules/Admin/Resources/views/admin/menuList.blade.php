@@ -9,7 +9,9 @@
                 <div class="layui-btn-group">
                     {{--<button class="layui-btn" id="btn-expand">全部展开</button>
                     <button class="layui-btn layui-btn-normal" id="btn-fold">全部折叠</button>--}}
-                    <button class="layui-btn layui-btn-normal">添加</button>
+                    <button class="layui-btn layui-btn-normal" onclick="editMenu()">
+                        <i class="layui-icon">&#xe608;</i> 添加
+                    </button>
                 </div>
                 <table id="munu-table" class="layui-table" lay-filter="munu-table"></table>
             </div>
@@ -88,6 +90,10 @@
                     layer.msg('删除' + data.id);
                 } else if (layEvent === 'edit') {
                     layer.msg('修改' + data.id);
+
+                    //修改
+                    editMenu(data.id);
+
                 } else if (layEvent === 'disable' || layEvent === 'enable') {
                     //状态取反
                     var changeStatus = data.status == 1 ? 0 : 1;
@@ -112,5 +118,16 @@
             });
 
         });
+
+        /**
+         * 编辑菜单页面 添加/修改
+         */
+        function editMenu(id) {
+            layer.open({
+                type: 2,
+                title: '编辑菜单',
+                content: "{{url('admin/editMenu')}}?id=" + id //这里content是一个URL，如果你不想让iframe出现滚动条，你还可以content: ['http://sentsin.com', 'no']
+            });
+        }
     </script>
 @endsection
