@@ -19,7 +19,6 @@ class AdminController extends AdminBaseController
 
     /**
      * admin首页
-     * @return Renderable
      */
     public function index()
     {
@@ -28,7 +27,6 @@ class AdminController extends AdminBaseController
 
     /**
      * 获取初始化菜单
-     * @return \Illuminate\Http\JsonResponse
      */
     public function getSystemInit()
     {
@@ -51,7 +49,6 @@ class AdminController extends AdminBaseController
 
     /**
      * 菜单管理列表页面
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function menuList()
     {
@@ -61,7 +58,6 @@ class AdminController extends AdminBaseController
 
     /**
      * 获取菜单列表ajax
-     * @return \Illuminate\Http\JsonResponse
      */
     public function getMenuListAjax()
     {
