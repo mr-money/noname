@@ -86,7 +86,9 @@ class AdminController extends AdminBaseController
         ];
 
         //查询包括本身所有子菜单id
-        $menuList = $this->SystemMenuModel->select(['id'])->where('id', $id)
+        $menuList = $this->SystemMenuModel
+            ->select(['id'])
+            ->where('id', $id)
             ->with(['childMenus' => function ($query) {
                 return $query->select(['pid', 'id']);
             }])->first();
@@ -98,28 +100,59 @@ class AdminController extends AdminBaseController
         //修改状态
         $res = $this->SystemMenuModel->whereIn('id', $openMenuIds)->update($data);
 
-        if($res > 0){
+        if ($res > 0) {
             return ApiReturn::jsonApi(ApiReturn::SUCCESS, '修改成功', $res);
-        }else{
+        } else {
             return ApiReturn::jsonApi(ApiReturn::DB_SAVE_ERROR, '修改失败', $res);
         }
     }
 
 
-    //菜单编辑页面  添加/修改
-    public function editMenu(Request $request)
+    /**
+     * 菜单编辑页面  添加/修改
+     * @param int $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function editMenu(int $id)
     {
-        $get = $request->get('id');
+//        $view = view($this->adminViewDir . 'editMenu');
 
-        dump($get);
+        //id不为零  修改菜单  查询菜单
+        $menu = array();
+        if ($id !== 0) {
+            $menu = $this->SystemMenuModel
+                ->select(['id', 'title', 'icon', 'href', 'target', 'sort', 'remark'])
+                ->where(['id' => $id])
+                ->first();
 
-        return view($this->adminViewDir . 'editMenu');
+//            $view->with('menu', $menu);
+        }
+
+//        echo empty($menu['sort'])? '22222': '11111';
+
+        return view($this->adminViewDir . 'editMenu')->with('menu', $menu);
+    }
+
+
+    //获取菜单目录ajax
+    public function getMenuDirAjax()
+    {
+        //查询目录
+        $menu = $this->SystemMenuModel
+            ->select(['id', 'pid', 'title'])
+            ->where(['href' => ''])
+            ->get();
+
+        //构建子菜单
+        (array)$menuDir = $this->buildMenuChild(0, $menu);
+
+        return ApiReturn::jsonApi(ApiReturn::SUCCESS, '', $menuDir);
     }
 
 
 
-
 /////////////////////////////////////////////////////////////////////
+
     /**
      * 循环添加默认菜单
      */

@@ -123,10 +123,16 @@
          * 编辑菜单页面 添加/修改
          */
         function editMenu(id) {
+            //判空
+            if (id == null || typeof(id) == "undefined"){
+                id = '0';
+            }
+
             layer.open({
                 type: 2,
                 title: '编辑菜单',
-                content: "{{url('admin/editMenu')}}?id=" + id //这里content是一个URL，如果你不想让iframe出现滚动条，你还可以content: ['http://sentsin.com', 'no']
+                content: "{{url('admin/editMenu')}}/" + id, //这里content是一个URL，如果你不想让iframe出现滚动条，你还可以content: ['http://sentsin.com', 'no']
+                area: ['60%','70%']
             });
         }
     </script>

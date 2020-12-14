@@ -29,7 +29,7 @@ Route::group(
     function ($route) {
         $route->get('/', 'AdminController@index'); //首页
         $route->get('/menuList', 'AdminController@menuList'); //菜单列表
-        $route->get('/editMenu', 'AdminController@editMenu'); //编辑菜单  添加/修改
+        $route->get('/editMenu/{id}', 'AdminController@editMenu'); //编辑菜单  添加/修改
     }
 );
 
