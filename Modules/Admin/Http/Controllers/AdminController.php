@@ -4,8 +4,10 @@ namespace Modules\Admin\Http\Controllers;
 
 use App\Http\Controllers\ApiReturn;
 use App\Http\Controllers\ResponseCtrl;
-use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class AdminController extends AdminBaseController
 {
@@ -19,7 +21,6 @@ class AdminController extends AdminBaseController
 
     /**
      * admin首页
-     * @return Renderable
      */
     public function index()
     {
@@ -28,9 +29,8 @@ class AdminController extends AdminBaseController
 
     /**
      * 获取初始化菜单
-     * @return \Illuminate\Http\JsonResponse
      */
-    public function getSystemInit()
+    public function getSystemInit(): JsonResponse
     {
         $homeInfo = [
             'title' => '首页',
@@ -51,7 +51,6 @@ class AdminController extends AdminBaseController
 
     /**
      * 菜单管理列表页面
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function menuList()
     {
@@ -61,9 +60,8 @@ class AdminController extends AdminBaseController
 
     /**
      * 获取菜单列表ajax
-     * @return \Illuminate\Http\JsonResponse
      */
-    public function getMenuListAjax()
+    public function getMenuListAjax(): JsonResponse
     {
         //获取菜单列表
         $menuList = $this->getMenuList();
@@ -76,9 +74,9 @@ class AdminController extends AdminBaseController
      * 修改菜单状态ajax
      * @param int $id
      * @param int $status
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
-    public function changeMenuStateAjax(int $id, int $status)
+    public function changeMenuStateAjax(int $id, int $status): JsonResponse
     {
         //id下所有子菜单都修改状态
         $data = [
@@ -111,7 +109,7 @@ class AdminController extends AdminBaseController
     /**
      * 菜单编辑页面  添加/修改
      * @param int $id
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function editMenu(int $id)
     {
@@ -135,7 +133,7 @@ class AdminController extends AdminBaseController
 
 
     //获取菜单目录ajax
-    public function getMenuDirAjax()
+    public function getMenuDirAjax(): JsonResponse
     {
         //查询目录
         $menu = $this->SystemMenuModel
