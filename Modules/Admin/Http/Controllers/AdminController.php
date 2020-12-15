@@ -3,7 +3,6 @@
 namespace Modules\Admin\Http\Controllers;
 
 use App\Http\Controllers\ApiReturn;
-use App\Http\Controllers\ResponseCtrl;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -157,8 +156,12 @@ class AdminController extends AdminBaseController
         return ApiReturn::jsonApi(ApiReturn::SUCCESS, '', $menuDir);
     }
 
-    //添加修改菜单ajax
-    public function editMenuAjax(Request $request)
+    /**
+     * 添加修改菜单ajax
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function editMenuAjax(Request $request): JsonResponse
     {
         $post = $request->post();
 

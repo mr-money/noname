@@ -46,7 +46,7 @@ class ApiReturn extends BaseController
      * @param array $data
      * @return \Illuminate\Http\JsonResponse
      */
-    static public function jsonApi($code = null, $msg = '操作成功', $data = [])
+    static public function jsonApi($code = null, $msg = '操作成功', $data = []): \Illuminate\Http\JsonResponse
     {
         $returnData = array(
             'code' => is_null($code) ? Self::SUCCESS : $code,
