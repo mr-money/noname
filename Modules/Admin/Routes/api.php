@@ -31,6 +31,5 @@ Route::group([
         Route::get('admin/getMenuListAjax', 'AdminController@getMenuListAjax'); //获取菜单列表ajax
         Route::post('admin/changeMenuStateAjax/{id}/{status}', 'AdminController@changeMenuStateAjax'); //修改菜单状态ajax
         Route::get('admin/getMenuDirAjax', 'AdminController@getMenuDirAjax'); //获取菜单目录ajax
-
     }
 );
