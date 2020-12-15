@@ -5,6 +5,27 @@
 @section('stylesheet')
     <link rel="stylesheet" href="/layuimini/lib/font-awesome-4.7.0/css/font-awesome.min.css" media="all">
     <link rel="stylesheet" href="/layuimini/js/lay-module/eleTree/eleTree.css" media="all">
+
+    <style>
+        .eleTree{
+            border: 1px solid #ccc;
+            overflow: hidden;
+            display: inline-block;
+        }
+
+        .select-tree{
+            height: 20px;
+            width: 60%;
+            display: none;
+            position: absolute;
+            top:100%;
+            background-color: #fff;
+            z-index: 100;
+        }
+        .eleTree-loadData{
+            top: -8px;
+        }
+    </style>
 @endsection
 
 @section('body')
@@ -14,7 +35,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">菜单名称</label>
                     <div class="layui-input-block">
-                        <input type="text" name="title" lay-verify="title" autocomplete="off"
+                        <input type="text" name="title" lay-verify="required" autocomplete="off"
                                value="{{empty($menu['title'])?'':$menu['title']}}"
                                placeholder="请输入菜单名称"
                                class="layui-input">
@@ -24,8 +45,10 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">父级菜单</label>
                     <div class="layui-input-block">
-                        <div class="eleTree" id="menu-tree" lay-filter="menu-tree"></div>
-                        <input type="hidden" name="menu-tree">
+                        <input type="text" name="menu-tree" placeholder="选择父级菜单"
+                               readonly="" autocomplete="off" class="layui-input" style="cursor: default;" value="{{empty($menu['parent']['title'])?'':$menu['parent']['title']}}">
+                        <input type="hidden" name="pid" value="{{empty($menu['pid'])?'':$menu['pid']}}">
+                        <div class="eleTree select-tree" id="menu-tree" lay-filter="menu-tree" style=""></div>
                     </div>
                 </div>
 
@@ -87,7 +110,8 @@
 @section('script')
     <script>
         layui.use(['form', 'iconPickerFa', 'eleTree'], function () {
-            var form = layui.form,
+            var $ = layui.jquery,
+                form = layui.form,
                 layer = layui.layer,
                 iconPickerFa = layui.iconPickerFa,
                 eleTree = layui.eleTree;
@@ -114,37 +138,56 @@
                 }
             });
 
-
             //渲染树形选择
-            eleTree.render({
-                elem: '#menu-tree',
-                // data: menudata,
-                showRadio: true, // 是否显示radio
-                accordion: true, // 是否每次只打开一个同级树节点展开（手风琴效果）
-                highlightCurrent: true,
+            var ele;
+            $("[name='menu-tree']").on("click", function (e) {
+                e.stopPropagation();
+                if (!ele) {
+                    ele = eleTree.render({
+                        elem: '#menu-tree',
+                        accordion: true, // 是否每次只打开一个同级树节点展开（手风琴效果）
+                        expandOnClickNode: false,
+                        highlightCurrent: true,
 
-                method: "get",      // 接口http请求类型
-                url: "{{url('api/admin/getMenuDirAjax')}}",            // 异步接口地址
-                response: {         // 对后台返回的数据格式重新定义
-                    statusName: "code",
-                    statusCode: 200,
-                    dataName: "data"
-                },
-                defaultPid: 0,     // 第一层pid的初始值
-                request: {          // 对于后台数据重新定义名字
-                    name: "title",
-                    key: "id",
-                    pid: "pid",
-                    children: "child"
-                },
+                        method: "get",      // 接口http请求类型
+                        url: "{{url('api/admin/getMenuDirAjax')}}",            // 异步接口地址
+                        response: {         // 对后台返回的数据格式重新定义
+                            statusName: "code",
+                            statusCode: 200,
+                            dataName: "data"
+                        },
+                        defaultPid: 0,     // 第一层pid的初始值
+                        request: {          // 对于后台数据重新定义名字
+                            name: "title",
+                            key: "id",
+                            pid: "pid",
+                            children: "child"
+                        },
+                        done:function () {
+                            $(".select-tree").css('height','auto');
+                        }
+                    });
+                }
+                $("#menu-tree").toggle();
+            })
+
+            //选中事件
+            eleTree.on("nodeClick(menu-tree)", function (d) {
+                //显示菜单名称
+                $("[name='menu-tree']").val(d.data.currentData.title);
+                //赋值菜单pid
+                $("[name='pid']").val(d.data.currentData.pid);
+                $("#menu-tree").hide();
+            });
+            $(document).on("click",function() {
+                $("#menu-tree").hide();
             });
 
             //监听提交
             form.on('submit(menu-form)', function (data) {
                 console.log(data.field);
-                layer.alert(JSON.stringify(data.field), {
-                    title: '最终的提交信息'
-                })
+                console.log(JSON.stringify(data.field));
+
                 return false;
             });
         });

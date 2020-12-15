@@ -113,20 +113,21 @@ class AdminController extends AdminBaseController
      */
     public function editMenu(int $id)
     {
-//        $view = view($this->adminViewDir . 'editMenu');
-
         //id不为零  修改菜单  查询菜单
         $menu = array();
         if ($id !== 0) {
             $menu = $this->SystemMenuModel
-                ->select(['id', 'title', 'icon', 'href', 'target', 'sort', 'remark'])
+                ->select(['id', 'pid', 'title', 'icon', 'href', 'target', 'sort', 'remark'])
                 ->where(['id' => $id])
                 ->first();
 
-//            $view->with('menu', $menu);
+            $menu->parent = $this->SystemMenuModel
+                ->select(['title'])
+                ->where(['id' => $menu->pid])
+                ->first();
         }
 
-//        echo empty($menu['sort'])? '22222': '11111';
+        dump($menu);
 
         return view($this->adminViewDir . 'editMenu')->with('menu', $menu);
     }
@@ -143,6 +144,14 @@ class AdminController extends AdminBaseController
 
         //构建子菜单
         (array)$menuDir = $this->buildMenuChild(0, $menu);
+
+        //菜单开头插入顶级菜单pid为0
+        $topMenu = array(
+            'id' => 0,
+            'pid' => 0,
+            'title' => '顶级菜单',
+        );
+        array_unshift($menuDir,$topMenu);
 
         return ApiReturn::jsonApi(ApiReturn::SUCCESS, '', $menuDir);
     }
