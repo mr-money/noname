@@ -7,22 +7,23 @@
     <link rel="stylesheet" href="/layuimini/js/lay-module/eleTree/eleTree.css" media="all">
 
     <style>
-        .eleTree{
+        .eleTree {
             border: 1px solid #ccc;
             overflow: hidden;
             display: inline-block;
         }
 
-        .select-tree{
+        .select-tree {
             height: 20px;
             width: 60%;
             display: none;
             position: absolute;
-            top:100%;
+            top: 100%;
             background-color: #fff;
             z-index: 100;
         }
-        .eleTree-loadData{
+
+        .eleTree-loadData {
             top: -8px;
         }
     </style>
@@ -46,7 +47,9 @@
                     <label class="layui-form-label">父级菜单</label>
                     <div class="layui-input-block">
                         <input type="text" name="menu-tree" placeholder="选择父级菜单"
-                               readonly="" autocomplete="off" class="layui-input" style="cursor: default;" value="{{empty($menu['parent']['title'])?'':$menu['parent']['title']}}">
+                               readonly="" autocomplete="off" class="layui-input" lay-verify="required"
+                               style="cursor: default;"
+                               value="{{empty($menu['parent']['title'])?'':$menu['parent']['title']}}">
                         <input type="hidden" name="pid" value="{{empty($menu['pid'])?'':$menu['pid']}}">
                         <div class="eleTree select-tree" id="menu-tree" lay-filter="menu-tree" style=""></div>
                     </div>
@@ -163,8 +166,8 @@
                             pid: "pid",
                             children: "child"
                         },
-                        done:function () {
-                            $(".select-tree").css('height','auto');
+                        done: function () {
+                            $(".select-tree").css('height', 'auto');
                         }
                     });
                 }
@@ -176,17 +179,26 @@
                 //显示菜单名称
                 $("[name='menu-tree']").val(d.data.currentData.title);
                 //赋值菜单pid
-                $("[name='pid']").val(d.data.currentData.pid);
+                $("[name='pid']").val(d.data.currentData.id);
                 $("#menu-tree").hide();
             });
-            $(document).on("click",function() {
+            $(document).on("click", function () {
                 $("#menu-tree").hide();
             });
 
             //监听提交
             form.on('submit(menu-form)', function (data) {
-                console.log(data.field);
-                console.log(JSON.stringify(data.field));
+                // console.log(JSON.stringify(data.field));
+                data.field.id = "{{request('id')}}";
+                data.field._token = "{!! csrf_token() !!}";
+                $.post(
+                    "{{url('api/admin/editMenuAjax')}}",
+                    data.field,
+                    function (data) {
+                        console.log(data);
+                    },
+                    "json"
+                );
 
                 return false;
             });

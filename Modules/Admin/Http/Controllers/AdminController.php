@@ -127,13 +127,14 @@ class AdminController extends AdminBaseController
                 ->first();
         }
 
-        dump($menu);
-
         return view($this->adminViewDir . 'editMenu')->with('menu', $menu);
     }
 
 
-    //获取菜单目录ajax
+    /**
+     * 获取菜单目录ajax
+     * @return JsonResponse
+     */
     public function getMenuDirAjax(): JsonResponse
     {
         //查询目录
@@ -154,6 +155,32 @@ class AdminController extends AdminBaseController
         array_unshift($menuDir,$topMenu);
 
         return ApiReturn::jsonApi(ApiReturn::SUCCESS, '', $menuDir);
+    }
+
+    //添加修改菜单ajax
+    public function editMenuAjax(Request $request)
+    {
+        $post = $request->post();
+
+        $data = array(
+            'pid' => (int)$post['pid'],
+            'title' => $post['title'],
+            'icon' => $post['icon'],
+            'href' => (string)$post['href'],
+            'target' => $post['target'],
+            'sort' => (int)$post['sort'],
+            'remark' => (string)$post['remark'],
+        );
+
+        //添加
+        if((int)$post['id'] === 0){
+
+        }else{ //修改
+
+        }
+
+
+        return ApiReturn::jsonApi(ApiReturn::SUCCESS, '', $data);
     }
 
 
