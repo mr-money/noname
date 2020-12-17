@@ -208,7 +208,9 @@
                         res.msg,
                         {shift: -1, time: 1000},
                         function () {
-                            window.location = "{{url('admin')}}";
+                            if(res.code == 200){
+                                window.location = "{{url('admin')}}";
+                            }
                         });
 
                 },

@@ -174,9 +174,11 @@
                     layer.close(load);
                     layer.msg(
                         res.msg,
-                        {shift: -1, time: 2000},
+                        {shift: -1, time: 1000},
                         function () {
-                            window.location = "{{url('admin/login')}}";
+                            if(res.code == 200){
+                                window.location = "{{url('admin/login')}}";
+                            }
                         });
 
                 },
