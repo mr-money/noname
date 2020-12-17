@@ -178,12 +178,12 @@ class AdminController extends AdminBaseController
 
         //添加
         if((int)$post['id'] === 0){
-//            $res = $this->SystemMenuModel->create($data)->id;
+            $res = $this->SystemMenuModel->create($data)->id;
         }else{ //修改
-//            $res = $this->SystemMenuModel::whereId($post['id'])->update($data);
+            $res = $this->SystemMenuModel::whereId($post['id'])->update($data);
         }
 
-        return ApiReturn::jsonApi(ApiReturn::SUCCESS, '', $data);
+        return ApiReturn::jsonApi(ApiReturn::SUCCESS, '', $res);
     }
 
 

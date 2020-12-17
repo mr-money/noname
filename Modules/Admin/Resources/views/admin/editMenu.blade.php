@@ -1,6 +1,6 @@
 @extends('admin::admin.adminBase')
 
-@section('title')菜单管理@endsection
+@section('title'){{request('id')==0?'添加菜单':'修改菜单'}}@endsection
 
 @section('stylesheet')
     <link rel="stylesheet" href="/layuimini/lib/font-awesome-4.7.0/css/font-awesome.min.css" media="all">
@@ -68,7 +68,7 @@
                     <label class="layui-form-label">链接</label>
                     <div class="layui-input-block">
                         <input type="text" name="href" autocomplete="off"
-                               value="{{empty($menu['href'])?'':$menu['href']}}" placeholder="请输入链接"
+                               value="{{empty($menu['href'])?'':$menu['href']}}" placeholder="请输入菜单链接（父级菜单不跳转则不填）"
                                class="layui-input">
                     </div>
                 </div>
@@ -115,7 +115,6 @@
         layui.use(['form', 'iconPickerFa', 'eleTree'], function () {
             var $ = layui.jquery,
                 form = layui.form,
-                layer = layui.layer,
                 iconPickerFa = layui.iconPickerFa,
                 eleTree = layui.eleTree;
 
@@ -133,7 +132,7 @@
                 limit: 20,
                 // 点击回调
                 click: function (data) {
-                    console.log(data);
+                    // console.log(data);
                 },
                 // 渲染成功后的回调
                 success: function (d) {
@@ -174,14 +173,24 @@
                 $("#menu-tree").toggle();
             })
 
-            //选中事件
+            //树选中事件
             eleTree.on("nodeClick(menu-tree)", function (d) {
+                var self_id = "{{request('id')}}";
+
+                if(d.data.currentData.id == self_id){
+                    layer.msg('父级菜单不能是自身', {icon: 2,});
+
+                    return false;
+                }
+
                 //显示菜单名称
                 $("[name='menu-tree']").val(d.data.currentData.title);
                 //赋值菜单pid
                 $("[name='pid']").val(d.data.currentData.id);
                 $("#menu-tree").hide();
+
             });
+            //点击外部隐藏
             $(document).on("click", function () {
                 $("#menu-tree").hide();
             });
@@ -189,19 +198,49 @@
             //监听提交
             form.on('submit(menu-form)', function (data) {
                 // console.log(JSON.stringify(data.field));
+                var load = layer.load();
+
                 data.field.id = "{{request('id')}}";
                 data.field._token = "{!! csrf_token() !!}";
                 $.post(
                     "{{url('api/admin/editMenuAjax')}}",
                     data.field,
-                    function (data) {
-                        console.log(data);
+                    function (result) {
+                        layer.close(load);
+
+                        // console.log(data);
+                        if(result.code == 200){
+                            layer.msg(
+                                result.msg,
+
+                                {icon: 1},
+                                function () {
+                                    layer.closeAll('iframe');
+                                    window.parent.location.reload();
+                                }
+                            );
+                            layer.msg(result.msg, {
+                                icon: 1,
+                                time: 1500 //关闭（如果不配置，默认是3秒）
+                            }, function(){
+                                layer.closeAll('iframe');
+                                window.parent.location.reload();
+                            });
+
+                        }else{
+                            layer.msg(result.msg, {
+                                icon: 2,
+                                time: 1500 //关闭（如果不配置，默认是3秒）
+                            });
+                        }
+
                     },
                     "json"
                 );
 
                 return false;
             });
+
         });
     </script>
 @endsection
