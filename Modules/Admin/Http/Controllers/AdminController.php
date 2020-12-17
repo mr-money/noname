@@ -83,16 +83,7 @@ class AdminController extends AdminBaseController
         ];
 
         //查询包括本身所有子菜单id
-        $menuList = $this->SystemMenuModel
-            ::whereId($id)
-            ->select(['id'])
-            ->with(['childMenus' => function ($query) {
-                return $query->select(['pid', 'id']);
-            }])->first();
-
-        //展开子菜单id构建list
-        $openMenuIds = $this->openMenuChild($menuList);
-
+        $openMenuIds = $this->getChildMenusById($id);
 
         //修改状态
         $res = $this->SystemMenuModel::whereIn('id', $openMenuIds)->update($data);
@@ -104,6 +95,25 @@ class AdminController extends AdminBaseController
         }
     }
 
+    /**
+     * 删除菜单ajax
+     * @param int $id
+     * @return JsonResponse
+     */
+    public function delMenuAjax(int $id): JsonResponse
+    {
+        //查询包括本身所有子菜单id
+        $openMenuIds = $this->getChildMenusById($id);
+
+        //id下所有子菜单都删除
+        $res = $this->SystemMenuModel::whereIn('id', $openMenuIds)->delete();
+
+        if ($res > 0) {
+            return ApiReturn::jsonApi(ApiReturn::SUCCESS, '修改成功', $res);
+        } else {
+            return ApiReturn::jsonApi(ApiReturn::DB_SAVE_ERROR, '修改失败', $res);
+        }
+    }
 
     /**
      * 菜单编辑页面  添加/修改
@@ -152,7 +162,7 @@ class AdminController extends AdminBaseController
             'pid' => 0,
             'title' => '顶级菜单',
         );
-        array_unshift($menuDir,$topMenu);
+        array_unshift($menuDir, $topMenu);
 
         return ApiReturn::jsonApi(ApiReturn::SUCCESS, '', $menuDir);
     }
@@ -169,7 +179,7 @@ class AdminController extends AdminBaseController
         $data = array(
             'pid' => (int)$post['pid'],
             'title' => $post['title'],
-            'icon' => $post['icon'],
+            'icon' => 'fa '.trim($post['icon']),
             'href' => (string)$post['href'],
             'target' => $post['target'],
             'sort' => (int)$post['sort'],
@@ -177,13 +187,36 @@ class AdminController extends AdminBaseController
         );
 
         //添加
-        if((int)$post['id'] === 0){
-            $res = $this->SystemMenuModel->create($data)->id;
-        }else{ //修改
-            $res = $this->SystemMenuModel::whereId($post['id'])->update($data);
+        if ((int)$post['id'] === 0) {
+            $this->SystemMenuModel->create($data)->id;
+        } else { //修改
+            $this->SystemMenuModel::whereId($post['id'])->update($data);
         }
 
-        return ApiReturn::jsonApi(ApiReturn::SUCCESS, '', $res);
+        return ApiReturn::jsonApi(ApiReturn::SUCCESS);
+    }
+
+/////////////////////////////////////////////////////////////////////
+/// 私有方法
+
+    /**
+     * 通过id查询包括本身所有子菜单id
+     * @param int $id 菜单id
+     * @return array 包括本身所有子菜单id list
+     */
+    private function getChildMenusById(int $id)
+    {
+        $menuList = $this->SystemMenuModel
+            ::whereId($id)
+            ->select(['id'])
+            ->with(['childMenus' => function ($query) {
+                return $query->select(['pid', 'id']);
+            }])->first();
+
+        //展开子菜单id构建list
+        (array)$openMenuIds = $this->openMenuChild($menuList);
+
+        return $openMenuIds;
     }
 
 

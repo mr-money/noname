@@ -82,14 +82,34 @@
 
             //监听工具条
             table.on('tool(munu-table)', function (obj) {
+                var load = layer.load();
+
                 var data = obj.data;
                 var layEvent = obj.event;
 
 
                 if (layEvent === 'del') {
-                    layer.msg('删除' + data.id);
+                    // layer.msg('删除' + data.id);
+                    //删除菜单
+                    $.post(
+                        "{{url('api/admin/delMenuAjax')}}/" + data.id,
+                        {
+                            _token: "{!! csrf_token() !!}"
+                        },
+                        function (result) {
+                            // console.log(result);
+                            layer.close(load);
+
+                            if (result.code == 200) {
+                                // layer.msg(result.msg);
+                                renderTable();
+                            } else {
+                                layer.msg(result.msg,{'icon':2});
+                            }
+                        }
+                    );
                 } else if (layEvent === 'edit') {
-                    layer.msg('修改' + data.id);
+                    layer.close(load);
 
                     //修改
                     editMenu(data.id);
@@ -105,12 +125,14 @@
                             _token: "{!! csrf_token() !!}"
                         },
                         function (result) {
-                            console.log(result);
+                            // console.log(result);
+                            layer.close(load);
+
                             if (result.code == 200) {
                                 // layer.msg(result.msg);
                                 renderTable();
                             } else {
-                                layer.msg(result.msg);
+                                layer.msg(result.msg,{'icon':2});
                             }
                         }
                     );
