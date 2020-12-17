@@ -57,7 +57,7 @@ class AdminBaseController extends Controller
         $post = $request->post();
 
         //查询管理员
-        $admin = $this->adminUsersModel::where('account', $post['account'])->first();
+        $admin = $this->adminUsersModel::whereAccount($post['account'])->first();
 
         if (empty($admin)) {
             return ApiReturn::jsonApi(ApiReturn::LOGIN_ERROR, '账号不存在');

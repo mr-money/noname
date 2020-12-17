@@ -84,8 +84,8 @@ class AdminController extends AdminBaseController
 
         //查询包括本身所有子菜单id
         $menuList = $this->SystemMenuModel
+            ::whereId($id)
             ->select(['id'])
-            ->where('id', $id)
             ->with(['childMenus' => function ($query) {
                 return $query->select(['pid', 'id']);
             }])->first();
@@ -95,7 +95,7 @@ class AdminController extends AdminBaseController
 
 
         //修改状态
-        $res = $this->SystemMenuModel->whereIn('id', $openMenuIds)->update($data);
+        $res = $this->SystemMenuModel::whereIn('id', $openMenuIds)->update($data);
 
         if ($res > 0) {
             return ApiReturn::jsonApi(ApiReturn::SUCCESS, '修改成功', $res);
@@ -116,13 +116,14 @@ class AdminController extends AdminBaseController
         $menu = array();
         if ($id !== 0) {
             $menu = $this->SystemMenuModel
+                ::whereId($id)
                 ->select(['id', 'pid', 'title', 'icon', 'href', 'target', 'sort', 'remark'])
-                ->where(['id' => $id])
                 ->first();
 
+            //查询父级菜单
             $menu->parent = $this->SystemMenuModel
+                ::whereId($menu->pid)
                 ->select(['title'])
-                ->where(['id' => $menu->pid])
                 ->first();
         }
 
@@ -138,8 +139,8 @@ class AdminController extends AdminBaseController
     {
         //查询目录
         $menu = $this->SystemMenuModel
+            ::whereHref('')
             ->select(['id', 'pid', 'title'])
-            ->where(['href' => ''])
             ->get();
 
         //构建子菜单
@@ -177,11 +178,10 @@ class AdminController extends AdminBaseController
 
         //添加
         if((int)$post['id'] === 0){
-
+//            $res = $this->SystemMenuModel->create($data)->id;
         }else{ //修改
-
+//            $res = $this->SystemMenuModel::whereId($post['id'])->update($data);
         }
-
 
         return ApiReturn::jsonApi(ApiReturn::SUCCESS, '', $data);
     }
@@ -252,7 +252,6 @@ class AdminController extends AdminBaseController
         }
 
         dump($add_data);
-
     }
 
 }
