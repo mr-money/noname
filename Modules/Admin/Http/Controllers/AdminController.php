@@ -86,7 +86,7 @@ class AdminController extends AdminBaseController
         $openMenuIds = $this->getChildMenusById($id);
 
         //修改状态
-        $res = $this->SystemMenuModel::whereIn('id', $openMenuIds)->update($data);
+        $res = $this->SystemMenuModel->whereIn('id', $openMenuIds)->update($data);
 
         if ($res > 0) {
             return ApiReturn::jsonApi(ApiReturn::SUCCESS, '修改成功', $res);
@@ -107,7 +107,7 @@ class AdminController extends AdminBaseController
         $openMenuIds = $this->getChildMenusById($id);
 
         //id下所有子菜单都删除
-        $res = $this->SystemMenuModel::whereIn('id', $openMenuIds)->delete();
+        $res = $this->SystemMenuModel->whereIn('id', $openMenuIds)->delete();
 
         if ($res > 0) {
             return ApiReturn::jsonApi(ApiReturn::SUCCESS, '修改成功', $res);
