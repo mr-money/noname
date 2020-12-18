@@ -133,12 +133,12 @@
 <script src="/layuimini/js/lay-config.js?v=2.0.0" charset="utf-8"></script>
 <script>
     layui.use(['jquery', 'layer', 'miniAdmin', 'miniTongji'], function () {
-        var $ = layui.jquery,
+        const $ = layui.jquery,
             layer = layui.layer,
             miniAdmin = layui.miniAdmin,
             miniTongji = layui.miniTongji;
 
-        var options = {
+        const options = {
             iniUrl: "{{url('api/getSystemInit')}}",    // 初始化接口
             clearUrl: "/layuimini/api/clear.json", // 缓存清理接口
             urlHashLocation: true,      // 是否打开hash定位
@@ -162,7 +162,7 @@
         });
 
         $('.login-out').on("click", function () {
-            var load = layer.load();
+            const load = layer.load();
 
             $.post(
                 "{{url('api/admin/logoutAjax')}}",

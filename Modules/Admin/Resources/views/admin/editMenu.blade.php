@@ -113,7 +113,7 @@
 @section('script')
     <script>
         layui.use(['form', 'iconPickerFa', 'eleTree'], function () {
-            var $ = layui.jquery,
+            const $ = layui.jquery,
                 form = layui.form,
                 iconPickerFa = layui.iconPickerFa,
                 eleTree = layui.eleTree;
@@ -141,7 +141,7 @@
             });
 
             //渲染树形选择
-            var ele;
+            let ele;
             $("[name='menu-tree']").on("click", function (e) {
                 e.stopPropagation();
                 if (!ele) {

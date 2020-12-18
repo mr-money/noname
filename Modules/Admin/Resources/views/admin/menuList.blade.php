@@ -28,14 +28,14 @@
 
     <script>
         layui.use(['layer', 'table', 'treetable'], function () {
-            var $ = layui.jquery,
+            const $ = layui.jquery,
                 layer = layui.layer,
                 table = layui.table,
                 treetable = layui.treetable;
 
 
             // 渲染表格
-            var renderTable = function () {
+            let renderTable = function () {
                 layer.load(2);
                 treetable.render({
                     treeColIndex: 1,
@@ -50,7 +50,8 @@
                         {type: 'numbers'},
                         {field: 'title', minWidth: 200, title: '名称'},
                         {field: 'href', title: '链接'},
-                        {field: 'target', title: '打开方式'},
+                        {field: 'remark', title: '备注信息'},
+                        {field: 'target', width: 100, title: '打开方式'},
                         {field: 'sort', width: 80, align: 'center', title: '排序'},
                         {
                             field: 'status', width: 80, align: 'center', templet: function (d) {
@@ -67,7 +68,7 @@
                         layer.closeAll('loading');
                     }
                 });
-            }
+            };
             renderTable();
 
 
@@ -82,10 +83,10 @@
 
             //监听工具条
             table.on('tool(munu-table)', function (obj) {
-                var load = layer.load();
+                const load = layer.load();
 
-                var data = obj.data;
-                var layEvent = obj.event;
+                let data = obj.data;
+                let layEvent = obj.event;
 
 
                 if (layEvent === 'del') {
