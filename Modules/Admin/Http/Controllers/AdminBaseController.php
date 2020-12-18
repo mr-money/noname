@@ -4,10 +4,13 @@ namespace Modules\Admin\Http\Controllers;
 
 use App\AdminUser;
 use App\Http\Controllers\ApiReturn;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\View\View;
 use Modules\Admin\Models\AdminLogModel;
 use Modules\Admin\Models\AdminUsersModel;
 use Modules\Admin\Models\SystemMenuModel;
@@ -30,7 +33,7 @@ class AdminBaseController extends Controller
     /**
      * 登录页面
      * @param Request $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return RedirectResponse|View
      */
     public function login(Request $request)
     {
@@ -50,9 +53,9 @@ class AdminBaseController extends Controller
     /**
      * 后台登录ajax
      * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
-    public function loginAjax(Request $request)
+    public function loginAjax(Request $request): JsonResponse
     {
         $post = $request->post();
 
@@ -89,9 +92,9 @@ class AdminBaseController extends Controller
     /**
      * 退出登录ajax
      * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
-    public function logoutAjax(Request $request)
+    public function logoutAjax(Request $request): JsonResponse
     {
         if ($request->session()->has('admin')) {
             $request->session()->forget('admin');
@@ -106,14 +109,14 @@ class AdminBaseController extends Controller
      * @param $admin
      * @return bool
      */
-    public function saveLoginLog(Request $request, $admin)
+    public function saveLoginLog(Request $request, $admin): bool
     {
         $this->adminLogModel->fill([
             'admin_id' => $admin->id,
             'ip_adress' => $request->getClientIp(),
         ]);
-        $res = $this->adminLogModel->save();
-        return $res;
+
+        return $this->adminLogModel->save();
     }
 
     /**
@@ -121,7 +124,7 @@ class AdminBaseController extends Controller
      * @param bool $buildMenuChild
      * @return array
      */
-    protected function getMenuList($buildMenuChild = false)
+    protected function getMenuList($buildMenuChild = false): array
     {
         $menuList = $this->SystemMenuModel
             ->select(['id', 'pid', 'title', 'icon', 'href', 'target', 'sort', 'status', 'created_at'])
@@ -145,11 +148,11 @@ class AdminBaseController extends Controller
 
     /**
      * 递归获取子菜单
-     * @param $pid 父级id
-     * @param $menuList 父级菜单组
+     * @param int $pid 父级id
+     * @param $menuList //父级菜单组
      * @return array
      */
-    protected function buildMenuChild($pid, $menuList)
+    protected function buildMenuChild(int $pid, $menuList): array
     {
         $treeList = [];
         foreach ($menuList as $v) {
@@ -163,11 +166,11 @@ class AdminBaseController extends Controller
                 $treeList[] = $node;
             }
         }
-        return $treeList;
+        return (array)$treeList;
     }
 
     //多维子菜单展开一维
-    protected function openMenuChild($menuList)
+    protected function openMenuChild($menuList): array
     {
         static $i = 0; //调用次数
         $list = []; //菜单list
@@ -175,7 +178,7 @@ class AdminBaseController extends Controller
         $i++;  //次数加1
 
         //首次调用push当前菜单id
-        if($i === 1){
+        if ($i === 1) {
             $list[] = $menuList->id;
         }
 
@@ -188,10 +191,10 @@ class AdminBaseController extends Controller
 
             //合并菜单list
             if (!empty($child)) {
-                $list = array_merge($list,$child);
+                $list = array_merge($list, $child);
             }
         }
 
-        return $list;
+        return (array)$list;
     }
 }

@@ -99,6 +99,7 @@ class AdminController extends AdminBaseController
      * 删除菜单ajax
      * @param int $id
      * @return JsonResponse
+     * @throws \Exception
      */
     public function delMenuAjax(int $id): JsonResponse
     {
@@ -154,7 +155,7 @@ class AdminController extends AdminBaseController
             ->get();
 
         //构建子菜单
-        (array)$menuDir = $this->buildMenuChild(0, $menu);
+        $menuDir = $this->buildMenuChild(0, $menu);
 
         //菜单开头插入顶级菜单pid为0
         $topMenu = array(
