@@ -122,9 +122,9 @@ class AdminBaseController extends Controller
     /**
      * 获取菜单列表fun
      * @param bool $buildMenuChild
-     * @return array
+     * @return array|object
      */
-    protected function getMenuList($buildMenuChild = false): array
+    protected function getMenuList($buildMenuChild = false)
     {
         $menuList = $this->SystemMenuModel
             ->select(['id', 'pid', 'title', 'icon', 'href', 'target', 'sort', 'status', 'created_at'])
