@@ -4,6 +4,14 @@ namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Model\OrderModel
+ *
+ * @method static \Illuminate\Database\Eloquent\Builder|OrderModel newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|OrderModel newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|OrderModel query()
+ * @mixin \Eloquent
+ */
 class OrderModel extends Model
 {
 

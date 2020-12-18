@@ -4,6 +4,14 @@ namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Model\UserModel
+ *
+ * @method static \Illuminate\Database\Eloquent\Builder|UserModel newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|UserModel newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|UserModel query()
+ * @mixin \Eloquent
+ */
 class UserModel extends Model
 {
     //
