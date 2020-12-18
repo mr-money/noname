@@ -127,7 +127,7 @@ class AdminBaseController extends Controller
     protected function getMenuList($buildMenuChild = false)
     {
         $menuList = $this->SystemMenuModel
-            ->select(['id', 'pid', 'title', 'icon', 'href', 'target', 'sort', 'status', 'created_at'])
+            ->select(['id', 'pid', 'title', 'icon', 'href', 'remark','target', 'sort', 'status', 'created_at'])
             //需要构建子菜单 查询状态为1已启用
             ->when($buildMenuChild, function ($query) {
                 return $query->where('status', 1);
