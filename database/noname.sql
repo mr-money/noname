@@ -26,13 +26,15 @@ CREATE TABLE `admin_log` (
   `created_at` varchar(64) DEFAULT '' COMMENT '创建时间',
   `updated_at` varchar(64) DEFAULT '' COMMENT '修改时间',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 /*Data for the table `admin_log` */
 
 insert  into `admin_log`(`id`,`admin_id`,`ip_adress`,`created_at`,`updated_at`) values (1,5,'192.168.18.233','1608000578','1608000578');
 insert  into `admin_log`(`id`,`admin_id`,`ip_adress`,`created_at`,`updated_at`) values (2,5,'127.0.0.1','1608186390','1608186390');
 insert  into `admin_log`(`id`,`admin_id`,`ip_adress`,`created_at`,`updated_at`) values (3,5,'127.0.0.1','1608194289','1608194289');
+insert  into `admin_log`(`id`,`admin_id`,`ip_adress`,`created_at`,`updated_at`) values (4,5,'127.0.0.1','1608271802','1608271802');
+insert  into `admin_log`(`id`,`admin_id`,`ip_adress`,`created_at`,`updated_at`) values (5,5,'127.0.0.1','1608275106','1608275106');
 
 /*Table structure for table `admin_users` */
 
@@ -73,7 +75,7 @@ CREATE TABLE `system_menu` (
   PRIMARY KEY (`id`),
   KEY `title` (`title`),
   KEY `href` (`href`)
-) ENGINE=InnoDB AUTO_INCREMENT=303 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='系统菜单表';
+) ENGINE=InnoDB AUTO_INCREMENT=298 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='系统菜单表';
 
 /*Data for the table `system_menu` */
 
@@ -83,7 +85,7 @@ insert  into `system_menu`(`id`,`pid`,`title`,`icon`,`href`,`target`,`sort`,`sta
 insert  into `system_menu`(`id`,`pid`,`title`,`icon`,`href`,`target`,`sort`,`status`,`remark`,`created_at`,`updated_at`) values (266,264,'主页二','fa fa-tachometer','page/welcome-2.html','_self',0,1,NULL,'1605757317','1607764154');
 insert  into `system_menu`(`id`,`pid`,`title`,`icon`,`href`,`target`,`sort`,`status`,`remark`,`created_at`,`updated_at`) values (267,264,'主页三','fa fa-tachometer','page/welcome-3.html','_self',0,1,NULL,'1605757317','1607762921');
 insert  into `system_menu`(`id`,`pid`,`title`,`icon`,`href`,`target`,`sort`,`status`,`remark`,`created_at`,`updated_at`) values (268,263,'菜单管理','fa fa-window-maximize','admin/menuList','_self',0,1,NULL,'1605757317','1607762921');
-insert  into `system_menu`(`id`,`pid`,`title`,`icon`,`href`,`target`,`sort`,`status`,`remark`,`created_at`,`updated_at`) values (269,263,'系统设置','fa fa-gears','page/setting.html','_self',0,1,NULL,'1605757317','1607762921');
+insert  into `system_menu`(`id`,`pid`,`title`,`icon`,`href`,`target`,`sort`,`status`,`remark`,`created_at`,`updated_at`) values (269,263,'系统设置','fa fa fa-gears','admin/setting','_self',0,1,'网站系统设置管理','1605757317','1608272772');
 insert  into `system_menu`(`id`,`pid`,`title`,`icon`,`href`,`target`,`sort`,`status`,`remark`,`created_at`,`updated_at`) values (270,263,'表格示例','fa fa-file-text','page/table.html','_self',0,1,NULL,'1605757317','1607762921');
 insert  into `system_menu`(`id`,`pid`,`title`,`icon`,`href`,`target`,`sort`,`status`,`remark`,`created_at`,`updated_at`) values (271,263,'表单示例','fa fa-calendar','','_self',0,1,NULL,'1605757317','1607762921');
 insert  into `system_menu`(`id`,`pid`,`title`,`icon`,`href`,`target`,`sort`,`status`,`remark`,`created_at`,`updated_at`) values (272,271,'普通表单','fa fa-list-alt','page/form.html','_self',0,1,NULL,'1605757317','1607762921');
@@ -111,6 +113,25 @@ insert  into `system_menu`(`id`,`pid`,`title`,`icon`,`href`,`target`,`sort`,`sta
 insert  into `system_menu`(`id`,`pid`,`title`,`icon`,`href`,`target`,`sort`,`status`,`remark`,`created_at`,`updated_at`) values (294,291,'失效菜单','fa fa-superpowers','page/error.html','_self',0,1,NULL,'1605757317','1608191328');
 insert  into `system_menu`(`id`,`pid`,`title`,`icon`,`href`,`target`,`sort`,`status`,`remark`,`created_at`,`updated_at`) values (296,0,'测试添加','fa fa-area-chart','','_self',0,1,'阿斯顿发斯蒂芬','1608192228','1608192228');
 insert  into `system_menu`(`id`,`pid`,`title`,`icon`,`href`,`target`,`sort`,`status`,`remark`,`created_at`,`updated_at`) values (297,296,'测试2226666','fa fa-bell-o','','_self',0,1,'咳咳444444444444','1608192317','1608198457');
+
+/*Table structure for table `system_setting` */
+
+DROP TABLE IF EXISTS `system_setting`;
+
+CREATE TABLE `system_setting` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `sitename` varchar(50) NOT NULL DEFAULT '' COMMENT '网站名称',
+  `domain` varchar(100) NOT NULL DEFAULT '' COMMENT '网站域名',
+  `title` varchar(100) NOT NULL DEFAULT '' COMMENT '首页标题',
+  `keywords` text COMMENT 'META关键词',
+  `descript` text COMMENT 'META描述',
+  `copyright` varchar(100) NOT NULL DEFAULT '' COMMENT '版权信息',
+  `created_at` varchar(32) NOT NULL,
+  `updated_at` varchar(32) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+/*Data for the table `system_setting` */
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

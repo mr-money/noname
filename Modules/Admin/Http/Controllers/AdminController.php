@@ -20,6 +20,7 @@ class AdminController extends AdminBaseController
 
     /**
      * admin首页
+     * @return Factory|View
      */
     public function index()
     {
@@ -28,6 +29,7 @@ class AdminController extends AdminBaseController
 
     /**
      * 获取初始化菜单
+     * @return JsonResponse
      */
     public function getSystemInit(): JsonResponse
     {
@@ -50,15 +52,16 @@ class AdminController extends AdminBaseController
 
     /**
      * 菜单管理列表页面
+     * @return Factory|View
      */
     public function menuList()
     {
         return view($this->adminViewDir . 'menuList');
     }
 
-
     /**
      * 获取菜单列表ajax
+     * @return JsonResponse
      */
     public function getMenuListAjax(): JsonResponse
     {
@@ -197,13 +200,19 @@ class AdminController extends AdminBaseController
         return ApiReturn::jsonApi(ApiReturn::SUCCESS);
     }
 
+    //系统设置
+    public function setting()
+    {
+        return view($this->adminViewDir.'setting');
+    }
+
 /////////////////////////////////////////////////////////////////////
 /// 私有方法
 
     /**
      * 通过id查询包括本身所有子菜单id
      * @param int $id 菜单id
-     * @return array 包括本身所有子菜单id list
+     * @return array|object 包括本身所有子菜单id list
      */
     private function getChildMenusById(int $id)
     {
