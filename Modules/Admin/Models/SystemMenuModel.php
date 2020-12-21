@@ -5,7 +5,7 @@ namespace Modules\Admin\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Modules\Admin\Models\SystemMenuModel
+ * Modules\Admin\Models\systemMenuModel
  *
  * @property int $id ID
  * @property int $pid 父ID
@@ -19,26 +19,26 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $created_at 创建时间
  * @property \Illuminate\Support\Carbon|null $updated_at 更新时间
  * @property string|null $deleted_at 删除时间
- * @property-read \Illuminate\Database\Eloquent\Collection|SystemMenuModel[] $childMenus
+ * @property-read \Illuminate\Database\Eloquent\Collection|systemMenuModel[] $childMenus
  * @property-read int|null $child_menus_count
- * @method static \Illuminate\Database\Eloquent\Builder|SystemMenuModel newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|SystemMenuModel newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|SystemMenuModel query()
- * @method static \Illuminate\Database\Eloquent\Builder|SystemMenuModel whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|SystemMenuModel whereDeletedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|SystemMenuModel whereHref($value)
- * @method static \Illuminate\Database\Eloquent\Builder|SystemMenuModel whereIcon($value)
- * @method static \Illuminate\Database\Eloquent\Builder|SystemMenuModel whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|SystemMenuModel wherePid($value)
- * @method static \Illuminate\Database\Eloquent\Builder|SystemMenuModel whereRemark($value)
- * @method static \Illuminate\Database\Eloquent\Builder|SystemMenuModel whereSort($value)
- * @method static \Illuminate\Database\Eloquent\Builder|SystemMenuModel whereStatus($value)
- * @method static \Illuminate\Database\Eloquent\Builder|SystemMenuModel whereTarget($value)
- * @method static \Illuminate\Database\Eloquent\Builder|SystemMenuModel whereTitle($value)
- * @method static \Illuminate\Database\Eloquent\Builder|SystemMenuModel whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|systemMenuModel newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|systemMenuModel newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|systemMenuModel query()
+ * @method static \Illuminate\Database\Eloquent\Builder|systemMenuModel whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|systemMenuModel whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|systemMenuModel whereHref($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|systemMenuModel whereIcon($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|systemMenuModel whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|systemMenuModel wherePid($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|systemMenuModel whereRemark($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|systemMenuModel whereSort($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|systemMenuModel whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|systemMenuModel whereTarget($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|systemMenuModel whereTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|systemMenuModel whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-class SystemMenuModel extends Model
+class systemMenuModel extends Model
 {
 
     protected $fillable = [];

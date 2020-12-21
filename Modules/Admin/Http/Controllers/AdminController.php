@@ -7,6 +7,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use function GuzzleHttp\Psr7\str;
 
 class AdminController extends AdminBaseController
 {
@@ -89,7 +90,7 @@ class AdminController extends AdminBaseController
         $openMenuIds = $this->getChildMenusById($id);
 
         //修改状态
-        $res = $this->SystemMenuModel->whereIn('id', $openMenuIds)->update($data);
+        $res = $this->systemMenuModel->whereIn('id', $openMenuIds)->update($data);
 
         if ($res > 0) {
             return ApiReturn::jsonApi(ApiReturn::SUCCESS, '修改成功', $res);
@@ -110,7 +111,7 @@ class AdminController extends AdminBaseController
         $openMenuIds = $this->getChildMenusById($id);
 
         //id下所有子菜单都删除
-        $res = $this->SystemMenuModel->whereIn('id', $openMenuIds)->delete();
+        $res = $this->systemMenuModel->whereIn('id', $openMenuIds)->delete();
 
         if ($res > 0) {
             return ApiReturn::jsonApi(ApiReturn::SUCCESS, '修改成功', $res);
@@ -129,13 +130,13 @@ class AdminController extends AdminBaseController
         //id不为零  修改菜单  查询菜单
         $menu = array();
         if ($id !== 0) {
-            $menu = $this->SystemMenuModel
+            $menu = $this->systemMenuModel
                 ::whereId($id)
                 ->select(['id', 'pid', 'title', 'icon', 'href', 'target', 'sort', 'remark'])
                 ->first();
 
             //查询父级菜单
-            $menu->parent = $this->SystemMenuModel
+            $menu->parent = $this->systemMenuModel
                 ::whereId($menu->pid)
                 ->select(['title'])
                 ->first();
@@ -152,7 +153,7 @@ class AdminController extends AdminBaseController
     public function getMenuDirAjax(): JsonResponse
     {
         //查询目录
-        $menu = $this->SystemMenuModel
+        $menu = $this->systemMenuModel
             ::whereHref('')
             ->select(['id', 'pid', 'title'])
             ->get();
@@ -192,9 +193,9 @@ class AdminController extends AdminBaseController
 
         //添加
         if ((int)$post['id'] === 0) {
-            $this->SystemMenuModel->create($data)->id;
+            $this->systemMenuModel->create($data)->id;
         } else { //修改
-            $this->SystemMenuModel::whereId($post['id'])->update($data);
+            $this->systemMenuModel::whereId($post['id'])->update($data);
         }
 
         return ApiReturn::jsonApi(ApiReturn::SUCCESS);
@@ -204,6 +205,23 @@ class AdminController extends AdminBaseController
     public function setting()
     {
         return view($this->adminViewDir.'setting');
+    }
+
+    //修改系统设置ajax
+    public function editSettingAjax(Request $request)
+    {
+        $post = $request->post();
+
+        $data = array(
+            'sitename' => (string)$post['sitename'],
+            'domain' => (string)$post['domain'],
+            'title' => (string)$post['title'],
+            'keywords' => (string)$post['keywords'],
+            'descript' => (string)$post['descript'],
+            'copyright' => (string)$post['copyright'],
+        );
+
+
     }
 
 /////////////////////////////////////////////////////////////////////
@@ -216,7 +234,7 @@ class AdminController extends AdminBaseController
      */
     private function getChildMenusById(int $id)
     {
-        $menuList = $this->SystemMenuModel
+        $menuList = $this->systemMenuModel
             ::whereId($id)
             ->select(['id'])
             ->with(['childMenus' => function ($query) {
@@ -255,7 +273,7 @@ class AdminController extends AdminBaseController
             );
             $add_data[] = $data;
 
-            $id = $this->SystemMenuModel->create($data)->id;
+            $id = $this->systemMenuModel->create($data)->id;
 
             if (!isset($value['child'])) {
                 continue;
@@ -272,7 +290,7 @@ class AdminController extends AdminBaseController
                 );
                 $add_data[] = $data2;
 
-                $id2 = $this->SystemMenuModel->create($data2)->id;
+                $id2 = $this->systemMenuModel->create($data2)->id;
 
                 if (!isset($val['child'])) {
                     continue;
@@ -289,7 +307,7 @@ class AdminController extends AdminBaseController
                     );
                     $add_data[] = $data3;
 
-                    $id3 = $this->SystemMenuModel->create($data3)->id;
+                    $id3 = $this->systemMenuModel->create($data3)->id;
                 }
             }
         }

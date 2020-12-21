@@ -13,20 +13,23 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
 use Modules\Admin\Models\AdminLogModel;
 use Modules\Admin\Models\AdminUsersModel;
-use Modules\Admin\Models\SystemMenuModel;
+use Modules\Admin\Models\systemMenuModel;
+use Modules\Admin\Models\SystemSettingModel;
 
 class AdminBaseController extends Controller
 {
 
-    protected $SystemMenuModel; //后台菜单模型
+    protected $systemMenuModel; //后台菜单模型
     protected $adminUsersModel; //管理员用户模型
     protected $adminLogModel; //管理员登录记录模型
+    protected $systemSettingModel; //网站设置模型
 
     public function __construct()
     {
-        $this->SystemMenuModel = new SystemMenuModel();
+        $this->systemMenuModel = new systemMenuModel();
         $this->adminUsersModel = new AdminUsersModel();
         $this->adminLogModel = new AdminLogModel();
+        $this->systemSettingModel =  new SystemSettingModel();
     }
 
 
@@ -126,7 +129,7 @@ class AdminBaseController extends Controller
      */
     protected function getMenuList($buildMenuChild = false)
     {
-        $menuList = $this->SystemMenuModel
+        $menuList = $this->systemMenuModel
             ->select(['id', 'pid', 'title', 'icon', 'href', 'remark','target', 'sort', 'status', 'created_at'])
             //需要构建子菜单 查询状态为1已启用
             ->when($buildMenuChild, function ($query) {
