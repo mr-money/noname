@@ -26,10 +26,10 @@ class AdminBaseController extends Controller
 
     public function __construct()
     {
-        $this->systemMenuModel = new systemMenuModel();
+        $this->systemMenuModel = new SystemMenuModel();
         $this->adminUsersModel = new AdminUsersModel();
         $this->adminLogModel = new AdminLogModel();
-        $this->systemSettingModel =  new SystemSettingModel();
+        $this->systemSettingModel = new SystemSettingModel();
     }
 
 
@@ -130,7 +130,8 @@ class AdminBaseController extends Controller
     protected function getMenuList($buildMenuChild = false)
     {
         $menuList = $this->systemMenuModel
-            ->select(['id', 'pid', 'title', 'icon', 'href', 'remark','target', 'sort', 'status', 'created_at'])
+            ->select(['id', 'pid', 'title', 'icon', 'href', 'remark', 'target', 'sort', 'status', 'created_at'])
+            ->where('create_id', session('admin.id'))
             //需要构建子菜单 查询状态为1已启用
             ->when($buildMenuChild, function ($query) {
                 return $query->where('status', 1);

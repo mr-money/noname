@@ -175,7 +175,7 @@
 
             //树选中事件
             eleTree.on("nodeClick(menu-tree)", function (d) {
-                var self_id = "{{request('id')}}";
+                const self_id = "{{request('id')}}";
 
                 if(d.data.currentData.id == self_id){
                     layer.msg('父级菜单不能是自身', {icon: 2,});
@@ -198,7 +198,7 @@
             //监听提交
             form.on('submit(menu-form)', function (data) {
                 // console.log(JSON.stringify(data.field));
-                var load = layer.load();
+                const load = layer.load();
 
                 data.field.id = "{{request('id')}}";
                 data.field._token = "{!! csrf_token() !!}";
