@@ -155,6 +155,7 @@ class AdminController extends AdminBaseController
         //查询目录
         $menu = $this->systemMenuModel
             ::whereHref('')
+            ->where('create_id', session('admin.id'))
             ->select(['id', 'pid', 'title'])
             ->get();
 
@@ -184,42 +185,65 @@ class AdminController extends AdminBaseController
         $data = array(
             'pid' => (int)$post['pid'],
             'title' => $post['title'],
-            'icon' => 'fa '.trim($post['icon']),
-            'href' => (string)$post['href'],
+            'icon' => 'fa ' . trim($post['icon']),
+            'href' => $post['href'],
             'target' => $post['target'],
             'sort' => (int)$post['sort'],
-            'remark' => (string)$post['remark'],
+            'remark' => $post['remark'],
+            'create_id' => session('admin.id'),
         );
 
         //添加
         if ((int)$post['id'] === 0) {
-            $this->systemMenuModel->create($data)->id;
+            $res = $this->systemMenuModel->create($data)->id; //返回创建id
         } else { //修改
-            $this->systemMenuModel::whereId($post['id'])->update($data);
+            $res = $this->systemMenuModel::whereId($post['id'])->update($data);
         }
 
-        return ApiReturn::jsonApi(ApiReturn::SUCCESS);
+        return ApiReturn::jsonApi(ApiReturn::SUCCESS,'',$res);
     }
 
-    //系统设置
+
+    /**
+     * 系统设置
+     * @return Factory|View
+     */
     public function setting()
     {
-        return view($this->adminViewDir.'setting');
+        $setting = $this->systemSettingModel::whereCreateId(session('admin.id'))->first();
+
+        return view($this->adminViewDir . 'setting')
+            ->with('setting',$setting);
     }
 
-    //修改系统设置ajax
-    public function editSettingAjax(Request $request)
+
+    /**
+     * 修改系统设置ajax
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function editSettingAjax(Request $request): JsonResponse
     {
         $post = $request->post();
 
         $data = array(
-            'sitename' => (string)$post['sitename'],
-            'domain' => (string)$post['domain'],
-            'title' => (string)$post['title'],
-            'keywords' => (string)$post['keywords'],
-            'descript' => (string)$post['descript'],
-            'copyright' => (string)$post['copyright'],
+            'sitename' => $post['sitename'],
+            'domain' => $post['domain'],
+            'title' => $post['title'],
+            'keywords' => $post['keywords'],
+            'descript' => $post['descript'],
+            'copyright' => $post['copyright'],
+            'create_id' => session('admin.id'),
         );
+
+        //添加
+        if ((int)$post['id'] === 0) {
+            $res = $this->systemSettingModel->create($data)->id; //返回创建id
+        } else { //修改
+            $res = $this->systemSettingModel::whereId($post['id'])->update($data);
+        }
+
+        return ApiReturn::jsonApi(ApiReturn::SUCCESS,'',$res);
 
 
     }
