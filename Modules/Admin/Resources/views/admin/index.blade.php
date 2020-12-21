@@ -2,9 +2,9 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>不知名APP管理后台</title>
-    <meta name="keywords" content="不知名,不知名APP,不知名APP管理后台">
-    <meta name="description" content="不知名APP也不知道有啥用">
+    <title>{{empty($setting['title'])?'title':$setting['title']}}</title>
+    <meta name="keywords" content="{{empty($setting['keywords'])?'':$setting['keywords']}}">
+    <meta name="description" content="{{empty($setting['descript'])?'':$setting['descript']}}">
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta http-equiv="Access-Control-Allow-Origin" content="*">
@@ -60,7 +60,7 @@
                     <a href="javascript:;" data-check-screen="full"><i class="fa fa-arrows-alt"></i></a>
                 </li>
                 <li class="layui-nav-item layuimini-setting">
-                    <a href="javascript:;">admin</a>
+                    <a href="javascript:;">{{empty(session('admin.nickname'))?'admin':session('admin.nickname')}}</a>
                     <dl class="layui-nav-child">
                         <dd>
                             <a href="javascript:;" layuimini-content-href="page/user-setting.html" data-title="基本资料"

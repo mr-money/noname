@@ -7,7 +7,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
-use function GuzzleHttp\Psr7\str;
+use Cache;
 
 class AdminController extends AdminBaseController
 {
@@ -25,7 +25,15 @@ class AdminController extends AdminBaseController
      */
     public function index()
     {
-        return view($this->adminViewDir . 'index');
+        //查询缓存中网站设置信息
+        if (!Cache::has('site_setting')) {
+            $setting = $this->systemSettingModel::whereCreateId(session('admin.id'))->first();
+            Cache::add('site_setting', $setting);
+        }
+
+        $setting = Cache::get('site_setting');
+
+        return view($this->adminViewDir . 'index')->with('setting',$setting);
     }
 
     /**
@@ -200,7 +208,7 @@ class AdminController extends AdminBaseController
             $res = $this->systemMenuModel::whereId($post['id'])->update($data);
         }
 
-        return ApiReturn::jsonApi(ApiReturn::SUCCESS,'',$res);
+        return ApiReturn::jsonApi(ApiReturn::SUCCESS, '', $res);
     }
 
 
@@ -213,7 +221,7 @@ class AdminController extends AdminBaseController
         $setting = $this->systemSettingModel::whereCreateId(session('admin.id'))->first();
 
         return view($this->adminViewDir . 'setting')
-            ->with('setting',$setting);
+            ->with('setting', $setting);
     }
 
 
@@ -243,7 +251,7 @@ class AdminController extends AdminBaseController
             $res = $this->systemSettingModel::whereId($post['id'])->update($data);
         }
 
-        return ApiReturn::jsonApi(ApiReturn::SUCCESS,'',$res);
+        return ApiReturn::jsonApi(ApiReturn::SUCCESS, '', $res);
 
 
     }
