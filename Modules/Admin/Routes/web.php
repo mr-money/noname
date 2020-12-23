@@ -31,6 +31,7 @@ Route::group(
         $route->get('/menuList', 'AdminController@menuList'); //菜单列表
         $route->get('/editMenu/{id}', 'AdminController@editMenu'); //编辑菜单  添加/修改
         $route->get('/setting', 'AdminController@setting'); //系统设置
+        $route->get('/editAdmin', 'AdminController@editAdmin'); //管理员信息修改
     }
 );
 

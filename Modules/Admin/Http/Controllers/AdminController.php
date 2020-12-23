@@ -33,7 +33,7 @@ class AdminController extends AdminBaseController
 
         $setting = Cache::get('site_setting');
 
-        return view($this->adminViewDir . 'index')->with('setting',$setting);
+        return view($this->adminViewDir . 'index')->with('setting', $setting);
     }
 
     /**
@@ -57,6 +57,13 @@ class AdminController extends AdminBaseController
             'menuInfo' => $menuInfo,
         ];
         return response()->json($systemInit);
+    }
+
+    public function editAdmin()
+    {
+        dump(session('admin'));
+        return view($this->adminViewDir . 'editAdmin')
+            ->with('admin',session('admin'));
     }
 
     /**
@@ -252,8 +259,6 @@ class AdminController extends AdminBaseController
         }
 
         return ApiReturn::jsonApi(ApiReturn::SUCCESS, '', $res);
-
-
     }
 
 /////////////////////////////////////////////////////////////////////
