@@ -99,7 +99,11 @@
                     "{{url('api/admin/editSettingAjax')}}",
                     data.field,
                     function (result) {
-                        console.log(result);
+                        if(result.code == 200){
+                            layer.msg(result.msg,{'icon':1});
+                        }else{
+                            layer.msg(result.msg, {'icon': 2, time: 1500 });
+                        }
                     },
                     "json"
                 );
