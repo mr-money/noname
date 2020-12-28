@@ -59,11 +59,44 @@ class AdminController extends AdminBaseController
         return response()->json($systemInit);
     }
 
+    /**
+     * 管理员信息修改
+     * @return Factory|View
+     */
     public function editAdmin()
     {
         dump(session('admin'));
-        return view($this->adminViewDir . 'editAdmin')
-            ->with('admin',session('admin'));
+        return view($this->adminViewDir . 'editAdmin');
+    }
+
+
+    /**
+     * 修改管理员信息ajax
+     * @param int $id
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function aditAdminAjax(int $id,Request $request): JsonResponse
+    {
+        $post = $request->post();
+
+        //TODO 上传头像图片
+
+        $data = array(
+//            'avatar' => '',
+            'nickname' => $post['nickname'],
+            'phone' => $post['phone'],
+        );
+
+        //更新
+        $this->adminUsersModel::whereId($id)->update($data);
+
+        //刷新session
+        $admin = $this->adminUsersModel::whereId($id)->first();
+        $request->session()->put('admin',$admin);
+
+        return ApiReturn::jsonApi(ApiReturn::SUCCESS, '', $admin);
+
     }
 
     /**

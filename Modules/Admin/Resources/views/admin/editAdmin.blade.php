@@ -18,7 +18,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label required">管理员昵称</label>
                     <div class="layui-input-block">
-                        <input type="text" name="username" lay-verify="required" lay-reqtext="管理员昵称不能为空"
+                        <input type="text" name="nickname" lay-verify="required" lay-reqtext="管理员昵称不能为空"
                                placeholder="请输入管理账号" value="{{session('admin.nickname')}}" class="layui-input">
                         <tip>填写自己管理员昵称的名称。</tip>
                     </div>
@@ -26,8 +26,8 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label required">手机</label>
                     <div class="layui-input-block">
-                        <input type="number" name="phone" lay-verify="required" lay-reqtext="手机不能为空" placeholder="请输入手机"
-                               value="" class="layui-input">
+                        <input type="tel" name="phone" lay-verify="required|phone" lay-reqtext="手机不能为空" placeholder="请输入手机"
+                               value="{{session('admin.phone')}}" class="layui-input">
                     </div>
                 </div>
 
@@ -80,33 +80,23 @@
 
                     if(password != '' && again_password != ''){
                         if(password != again_password){
-                            return '密码确认错误';
+                            return '新密码两次输入不一致';
                         }
-
-                        //TODO 验证旧密码
-                        $.post(
-                            "url",
-                            {
-                                data:data,
-                            },
-                            function(result){
-                                console.log(result);
-                            },
-                            "json"
-                        );
                     }
                 }
             });
 
             //监听提交
-            form.on('submit(setting)', function (data) {
+            form.on('submit(saveBtn)', function (data) {
                 // console.log(data.field);
                 // console.log(JSON.stringify(data.field));
                 data.field._token = "{!! csrf_token() !!}";
+
                 $.post(
-                    "url",
+                    "{{url('api/admin/aditAdminAjax',array('id'=>session('admin.id')))}}",
                     data.field,
                     function (result) {
+                        console.log(result);return;
                         if (result.code == 200) {
                             layer.msg(result.msg, {'icon': 1});
                         } else {
