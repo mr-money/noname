@@ -50,6 +50,8 @@ class SystemSettingModel extends Model
     public function fromDateTime($value){
         return strtotime(parent::fromDateTime($value));
     }
+
+
     /**
      * 创建人关联
      * @return BelongsTo

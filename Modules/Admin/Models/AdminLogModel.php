@@ -3,6 +3,7 @@
 namespace Modules\Admin\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * Modules\Admin\Models\AdminLogModel
@@ -40,5 +41,14 @@ class AdminLogModel extends Model
      */
     public function fromDateTime($value){
         return strtotime(parent::fromDateTime($value));
+    }
+
+    /**
+     * 创建人关联
+     * @return BelongsTo
+     */
+    public function createUser(): BelongsTo
+    {
+        return $this->belongsTo('Modules\Admin\Models\AdminUsersModel','admin_id','id');
     }
 }
