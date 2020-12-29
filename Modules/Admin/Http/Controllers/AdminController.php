@@ -6,6 +6,7 @@ use App\Http\Controllers\ApiReturn;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
 use Cache;
 
@@ -65,7 +66,6 @@ class AdminController extends AdminBaseController
      */
     public function editAdmin()
     {
-        dump(session('admin'));
         return view($this->adminViewDir . 'editAdmin');
     }
 
@@ -80,13 +80,21 @@ class AdminController extends AdminBaseController
     {
         $post = $request->post();
 
-        //TODO 上传头像图片
-
+        //修改信息
         $data = array(
-//            'avatar' => '',
             'nickname' => $post['nickname'],
             'phone' => $post['phone'],
         );
+
+        //修改密码
+        if(!empty($post['password'])){
+            //检查密码
+            if (!Hash::check($post['old_password'], session('admin.password'))) {
+                return ApiReturn::jsonApi(ApiReturn::LOGIN_ERROR, '密码输入不正确');
+            }
+
+            $data['password'] = Hash::make($post['password']);
+        }
 
         //更新
         $this->adminUsersModel::whereId($id)->update($data);
@@ -95,7 +103,7 @@ class AdminController extends AdminBaseController
         $admin = $this->adminUsersModel::whereId($id)->first();
         $request->session()->put('admin',$admin);
 
-        return ApiReturn::jsonApi(ApiReturn::SUCCESS, '', $admin);
+        return ApiReturn::jsonApi(ApiReturn::SUCCESS, '', $data);
 
     }
 

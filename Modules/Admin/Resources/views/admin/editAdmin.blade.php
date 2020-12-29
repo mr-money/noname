@@ -35,7 +35,7 @@
                     <label class="layui-form-label required">旧密码</label>
                     <div class="layui-input-block">
                         <input type="password" name="old_password" lay-verify="required" lay-reqtext="旧密码不能为空"
-                               placeholder="请输入旧密码" value="**********" class="layui-input">
+                               placeholder="请输入旧密码" class="layui-input">
                         <tip>填写自己账号的旧的密码。</tip>
                     </div>
                 </div>
@@ -96,11 +96,11 @@
                     "{{url('api/admin/aditAdminAjax',array('id'=>session('admin.id')))}}",
                     data.field,
                     function (result) {
-                        console.log(result);return;
+                        // console.log(result);return;
                         if (result.code == 200) {
                             layer.msg(result.msg, {'icon': 1});
                         } else {
-                            layer.msg(result.msg, {'icon': 2, time: 1500});
+                            layer.msg(result.msg, {'icon': 2});
                         }
                     },
                     "json"
