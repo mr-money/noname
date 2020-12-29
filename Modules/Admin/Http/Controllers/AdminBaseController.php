@@ -4,6 +4,7 @@ namespace Modules\Admin\Http\Controllers;
 
 use App\AdminUser;
 use App\Http\Controllers\ApiReturn;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -205,5 +206,24 @@ class AdminBaseController extends Controller
         }
 
         return (array)$list;
+    }
+
+
+
+
+    /**
+     * TODO layui分页数据
+     * @param $query
+     * @param int $current_page
+     * @param int $limit
+     * @return array
+     */
+    protected function layuiPage($query, $current_page = 1, $limit = 15)
+    {
+        $skip = ($current_page - 1) < 0 ? 0 : ($current_page - 1) * $limit;
+        $total = $query->count(); //总数据
+        $data = $query->skip($skip)->limit($limit)->get();
+
+        return compact('data','current_page','limit' ,'total');
     }
 }

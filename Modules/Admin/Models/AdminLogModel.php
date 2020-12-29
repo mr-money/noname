@@ -47,7 +47,7 @@ class AdminLogModel extends Model
      * 创建人关联
      * @return BelongsTo
      */
-    public function createUser(): BelongsTo
+    public function adminUser(): BelongsTo
     {
         return $this->belongsTo('Modules\Admin\Models\AdminUsersModel','admin_id','id');
     }
