@@ -173,7 +173,12 @@ class AdminBaseController extends Controller
         return (array)$treeList;
     }
 
-    //多维子菜单展开一维
+
+    /**
+     * 多维子菜单展开一维
+     * @param $menuList
+     * @return array
+     */
     protected function openMenuChild($menuList): array
     {
         static $i = 0; //调用次数

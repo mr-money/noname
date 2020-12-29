@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
 use Cache;
+use function GuzzleHttp\Psr7\str;
 
 class AdminController extends AdminBaseController
 {
@@ -76,7 +77,7 @@ class AdminController extends AdminBaseController
      * @param Request $request
      * @return JsonResponse
      */
-    public function aditAdminAjax(int $id,Request $request): JsonResponse
+    public function editAdminAjax(int $id, Request $request): JsonResponse
     {
         $post = $request->post();
 
@@ -87,7 +88,7 @@ class AdminController extends AdminBaseController
         );
 
         //修改密码
-        if(!empty($post['password'])){
+        if (!empty($post['password'])) {
             //检查密码
             if (!Hash::check($post['old_password'], session('admin.password'))) {
                 return ApiReturn::jsonApi(ApiReturn::LOGIN_ERROR, '密码输入不正确');
@@ -101,7 +102,7 @@ class AdminController extends AdminBaseController
 
         //刷新session
         $admin = $this->adminUsersModel::whereId($id)->first();
-        $request->session()->put('admin',$admin);
+        $request->session()->put('admin', $admin);
 
         return ApiReturn::jsonApi(ApiReturn::SUCCESS, '', $data);
 
@@ -241,8 +242,8 @@ class AdminController extends AdminBaseController
         $data = array(
             'pid' => (int)$post['pid'],
             'title' => $post['title'],
-            'icon' => 'fa ' . trim($post['icon']),
-            'href' => $post['href'],
+            'icon' => 'fa ' . $post['icon'],
+            'href' => (string)$post['href'],
             'target' => $post['target'],
             'sort' => (int)$post['sort'],
             'remark' => $post['remark'],
@@ -300,6 +301,23 @@ class AdminController extends AdminBaseController
         }
 
         return ApiReturn::jsonApi(ApiReturn::SUCCESS, '', $res);
+    }
+
+
+    //登录日志列表
+    public function adminLog()
+    {
+        return view($this->adminViewDir . 'adminLog');
+    }
+
+    //获取登录日志列表ajax
+    public function getAdminLogAjax(Request $request)
+    {
+        $get = $request->all('page','limit');
+
+        $adminLog = $this->adminLogModel->orderBy('created_at','desc')->paginate($get['limit']);
+
+        return ApiReturn::jsonApi(ApiReturn::SUCCESS, '', $adminLog);;
     }
 
 /////////////////////////////////////////////////////////////////////

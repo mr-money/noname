@@ -32,6 +32,7 @@ Route::group(
         $route->get('/editMenu/{id}', 'AdminController@editMenu'); //编辑菜单  添加/修改
         $route->get('/setting', 'AdminController@setting'); //系统设置
         $route->get('/editAdmin', 'AdminController@editAdmin'); //管理员信息修改
+        $route->get('/adminLog', 'AdminController@adminLog'); //登录日志列表
     }
 );
 
