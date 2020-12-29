@@ -102,7 +102,7 @@
                         if(result.code == 200){
                             layer.msg(result.msg,{'icon':1});
                         }else{
-                            layer.msg(result.msg, {'icon': 2, time: 1500 });
+                            layer.msg(result.msg, {'icon': 2});
                         }
                     },
                     "json"
