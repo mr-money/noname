@@ -212,7 +212,7 @@ class AdminBaseController extends Controller
 
 
     /**
-     * TODO layui分页数据
+     * layui分页数据
      * @param $query
      * @param int $current_page
      * @param int $limit
@@ -221,9 +221,9 @@ class AdminBaseController extends Controller
     protected function layuiPage($query, $current_page = 1, $limit = 15)
     {
         $skip = ($current_page - 1) < 0 ? 0 : ($current_page - 1) * $limit;
-        $total = $query->count(); //总数据
-        $data = $query->skip($skip)->limit($limit)->get();
+        $count = $query->count(); //总数据
+        $data = $query->skip($skip)->limit($limit)->get()->toArray();
 
-        return compact('data','current_page','limit' ,'total');
+        return compact('data','current_page','limit' ,'count');
     }
 }
