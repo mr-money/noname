@@ -56,8 +56,11 @@
                     {field: "account", minWidth: 80, title: '管理员账号'},
                     {field: "phone", minWidth: 80, title: '手机号'},
                     {field: "ip_adress", minWidth: 80, title: '登录ip'},
-                    {field: "created_at", minWidth: 80, title: '登录时间',
-                        templet:function(res){return layui.util.toDateString(res.created_at, "yyyy-MM-dd HH:mm:ss")}
+                    {
+                        field: "created_at", minWidth: 80, title: '登录时间', sort: true,
+                        templet: function (res) {
+                            return layui.util.toDateString(res.created_at, "yyyy-MM-dd HH:mm:ss")
+                        }
                     },
                     // {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center"}
                 ]],
