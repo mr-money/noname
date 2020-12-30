@@ -304,26 +304,29 @@ class AdminController extends AdminBaseController
     }
 
 
-    //TODO 登录日志列表
+    /**
+     * 登录日志列表
+     * @return Factory|View
+     */
     public function adminLog()
     {
-        $adminLog = $this->adminLogModel->orderBy('created_at','desc');
-
-        $page = $this->layuiPage($adminLog);
-        dump($page);
         return view($this->adminViewDir . 'adminLog');
     }
 
-    //TODO 获取登录日志列表ajax
+    /**
+     * 获取登录日志列表ajax
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function getAdminLogAjax(Request $request): JsonResponse
     {
         $get = $request->all('page','limit');
 
-        $adminLog = $this->adminLogModel::with('adminUser')
-            ->orderBy('created_at','desc')->get();
-//            ->paginate($get['limit']);
+        $adminLog = $this->adminLogModel->orderBy('created_at','desc');
 
-        return ApiReturn::jsonApi(ApiReturn::SUCCESS, '', $adminLog);;
+        $page = $this->layuiPage($adminLog,$get['page'],$get['limit']);
+
+        return ApiReturn::jsonApi(ApiReturn::SUCCESS, '', $page);;
     }
 
 /////////////////////////////////////////////////////////////////////

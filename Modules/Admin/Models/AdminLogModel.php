@@ -25,9 +25,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class AdminLogModel extends Model
 {
-
-    protected $fillable = [];
-
     protected $table = 'admin_log'; // 指定表名
     protected $primaryKey = 'id'; //指定主键
 
