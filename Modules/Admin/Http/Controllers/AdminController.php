@@ -310,6 +310,18 @@ class AdminController extends AdminBaseController
      */
     public function adminLog()
     {
+        $adminLog = $this->adminLogModel::with('adminUser')->orderBy('created_at','desc');
+
+        $page = $this->layuiPage($adminLog);
+
+        foreach ($page['data'] as $key=>$value) {
+            $page['data'][$key]['nickname'] = $value['admin_user']['nickname'];
+            $page['data'][$key]['phone'] = $value['admin_user']['phone'];
+            $page['data'][$key]['account'] = $value['admin_user']['account'];
+
+            unset($page['data'][$key]['admin_user']);
+        }
+
         return view($this->adminViewDir . 'adminLog');
     }
 
@@ -322,12 +334,23 @@ class AdminController extends AdminBaseController
     {
         $get = $request->all('page','limit');
 
-        $adminLog = $this->adminLogModel->orderBy('created_at','desc');
+        //登录日志
+        $adminLog = $this->adminLogModel::with('adminUser')->orderBy('created_at','desc');
 
         $page = $this->layuiPage($adminLog,$get['page'],$get['limit']);
 
+        //加入管理员信息
+        foreach ((array)$page['data'] as $key=>$value) {
+            $page['data'][$key]['nickname'] = $value['admin_user']['nickname'];
+            $page['data'][$key]['phone'] = $value['admin_user']['phone'];
+            $page['data'][$key]['account'] = $value['admin_user']['account'];
+
+            unset($page['data'][$key]['admin_user']);
+        }
+
         return ApiReturn::jsonApi(ApiReturn::SUCCESS, '', $page);;
     }
+
 
 /////////////////////////////////////////////////////////////////////
 /// 私有方法

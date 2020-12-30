@@ -5,19 +5,18 @@
 @section('stylesheet')
     <div class="layuimini-container">
         <div class="layuimini-main">
-            <script type="text/html" id="topToolbar">
+            {{--<script type="text/html" id="topToolbar">
                 <div class="layui-btn-container">
-                    {{--                    <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add"> 添加 </button>--}}
-                    <button class="layui-btn layui-btn-sm layui-btn-danger data-delete-btn" lay-event="delete"> 删除
-                    </button>
+                    <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add"> 添加 </button>
+                    <button class="layui-btn layui-btn-sm layui-btn-danger data-delete-btn" lay-event="delete"> 删除 </button>
                 </div>
-            </script>
+            </script>--}}
 
             <table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
 
             <script type="text/html" id="currentTableBar">
-                {{--                <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">编辑</a>--}}
-                <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
+                {{--<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
+                <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>--}}
             </script>
 
         </div>
@@ -28,7 +27,6 @@
     <script>
         layui.use(['form', 'table'], function () {
             const $ = layui.jquery,
-                form = layui.form,
                 table = layui.table;
 
             table.render({
@@ -45,21 +43,23 @@
                         "code": res.code, //解析接口状态
                         "msg": res.msg, //解析提示文本
                         "count": res.data.count, //解析数据长度
-                        "data": res.data.data //解析数据列表
+                        "data": res.data.data, //解析数据列表
                     };
                 },
                 response: {
                     statusCode: 200 //规定成功的状态码，默认：0
                 },
                 cols: [[
-                    {type: "checkbox", width: 50},
+                    // {type: "checkbox", width: 50},
                     {field: 'id', minWidth: 80, title: 'ID', sort: true},
-                    {field: "admin_id", minWidth: 80, title: '用户名'},
+                    {field: "nickname", minWidth: 80, title: '昵称'},
+                    {field: "account", minWidth: 80, title: '管理员账号'},
+                    {field: "phone", minWidth: 80, title: '手机号'},
                     {field: "ip_adress", minWidth: 80, title: '登录ip'},
                     {field: "created_at", minWidth: 80, title: '登录时间',
                         templet:function(res){return layui.util.toDateString(res.created_at, "yyyy-MM-dd HH:mm:ss")}
                     },
-                    {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center"}
+                    // {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center"}
                 ]],
                 limits: [10, 15, 20, 25, 50, 100],
                 limit: 15,
@@ -67,9 +67,8 @@
                 skin: 'line'
             });
 
-            /**
-             * toolbar监听事件
-             */
+
+            /*//toolbar监听事件
             table.on('toolbar(currentTableFilter)', function (obj) {
                 if (obj.event === 'delete') {  // 监听删除操作
                     var checkStatus = table.checkStatus('currentTableId')
@@ -92,7 +91,7 @@
                         layer.close(index);
                     });
                 }
-            });
+            });*/
 
         });
     </script>
