@@ -39,6 +39,15 @@ class AdminController extends AdminBaseController
     }
 
     /**
+     * admin默认主页
+     * @return Factory|View
+     */
+    public function home()
+    {
+        return view($this->adminViewDir . 'home');
+    }
+
+    /**
      * 获取初始化菜单
      * @return JsonResponse
      */
@@ -46,7 +55,7 @@ class AdminController extends AdminBaseController
     {
         $homeInfo = [
             'title' => '首页',
-            'href' => 'page/welcome-1.html?t=1',
+            'href' => 'admin/home',
         ];
         $logoInfo = [
             'title' => '不知名APP',
