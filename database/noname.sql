@@ -26,7 +26,7 @@ CREATE TABLE `admin_log` (
   `created_at` varchar(64) DEFAULT '' COMMENT '创建时间',
   `updated_at` varchar(64) DEFAULT '' COMMENT '修改时间',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 /*Data for the table `admin_log` */
 
@@ -36,6 +36,14 @@ insert  into `admin_log`(`id`,`admin_id`,`ip_adress`,`created_at`,`updated_at`) 
 insert  into `admin_log`(`id`,`admin_id`,`ip_adress`,`created_at`,`updated_at`) values (4,5,'127.0.0.1','1608271802','1608271802');
 insert  into `admin_log`(`id`,`admin_id`,`ip_adress`,`created_at`,`updated_at`) values (5,5,'127.0.0.1','1608275106','1608275106');
 insert  into `admin_log`(`id`,`admin_id`,`ip_adress`,`created_at`,`updated_at`) values (6,5,'127.0.0.1','1608530044','1608530044');
+insert  into `admin_log`(`id`,`admin_id`,`ip_adress`,`created_at`,`updated_at`) values (7,5,'127.0.0.1','1608694023','1608694023');
+insert  into `admin_log`(`id`,`admin_id`,`ip_adress`,`created_at`,`updated_at`) values (8,5,'127.0.0.1','1608713319','1608713319');
+insert  into `admin_log`(`id`,`admin_id`,`ip_adress`,`created_at`,`updated_at`) values (9,5,'127.0.0.1','1609147043','1609147043');
+insert  into `admin_log`(`id`,`admin_id`,`ip_adress`,`created_at`,`updated_at`) values (10,5,'127.0.0.1','1609149117','1609149117');
+insert  into `admin_log`(`id`,`admin_id`,`ip_adress`,`created_at`,`updated_at`) values (11,5,'127.0.0.1','1609227510','1609227510');
+insert  into `admin_log`(`id`,`admin_id`,`ip_adress`,`created_at`,`updated_at`) values (12,5,'127.0.0.1','1609293732','1609293732');
+insert  into `admin_log`(`id`,`admin_id`,`ip_adress`,`created_at`,`updated_at`) values (13,5,'127.0.0.1','1609318368','1609318368');
+insert  into `admin_log`(`id`,`admin_id`,`ip_adress`,`created_at`,`updated_at`) values (14,5,'127.0.0.1','1609400705','1609400705');
 
 /*Table structure for table `admin_users` */
 
@@ -43,19 +51,18 @@ DROP TABLE IF EXISTS `admin_users`;
 
 CREATE TABLE `admin_users` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `avatar` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `nickname` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `account` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `phone` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '' COMMENT '手机号（报名通知接收）',
   `password` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
+  `created_at` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `updated_at` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `admin_users` */
 
-insert  into `admin_users`(`id`,`avatar`,`nickname`,`account`,`phone`,`password`,`created_at`,`updated_at`) values (5,NULL,'超级管理员','admin','18651984625','$2y$10$5rNcg7g7eWJ1DhlaoZV7PuOTogwobp3QydxQB1wY0q4MA5LY2JZ.6','0000-00-00 00:00:00','0000-00-00 00:00:00');
+insert  into `admin_users`(`id`,`nickname`,`account`,`phone`,`password`,`created_at`,`updated_at`) values (5,'超级管理员','admin','18651984625','$2y$10$5rNcg7g7eWJ1DhlaoZV7PuOTogwobp3QydxQB1wY0q4MA5LY2JZ.6','1609149126','1609229222');
 
 /*Table structure for table `system_menu` */
 
@@ -77,7 +84,7 @@ CREATE TABLE `system_menu` (
   PRIMARY KEY (`id`),
   KEY `title` (`title`),
   KEY `href` (`href`)
-) ENGINE=InnoDB AUTO_INCREMENT=298 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='系统菜单表';
+) ENGINE=InnoDB AUTO_INCREMENT=300 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='系统菜单表';
 
 /*Data for the table `system_menu` */
 
@@ -86,8 +93,8 @@ insert  into `system_menu`(`id`,`pid`,`title`,`icon`,`href`,`target`,`sort`,`sta
 insert  into `system_menu`(`id`,`pid`,`title`,`icon`,`href`,`target`,`sort`,`status`,`remark`,`create_id`,`created_at`,`updated_at`) values (265,264,'主页一','fa fa-tachometer','page/welcome-1.html','_self',0,1,NULL,5,'1605757317','1607762921');
 insert  into `system_menu`(`id`,`pid`,`title`,`icon`,`href`,`target`,`sort`,`status`,`remark`,`create_id`,`created_at`,`updated_at`) values (266,264,'主页二','fa fa-tachometer','page/welcome-2.html','_self',0,1,NULL,5,'1605757317','1607764154');
 insert  into `system_menu`(`id`,`pid`,`title`,`icon`,`href`,`target`,`sort`,`status`,`remark`,`create_id`,`created_at`,`updated_at`) values (267,264,'主页三','fa fa-tachometer','page/welcome-3.html','_self',0,1,NULL,5,'1605757317','1607762921');
-insert  into `system_menu`(`id`,`pid`,`title`,`icon`,`href`,`target`,`sort`,`status`,`remark`,`create_id`,`created_at`,`updated_at`) values (268,263,'菜单管理','fa fa-window-maximize','admin/menuList','_self',0,1,NULL,5,'1605757317','1607762921');
-insert  into `system_menu`(`id`,`pid`,`title`,`icon`,`href`,`target`,`sort`,`status`,`remark`,`create_id`,`created_at`,`updated_at`) values (269,263,'系统设置','fa fa fa-gears','admin/setting','_self',0,1,'网站系统设置管理',5,'1605757317','1608272772');
+insert  into `system_menu`(`id`,`pid`,`title`,`icon`,`href`,`target`,`sort`,`status`,`remark`,`create_id`,`created_at`,`updated_at`) values (268,263,'菜单管理','fa fa fa fa-window-maximize','admin/menuList','_self',0,1,NULL,5,'1605757317','1609230330');
+insert  into `system_menu`(`id`,`pid`,`title`,`icon`,`href`,`target`,`sort`,`status`,`remark`,`create_id`,`created_at`,`updated_at`) values (269,263,'系统设置','fa fa fa fa-gears','','_self',0,1,'网站系统设置管理',5,'1605757317','1609230350');
 insert  into `system_menu`(`id`,`pid`,`title`,`icon`,`href`,`target`,`sort`,`status`,`remark`,`create_id`,`created_at`,`updated_at`) values (270,263,'表格示例','fa fa-file-text','page/table.html','_self',0,1,NULL,5,'1605757317','1607762921');
 insert  into `system_menu`(`id`,`pid`,`title`,`icon`,`href`,`target`,`sort`,`status`,`remark`,`create_id`,`created_at`,`updated_at`) values (271,263,'表单示例','fa fa-calendar','','_self',0,1,NULL,5,'1605757317','1607762921');
 insert  into `system_menu`(`id`,`pid`,`title`,`icon`,`href`,`target`,`sort`,`status`,`remark`,`create_id`,`created_at`,`updated_at`) values (272,271,'普通表单','fa fa-list-alt','page/form.html','_self',0,1,NULL,5,'1605757317','1607762921');
@@ -115,6 +122,8 @@ insert  into `system_menu`(`id`,`pid`,`title`,`icon`,`href`,`target`,`sort`,`sta
 insert  into `system_menu`(`id`,`pid`,`title`,`icon`,`href`,`target`,`sort`,`status`,`remark`,`create_id`,`created_at`,`updated_at`) values (294,291,'失效菜单','fa fa-superpowers','page/error.html','_self',0,1,NULL,5,'1605757317','1608191328');
 insert  into `system_menu`(`id`,`pid`,`title`,`icon`,`href`,`target`,`sort`,`status`,`remark`,`create_id`,`created_at`,`updated_at`) values (296,0,'测试添加','fa fa-area-chart','','_self',0,1,'阿斯顿发斯蒂芬',5,'1608192228','1608192228');
 insert  into `system_menu`(`id`,`pid`,`title`,`icon`,`href`,`target`,`sort`,`status`,`remark`,`create_id`,`created_at`,`updated_at`) values (297,296,'测试2226666','fa fa-bell-o','','_self',0,1,'咳咳444444444444',5,'1608192317','1608198457');
+insert  into `system_menu`(`id`,`pid`,`title`,`icon`,`href`,`target`,`sort`,`status`,`remark`,`create_id`,`created_at`,`updated_at`) values (298,269,'基本设置','fa fa-cog','admin/setting','_self',0,1,'系统基本信息设置',5,'1609230393','1609230455');
+insert  into `system_menu`(`id`,`pid`,`title`,`icon`,`href`,`target`,`sort`,`status`,`remark`,`create_id`,`created_at`,`updated_at`) values (299,269,'登录日志','fa fa-file-text-o','admin/adminLog','_self',0,1,'管理员登录日志列表',5,'1609230889','1609230889');
 
 /*Table structure for table `system_setting` */
 
