@@ -304,7 +304,7 @@
                                         单页版-v2：<a href="https://github.com/zhongshaofa/layuimini/tree/v2-onepage" target="_blank">github</a> / <a href="https://gitee.com/zhongshaofa/layuimini/tree/v2-onepage" target="_blank">gitee</a><br>
                                     </td>
                                 </tr>
-                                <tr>
+                                {{--<tr>
                                     <td>Gitee</td>
                                     <td style="padding-bottom: 0;">
                                         <div class="layui-btn-container">
@@ -312,16 +312,16 @@
                                             <a href="https://gitee.com/zhongshaofa/layuimini" target="_blank"><img src="https://gitee.com/zhongshaofa/layuimini/badge/fork.svg?theme=dark" alt="fork"></a>
                                         </div>
                                     </td>
-                                </tr>
-                                <tr>
+                                </tr>--}}
+                                {{--<tr>
                                     <td>Github</td>
                                     <td style="padding-bottom: 0;">
                                         <div class="layui-btn-container">
-                                            <iframe src="https://ghbtns.com/github-btn.html?user=zhongshaofa&repo=layuimini&type=star&count=true" frameborder="0" scrolling="0" width="100px" height="20px"></iframe>
-                                            <iframe src="https://ghbtns.com/github-btn.html?user=zhongshaofa&repo=layuimini&type=fork&count=true" frameborder="0" scrolling="0" width="100px" height="20px"></iframe>
+                                            <iframe src="https://ghbtns.com/github-btn.html?user=mr-money&repo=noname&type=star&count=true" frameborder="0" scrolling="0" width="100px" height="20px"></iframe>
+                                            <iframe src="https://ghbtns.com/github-btn.html?user=mr-money&repo=noname&type=fork&count=true" frameborder="0" scrolling="0" width="100px" height="20px"></iframe>
                                         </div>
                                     </td>
-                                </tr>
+                                </tr>--}}
                                 </tbody>
                             </table>
                         </div>
