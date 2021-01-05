@@ -92,23 +92,31 @@
                 if (layEvent === 'del') {
                     // layer.msg('删除' + data.id);
                     //删除菜单
-                    $.post(
-                        "{{url('api/admin/delMenuAjax')}}/" + data.id,
-                        {
-                            _token: "{!! csrf_token() !!}"
-                        },
-                        function (result) {
-                            // console.log(result);
-                            layer.close(load);
+                    layer.confirm(
+                        '确认删除吗',
+                        function () { //确定
+                            $.post(
+                                "{{url('api/admin/delMenuAjax')}}/" + data.id,
+                                {
+                                    _token: "{!! csrf_token() !!}"
+                                },
+                                function (result) {
+                                    // console.log(result);
+                                    layer.close(load);
 
-                            if (result.code == 200) {
-                                // layer.msg(result.msg);
-                                renderTable();
-                            } else {
-                                layer.msg(result.msg,{'icon':2});
-                            }
-                        }
-                    );
+                                    if (result.code == 200) {
+                                        // layer.msg(result.msg);
+                                        renderTable();
+                                    } else {
+                                        layer.msg(result.msg, {'icon': 2});
+                                    }
+                                }
+                            );
+                        },
+                        function () { //取消
+                            layer.close(load);
+                        });
+
                 } else if (layEvent === 'edit') {
                     layer.close(load);
 
@@ -133,7 +141,7 @@
                                 // layer.msg(result.msg);
                                 renderTable();
                             } else {
-                                layer.msg(result.msg,{'icon':2});
+                                layer.msg(result.msg, {'icon': 2});
                             }
                         }
                     );
@@ -147,7 +155,7 @@
          */
         function editMenu(id) {
             //判空
-            if (id == null || typeof(id) == "undefined"){
+            if (id == null || typeof (id) == "undefined") {
                 id = '0';
             }
 
@@ -155,7 +163,7 @@
                 type: 2,
                 title: '编辑菜单',
                 content: "{{url('admin/editMenu')}}/" + id, //这里content是一个URL，如果你不想让iframe出现滚动条，你还可以content: ['http://sentsin.com', 'no']
-                area: ['60%','70%']
+                area: ['60%', '70%']
             });
         }
     </script>
