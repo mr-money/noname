@@ -49,7 +49,7 @@
                         <input type="text" name="menu-tree" placeholder="选择父级菜单"
                                readonly="" autocomplete="off" class="layui-input" lay-verify="required"
                                style="cursor: default;"
-                               value="{{empty($menu['parent']['title'])?'':$menu['parent']['title']}}">
+                               value="@if(request('id')!=0 && empty($menu['pid']))顶级菜单@elseif(!empty($menu['parent']['title'])){{$menu['parent']['title']}}@endif">
                         <input type="hidden" name="pid" value="{{empty($menu['pid'])?'':$menu['pid']}}">
                         <div class="eleTree select-tree" id="menu-tree" lay-filter="menu-tree" style=""></div>
                     </div>
@@ -86,9 +86,9 @@
                     <label class="layui-form-label">打开方式</label>
                     <div class="layui-input-block">
                         <input type="radio" name="target" value="_self" title="_self"
-                                {{empty($menu['target']) || $menu['target'] == '_self'?'checked':''}} >
+                            {{empty($menu['target']) || $menu['target'] == '_self'?'checked':''}} >
                         <input type="radio" name="target" value="_blank" title="_blank"
-                                {{!empty($menu['target']) && $menu['target'] == '_blank'?'checked':''}} >
+                            {{!empty($menu['target']) && $menu['target'] == '_blank'?'checked':''}} >
                     </div>
                 </div>
 
@@ -177,11 +177,13 @@
             eleTree.on("nodeClick(menu-tree)", function (d) {
                 const self_id = "{{request('id')}}";
 
-                if(d.data.currentData.id == self_id){
+                //修改时 选中菜单id不是自己的id
+                if (self_id != 0 && d.data.currentData.id == self_id) {
                     layer.msg('父级菜单不能是自身', {icon: 2,});
 
                     return false;
                 }
+
 
                 //显示菜单名称
                 $("[name='menu-tree']").val(d.data.currentData.title);
@@ -202,6 +204,7 @@
 
                 data.field.id = "{{request('id')}}";
                 data.field._token = "{!! csrf_token() !!}";
+
                 $.post(
                     "{{url('api/admin/editMenuAjax')}}",
                     data.field,
@@ -209,10 +212,10 @@
                         layer.close(load);
 
                         // console.log(data);
-                        if(result.code == 200){
+                        if (result.code == 200) {
                             layer.closeAll('iframe');
                             window.parent.location.reload();
-                        }else{
+                        } else {
                             layer.msg(result.msg, {
                                 icon: 2,
                                 time: 1500 //关闭（如果不配置，默认是3秒）
