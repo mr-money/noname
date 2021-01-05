@@ -83,8 +83,6 @@
 
             //监听工具条
             table.on('tool(munu-table)', function (obj) {
-                const load = layer.load();
-
                 let data = obj.data;
                 let layEvent = obj.event;
 
@@ -92,33 +90,29 @@
                 if (layEvent === 'del') {
                     // layer.msg('删除' + data.id);
                     //删除菜单
-                    layer.confirm(
-                        '确认删除吗',
-                        function () { //确定
-                            $.post(
-                                "{{url('api/admin/delMenuAjax')}}/" + data.id,
-                                {
-                                    _token: "{!! csrf_token() !!}"
-                                },
-                                function (result) {
-                                    // console.log(result);
-                                    layer.close(load);
+                    layer.confirm('确认删除吗', function (index) { //确定
+                        $.post(
+                            "{{url('api/admin/delMenuAjax')}}/" + data.id,
+                            {
+                                _token: "{!! csrf_token() !!}"
+                            },
+                            function (result) {
+                                // console.log(result);
 
-                                    if (result.code == 200) {
-                                        // layer.msg(result.msg);
-                                        renderTable();
-                                    } else {
-                                        layer.msg(result.msg, {'icon': 2});
-                                    }
+                                if (result.code == 200) {
+                                    // layer.msg(result.msg);
+                                    renderTable();
+                                } else {
+                                    layer.msg(result.msg, {'icon': 2});
                                 }
-                            );
-                        },
-                        function () { //取消
-                            layer.close(load);
-                        });
+                            }
+                        );
+
+                        layer.close(index);
+
+                    });
 
                 } else if (layEvent === 'edit') {
-                    layer.close(load);
 
                     //修改
                     editMenu(data.id);
@@ -135,7 +129,6 @@
                         },
                         function (result) {
                             // console.log(result);
-                            layer.close(load);
 
                             if (result.code == 200) {
                                 // layer.msg(result.msg);
