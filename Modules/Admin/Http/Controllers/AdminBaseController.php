@@ -31,6 +31,7 @@ class AdminBaseController extends Controller
         $this->adminUsersModel = new AdminUsersModel();
         $this->adminLogModel = new AdminLogModel();
         $this->systemSettingModel = new SystemSettingModel();
+        //test
     }
 
 
