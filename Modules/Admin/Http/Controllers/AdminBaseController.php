@@ -4,7 +4,6 @@ namespace Modules\Admin\Http\Controllers;
 
 use App\AdminUser;
 use App\Http\Controllers\ApiReturn;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -14,7 +13,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
 use Modules\Admin\Models\AdminLogModel;
 use Modules\Admin\Models\AdminUsersModel;
-use Modules\Admin\Models\systemMenuModel;
+use Modules\Admin\Models\SystemMenuModel;
 use Modules\Admin\Models\SystemSettingModel;
 
 class AdminBaseController extends Controller
