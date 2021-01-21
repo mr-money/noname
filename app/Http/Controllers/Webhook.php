@@ -40,7 +40,7 @@ class Webhook extends BaseController
         $json = json_decode($content, true);
         $repo = $json['commits'];
 
-        $cmd = "cd ".$this->web_path." && git checkout  master && git reset --hard && git pull origin master";
+        $cmd = "cd ".$this->web_path." && git  && git checkout  master && git reset --hard && git pull origin master";
 
         $res = shell_exec($cmd);
         print_r($res);
