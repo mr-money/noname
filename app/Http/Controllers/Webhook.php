@@ -18,7 +18,7 @@ class Webhook extends BaseController
         error_reporting(1);
     }
 
-    public function index(): int
+    public function index()
     {
         // 从请求头中获取签名
         $headers = [];
@@ -40,7 +40,7 @@ class Webhook extends BaseController
         $json = json_decode($content, true);
         $repo = $json['commits'];
 
-        $cmd = "cd ".$this->web_path." && git  && git checkout  master && git reset --hard && git pull origin master";
+        $cmd = "sudo cd ".$this->web_path." && sudo git checkout master && sudo git reset --hard && sudo git pull origin master";
 
         $res = shell_exec($cmd);
         print_r($res);
