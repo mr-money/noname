@@ -41,6 +41,7 @@ class Webhook extends BaseController
         $repo = $json['commits'];
 
         $cmd = "sudo cd ".$this->web_path." && sudo git checkout master && sudo git reset --hard && sudo git pull origin master 2>&1";
+        print_r($cmd."\r\n");
 
         $res = shell_exec($cmd);
         print_r('commit:'.$res);
