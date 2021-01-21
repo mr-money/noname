@@ -18,39 +18,33 @@ class Webhook extends BaseController
 
     }
 
-    public function index()
+    public function index(): int
     {
-        $json_content = file_get_contents('php://input');
-        $data = json_decode($json_content, true);
-
-        //github发送过来的签名
-        $signature = $_SERVER['HTTP_X_HUB_SIGNATURE'];
-        echo $signature;
-        if (!$signature) {
-            return http_response_code(404);
+        // 从请求头中获取签名
+        $headers = [];
+        foreach ($_SERVER as $name => $value) {
+            if (substr($name, 0, 5) == 'HTTP_') {
+                $headers[str_replace(' ', '-', ucwords(strtolower(str_replace('_', ' ', substr($name, 5)))))] = $value;
+            }
         }
 
-        list($algo, $hash) = explode('=', $signature, 2);
+        $content = file_get_contents('php://input');
 
-        //计算签名
-        $payloadHash = hash_hmac($algo, $json_content, $this->valid_token);
-        if ($hash !== $payloadHash){
-            return http_response_code(404);
+        $signature = "sha1=" . hash_hmac('sha1', $content, $this->valid_token);
+
+        if (empty($headers['X-Hub-Signature']) || $headers['X-Hub-Signature'] !== $signature) {
+            header('HTTP/1.1 403 Forbidden');
+            exit('error request ' . $signature);
         }
 
-        //调用接口被允许的ip地址
-        $client_ip = $_SERVER['REMOTE_ADDR'];
-
-        $fs = fopen('./auto_hook.log', 'a');
-        fwrite($fs, 'Request on ['.date("Y-m-d H:i:s").'] from ['.$client_ip.']'.PHP_EOL);
-
-        fwrite($fs, 'Data: '.json_encode($data).PHP_EOL);
-        fwrite($fs, '======================================================================='.PHP_EOL);
-        $fs and fclose($fs);
+        $json = json_decode($content, true);
+        $repo = $json['commits'];
 
         $cmd = "cd ".$this->web_path." && git checkout  master && git reset --hard && git pull origin master";
-        echo shell_exec($cmd);
 
+        $res = shell_exec($cmd);
+        print_r($res);
+        file_put_contents('webhook/gitWebhook.log', json_encode($repo)."\r\n", FILE_APPEND);
 
     }
 }
