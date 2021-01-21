@@ -48,7 +48,7 @@ class Webhook extends BaseController
         fwrite($fs, '======================================================================='.PHP_EOL);
         $fs and fclose($fs);
 
-        $cmd = "cd ".$this->web_path." && git checkout  master && git pull origin master";
+        $cmd = "cd ".$this->web_path." && git checkout  master && git reset --hard && git pull origin master";
         echo shell_exec($cmd);
 
 
