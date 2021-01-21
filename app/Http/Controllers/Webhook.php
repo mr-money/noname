@@ -15,7 +15,7 @@ class Webhook extends BaseController
 
     public function __construct()
     {
-
+        error_reporting(1);
     }
 
     public function index(): int
