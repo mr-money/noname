@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Routing\Controller as BaseController;
 
-class WebhookController extends BaseController
+class Webhook extends BaseController
 {
     //生产环境web目录
     private $web_path = '/www/wwwroot/noname';

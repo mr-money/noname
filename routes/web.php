@@ -39,3 +39,5 @@ Route::group([
     }
 );
 
+Route::post('/webhook', 'Webhook@index');
+
