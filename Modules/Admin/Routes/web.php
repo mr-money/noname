@@ -13,7 +13,7 @@
 
 
 
-Route::post('/webhook', 'Webhook@index'); //
+Route::post('/webhook', 'WebhookController@index'); //
 
 
 
