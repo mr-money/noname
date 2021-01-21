@@ -45,5 +45,5 @@ if (empty($data['token']) || $data['token'] !== $valid_token) {
 
 $repo = $data['repository']['name'];
 
-$cmd = "cd $web_path && git pull";
+$cmd = "cd $web_path && git checkout  master && git pull origin master";
 shell_exec($cmd);
