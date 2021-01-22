@@ -33,8 +33,8 @@ class Webhook extends BaseController
         $signature = "sha1=" . hash_hmac('sha1', $content, $this->valid_token);
 
         if (empty($headers['X-Hub-Signature']) || $headers['X-Hub-Signature'] !== $signature) {
-            header('HTTP/1.1 403 Forbidden');
-            exit('error request: signature does not be allowd');
+//            header('HTTP/1.1 403 Forbidden');
+//            exit('error request: signature does not be allowd');
         }
 
         $json = json_decode($content, true);
