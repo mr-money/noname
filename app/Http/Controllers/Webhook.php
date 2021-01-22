@@ -20,6 +20,9 @@ class Webhook extends BaseController
 
     public function index()
     {
+        $cmd1 = "whoami";
+        $res1 = shell_exec($cmd1);
+        print_r($res1);
         // 从请求头中获取签名
         $headers = [];
         foreach ($_SERVER as $name => $value) {
