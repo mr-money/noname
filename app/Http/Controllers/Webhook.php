@@ -20,8 +20,8 @@ class Webhook extends BaseController
 
     public function index()
     {
-//        $cmd = "sudo cd ".$this->web_path." && sudo git checkout master && sudo git reset --hard && sudo git pull origin master 2>&1";
-        $cmd = "whoami";
+        $cmd = "cd ".$this->web_path." && git checkout master && git reset --hard && git pull origin master 2>&1";
+//        $cmd = "whoami";
         print_r($cmd."\r\n");
 
         $res = shell_exec($cmd);
