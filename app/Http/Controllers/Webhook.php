@@ -20,11 +20,12 @@ class Webhook extends BaseController
 
     public function index()
     {
-        $cmd = "sudo cd ".$this->web_path." && sudo git checkout master && sudo git reset --hard && sudo git pull origin master 2>&1";
+//        $cmd = "sudo cd ".$this->web_path." && sudo git checkout master && sudo git reset --hard && sudo git pull origin master 2>&1";
+        $cmd = "whoami";
         print_r($cmd."\r\n");
 
         $res = shell_exec($cmd);
-        print_r('commit:'.$res);
+        print_r('result:'.$res);
         die;
         // 从请求头中获取签名
         $headers = [];
