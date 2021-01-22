@@ -20,13 +20,6 @@ class Webhook extends BaseController
 
     public function index()
     {
-        $cmd = "cd ".$this->web_path." && git checkout master && git reset --hard && git pull origin master 2>&1";
-//        $cmd = "whoami";
-        print_r($cmd."\r\n");
-
-        $res = shell_exec($cmd);
-        print_r('result:'.$res);
-        die;
         // 从请求头中获取签名
         $headers = [];
         foreach ($_SERVER as $name => $value) {
@@ -47,11 +40,11 @@ class Webhook extends BaseController
         $json = json_decode($content, true);
         $repo = $json['commits'];
 
-        $cmd = "sudo cd ".$this->web_path." && sudo git checkout master && sudo git reset --hard && sudo git pull origin master 2>&1";
+        $cmd = "cd ".$this->web_path." && git checkout master && git reset --hard && git pull origin master 2>&1";
         print_r($cmd."\r\n");
 
         $res = shell_exec($cmd);
-        print_r('commit:'.$res);
+        print_r($res);
         file_put_contents('/webhook/gitWebhook.log', json_encode($repo)."\r\n", FILE_APPEND);
     }
 }
