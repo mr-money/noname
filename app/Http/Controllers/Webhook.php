@@ -34,7 +34,7 @@ class Webhook extends BaseController
 
         if (empty($headers['X-Hub-Signature']) || $headers['X-Hub-Signature'] !== $signature) {
             header('HTTP/1.1 403 Forbidden');
-            exit('error request: signature does not be allowd');
+            exit('error: signature unacceptable');
         }
 
         $json = json_decode($content, true);
