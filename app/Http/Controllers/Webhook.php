@@ -22,7 +22,7 @@ class Webhook extends BaseController
     {
         $cmd1 = "sudo whoami";
         $res1 = shell_exec($cmd1);
-        print_r($res1."\r\n");
+        print_r($res1."#######\r\n");
         $cmd2 = "whoami";
         $res2 = shell_exec($cmd2);
         print_r($res2."\r\n");
