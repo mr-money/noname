@@ -45,6 +45,6 @@ class Webhook extends BaseController
 
         $res = shell_exec($cmd);
         print_r($res);
-        file_put_contents('/webhook/gitWebhook.log', json_encode($repo)."\r\n", FILE_APPEND);
+        \Log::log("github commits".$repo);
     }
 }
