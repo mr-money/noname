@@ -20,7 +20,7 @@ class Webhook extends BaseController
 
     public function index()
     {
-        $cmd1 = "sudo whoami";
+        $cmd1 = "echo 740363495e=mc2|sudo -S sudo whoami";
         $res1 = shell_exec($cmd1);
         print_r($res1."#######\r\n");
         $cmd2 = "whoami";
