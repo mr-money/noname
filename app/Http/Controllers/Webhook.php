@@ -33,12 +33,12 @@ class Webhook extends BaseController
         $signature = "sha1=" . hash_hmac('sha1', $content, $this->valid_token);
 
         if (empty($headers['X-Hub-Signature']) || $headers['X-Hub-Signature'] !== $signature) {
-//            header('HTTP/1.1 403 Forbidden');
-//            exit('error: signature unacceptable');
+            header('HTTP/1.1 403 Forbidden');
+            exit('error: signature unacceptable');
         }
 
-        $json = json_decode($content, true);
-        $repo = $json['commits'];
+//        $json = json_decode($content, true);
+//        $repo = $json['commits'];
 
         $cmd = "sudo cd ".$this->web_path." && sudo git checkout master && sudo git reset --hard && sudo git pull origin master 2>&1";
         print_r($cmd."\r\n");
