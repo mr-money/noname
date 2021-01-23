@@ -15,6 +15,7 @@ class Webhook extends BaseController
 
     public function __construct()
     {
+        set_time_limit(0);
         error_reporting(1);
     }
 
