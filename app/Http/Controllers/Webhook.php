@@ -20,9 +20,12 @@ class Webhook extends BaseController
 
     public function index()
     {
-        $cmd1 = "sodo whoami";
+        $cmd1 = "sudo whoami";
         $res1 = shell_exec($cmd1);
-        print_r($res1);
+        print_r($res1."\r\n");
+        $cmd2 = "whoami";
+        $res2 = shell_exec($cmd2);
+        print_r($res2."\r\n");
         die;
         // 从请求头中获取签名
         $headers = [];
