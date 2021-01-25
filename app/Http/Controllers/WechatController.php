@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use EasyWeChat\Kernel\Messages\Image;
 use EasyWeChat\Kernel\Messages\Text;
 
+
 class WechatController extends Controller
 {
 
@@ -111,7 +112,7 @@ class WechatController extends Controller
 
 
     /**
-     * 关注逻辑处理
+     * TODO 关注逻辑处理
      * @param $message
      * @param $wechat
      * @return mixed
@@ -121,10 +122,10 @@ class WechatController extends Controller
         $openid = $message['FromUserName'];
 
         $faceUser = $this->faceUserModel::whereOpenid($openid)->first();
+        \Log::info($faceUser);
 
         if(empty($faceUser)){
             $user = $wechat->user->get($openid);
-            \Log::info($user);
 
             $data = [
                 'openid' => $openid,

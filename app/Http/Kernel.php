@@ -70,6 +70,8 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'cors' => \App\Http\Middleware\AccessControlAllowOrigin::class,
 
+        'wechat.oauth' => \Overtrue\LaravelWeChat\Middleware\OAuthAuthenticate::class, //获取微信信息
+
         'admin.checkLogin' => \Modules\Admin\Http\Middleware\AdminCheckLoginMiddleware::class, //后台检查登录
     ];
 }
