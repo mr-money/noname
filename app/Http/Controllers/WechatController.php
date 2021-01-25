@@ -9,6 +9,7 @@ use EasyWeChat\Kernel\Messages\Text;
 class WechatController extends Controller
 {
 
+
     public function __construct()
     {
         parent::__construct();
@@ -100,10 +101,8 @@ class WechatController extends Controller
      * @return Image
      */
     public function clickManage($message,$wechat){
-//        return $message['EventKey'];
         $openid = $message['FromUserName'];
         switch ($message['EventKey']){
-            //咨询热线
             case 'clickMenu';
                 return new Text('点击事件');
         }
@@ -238,7 +237,7 @@ class WechatController extends Controller
         $app->template_message->send([
             'touser' => $openid,
             'template_id' => $template_id,
-            'url' =>route('wxregister'),
+            'url' => "https://www.baidu.com/",
             'data' => [
                 'first' => [$temple_data['first'],'#173177'],
                 'keyword1' => [$temple_data['keyword1'],'#FF0000'],
