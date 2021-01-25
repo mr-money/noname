@@ -162,12 +162,14 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
 
-        Nwidart\Modules\LaravelModulesServiceProvider::class, //laraval Modules模块
-        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class, //laraval ide模块
+
 
         /*
          * Package Service Providers...
          */
+        Nwidart\Modules\LaravelModulesServiceProvider::class, //laravel Modules模块
+        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class, //laravel ide模块
+        Overtrue\LaravelWeChat\ServiceProvider::class, //laravel easywechat模块
 
         /*
          * Application Service Providers...
@@ -231,6 +233,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
         'Module' => Nwidart\Modules\Facades\Module::class,
+        'EasyWeChat' => Overtrue\LaravelWeChat\Facade::class,
     ],
 
 ];
