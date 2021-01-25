@@ -121,7 +121,7 @@ class WechatController extends Controller
         //下面是你点击关注时，进行的操作
         $openid = $message['FromUserName'];
 
-        $marketWxuser = $this->marketWxuserModel::whereOpenid($openid)->first();
+        /*$marketWxuser = $this->marketWxuserModel::whereOpenid($openid)->first();
 
         if(empty($marketWxuser)){
             $userService = $wechat->user;
@@ -143,12 +143,10 @@ class WechatController extends Controller
         }else{
             $marketWxuser->is_subscribe =  1;
             $marketWxuser->save();
-        }
+        }*/
 
         //关注文案
-//        $content = "亲，您终于来了，我们在此恭候多时啦！\r\n以下是为您准备的新人福利：\r\n首次关注即可领取新人兑换券一张 \r\n<a href='http://wx.jzhome360.com/market/getCoupon'>【猛戳我领取兑换券，来门店兑换超值好礼】</a>";
-
-        $content = "终于等到你啦~\r\n\r\n想了解家装选材干货？关注极家汇家居生活馆就对了！\r\n\r\n戳《案例集锦》获取往期案例↓↓↓\r\n戳《选材指南》获取更多家装干货分享↓↓↓\r\n\r\n需要装修或设计服务的，可以直接公众号留言回复哦~";
+        $content = $openid;
         return new Text($content);
     }
 
@@ -158,12 +156,9 @@ class WechatController extends Controller
      * 取消关注的操作
      */
     public function unsubscribeManage($message,$wechat){
-        $wxuser = new Wxuser;
-        $result = $wxuser->where(array('openid'=>$message['FromUserName']))->first();
-        $result->is_subscribe =  0;
-        $result->save();
+        $openid = $message['FromUserName'];
 
-        return '取消关注';
+        return $openid;
     }
 
 
@@ -217,7 +212,7 @@ class WechatController extends Controller
      * 删除菜单
      */
     public  function  menu_destroy(){
-        $app = app('wechat.official_account.market');
+        $app = app('wechat.official_account.default');
         $menu = $app->menu;
         $menu->destroy();
     }
@@ -226,7 +221,7 @@ class WechatController extends Controller
      * 查看微信公众号当前的菜单
      */
     public  function  menu_current(){
-        $app = app('wechat.official_account.market');
+        $app = app('wechat.official_account.default');
         $current = $app->menu->current();
         var_dump($current);
     }
@@ -238,7 +233,7 @@ class WechatController extends Controller
      */
     public function sendTempleMessage($openid,$template_id,$temple_data)
     {
-        $app = app('wechat.official_account.market');
+        $app = app('wechat.official_account.default');
 
         $app->template_message->send([
             'touser' => $openid,
