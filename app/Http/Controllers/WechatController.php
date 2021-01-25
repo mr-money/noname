@@ -120,13 +120,12 @@ class WechatController extends Controller
         //下面是你点击关注时，进行的操作
         $openid = $message['FromUserName'];
 
-        /*$marketWxuser = $this->marketWxuserModel::whereOpenid($openid)->first();
+        $faceUser = $this->faceUserModel::whereOpenid($openid)->first();
 
-        if(empty($marketWxuser)){
-            $userService = $wechat->user;
-            $user = $userService->get($openid);
+        if(empty($faceUser)){
+            $user = $wechat->user->get($openid);
 
-            $data = array(
+            $data = [
                 'openid' => $openid,
                 'nickname' => $user['nickname'],
                 'avatar' => $user['headimgurl'],
@@ -136,16 +135,16 @@ class WechatController extends Controller
                 'country' => $user['country'],
                 'is_subscribe' => 1,
                 'subscribe_time' => $user['subscribe_time'],
-            );
-
+            ];
             $this->marketWxuserModel->create($data);
+
         }else{
-            $marketWxuser->is_subscribe =  1;
-            $marketWxuser->save();
-        }*/
+            $faceUser->is_subscribe = 1;
+            $faceUser->save();
+        }
 
         //关注文案
-        $content = $openid;
+        $content = '明月直入，无心可猜';
         return new Text($content);
     }
 
