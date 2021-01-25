@@ -124,6 +124,7 @@ class WechatController extends Controller
 
         if(empty($faceUser)){
             $user = $wechat->user->get($openid);
+            \Log::info($user);
 
             $data = [
                 'openid' => $openid,
@@ -136,6 +137,8 @@ class WechatController extends Controller
                 'is_subscribe' => 1,
                 'subscribe_time' => $user['subscribe_time'],
             ];
+            \Log::info($data);
+
             $this->faceUserModel->create($data);
 
         }else{
