@@ -39,5 +39,9 @@ Route::group([
     }
 );
 
+//github webhook
 Route::post('/webhook', 'Webhook@index');
+
+//微信api serve
+Route::any('/wechat', 'WechatController@serve');
 

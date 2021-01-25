@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Redis;
 
 class WechatController extends Controller
 {
@@ -20,10 +19,10 @@ class WechatController extends Controller
      */
     public function serve()
     {
-        $wechat = app('wechat.official_account.market');
+        $wechat = app('wechat.official_account.default');
 
         $wechat->server->push(function($message) use ($wechat) {
-            Log::info($message);
+            \Log::info($message);
 
             //消息事件处理
             ob_clean();
