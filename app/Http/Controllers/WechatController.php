@@ -136,7 +136,7 @@ class WechatController extends Controller
                 'is_subscribe' => 1,
                 'subscribe_time' => $user['subscribe_time'],
             ];
-            $this->marketWxuserModel->create($data);
+            $this->faceUserModel->create($data);
 
         }else{
             $faceUser->is_subscribe = 1;
