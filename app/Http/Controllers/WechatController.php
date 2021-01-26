@@ -67,40 +67,6 @@ class WechatController extends Controller
                 return '收到事件消息';
                 break;
             case 'text':
-                //TODO 关注逻辑测试
-                $openid = $message['FromUserName'];
-
-                //查询是否已经关注过
-                $faceUser = $this->faceUserModel::whereOpenid($openid)->first();
-                if(empty($faceUser)){
-                    return '111';
-                }else{
-                    return '222';
-                }
-
-                break;
-                if(empty($faceUser)){
-                    $user = $wechat->user->get($openid);
-
-                    $data = [
-                        'openid' => $openid,
-                        'nickname' => $user['nickname'],
-                        'avatar' => $user['headimgurl'],
-                        'sex' => $user['sex'],
-                        'city' => $user['city'],
-                        'province' => $user['province'],
-                        'country' => $user['country'],
-                        'is_subscribe' => 1,
-                        'subscribe_time' => $user['subscribe_time'],
-                    ];
-                    \Log::info($data);
-
-                    $this->faceUserModel->create($data);
-
-                }else{
-                    $faceUser->is_subscribe = 1;
-                    $faceUser->save();
-                }
                 return "收到\n文字消息<a href='http://www.baidu.com'>这是一个链接</a></br><br/>\r\n".$message['MsgType'];
                 break;
             case 'image':
