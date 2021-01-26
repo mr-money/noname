@@ -121,7 +121,8 @@ class WechatController extends Controller
         //下面是你点击关注时，进行的操作
         $openid = $message['FromUserName'];
         $user = $wechat->user->get($openid);
-        \Log::info($user);
+        $faceUser = $this->faceUserModel::whereOpenid($openid)->first();
+        \Log::info($faceUser);
 
         /*$faceUser = $this->faceUserModel::whereOpenid($openid)->first();
 
