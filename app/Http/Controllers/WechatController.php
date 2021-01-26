@@ -69,11 +69,16 @@ class WechatController extends Controller
             case 'text':
                 //TODO 关注逻辑测试
                 $openid = $message['FromUserName'];
-                return "收到\n文字消息<a href='http://www.baidu.com'>这是一个链接</a></br><br/>\r\n".$message['FromUserName'];
 
                 //查询是否已经关注过
                 $faceUser = $this->faceUserModel::whereOpenid($openid)->first();
+                if(empty($faceUser)){
+                    return '111';
+                }else{
+                    return '222';
+                }
 
+                break;
                 if(empty($faceUser)){
                     $user = $wechat->user->get($openid);
 
@@ -97,6 +102,7 @@ class WechatController extends Controller
                     $faceUser->save();
                 }
                 return "收到\n文字消息<a href='http://www.baidu.com'>这是一个链接</a></br><br/>\r\n".$message['MsgType'];
+                break;
             case 'image':
 //                return '收到图片消息';
                 break;
