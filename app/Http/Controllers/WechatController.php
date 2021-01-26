@@ -135,12 +135,12 @@ class WechatController extends Controller
                 'province' => $user['province'],
                 'country' => $user['country'],
                 'is_subscribe' => 1,
+                'user_state' => 1,
                 'subscribe_time' => $user['subscribe_time'],
             ];
-            \Log::info($data);
 
-            $this->faceUserModel->create($data);
-
+            $id = $this->faceUserModel::create($data)->id;
+            \Log::info($id);
         }else{
             $faceUser->is_subscribe = 1;
             $faceUser->save();
