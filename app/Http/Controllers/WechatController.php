@@ -124,7 +124,9 @@ class WechatController extends Controller
         $faceUser = $this->faceUserModel::whereOpenid($openid)->first();
 
         if(empty($faceUser)){
-            $user = $wechat->user->get($openid);
+            $content = '111';
+
+            /*$user = $wechat->user->get($openid);
 
             $data = [
                 'openid' => $openid,
@@ -139,15 +141,17 @@ class WechatController extends Controller
             ];
             \Log::info($data);
 
-            $this->faceUserModel->create($data);
+            $this->faceUserModel->create($data);*/
 
         }else{
-            $faceUser->is_subscribe = 1;
-            $faceUser->save();
+            $content = '222';
+
+            /*$faceUser->is_subscribe = 1;
+            $faceUser->save();*/
         }
 
         //关注文案
-        $content = '明月直入，无心可猜';
+//        $content = '明月直入，无心可猜';
         return new Text($content);
     }
 
