@@ -1,6 +1,6 @@
 /*
 SQLyog 企业版 - MySQL GUI v7.14 
-MySQL - 5.5.53 : Database - noname
+MySQL - 5.7.32-log : Database - noname
 *********************************************************************
 */
 
@@ -11,7 +11,7 @@ MySQL - 5.5.53 : Database - noname
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`noname` /*!40100 DEFAULT CHARACTER SET utf8 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`noname` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
 
 USE `noname`;
 
@@ -26,7 +26,7 @@ CREATE TABLE `admin_log` (
   `created_at` varchar(64) DEFAULT '' COMMENT '创建时间',
   `updated_at` varchar(64) DEFAULT '' COMMENT '修改时间',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 
 /*Data for the table `admin_log` */
 
@@ -46,6 +46,8 @@ insert  into `admin_log`(`id`,`admin_id`,`ip_adress`,`created_at`,`updated_at`) 
 insert  into `admin_log`(`id`,`admin_id`,`ip_adress`,`created_at`,`updated_at`) values (14,5,'127.0.0.1','1609400705','1609400705');
 insert  into `admin_log`(`id`,`admin_id`,`ip_adress`,`created_at`,`updated_at`) values (15,5,'127.0.0.1','1609831424','1609831424');
 insert  into `admin_log`(`id`,`admin_id`,`ip_adress`,`created_at`,`updated_at`) values (16,5,'127.0.0.1','1610961355','1610961355');
+insert  into `admin_log`(`id`,`admin_id`,`ip_adress`,`created_at`,`updated_at`) values (17,5,'223.166.74.56','1611209912','1611209912');
+insert  into `admin_log`(`id`,`admin_id`,`ip_adress`,`created_at`,`updated_at`) values (18,5,'223.166.75.32','1611643084','1611643084');
 
 /*Table structure for table `admin_users` */
 
@@ -71,22 +73,27 @@ insert  into `admin_users`(`id`,`nickname`,`account`,`phone`,`password`,`created
 DROP TABLE IF EXISTS `face_user`;
 
 CREATE TABLE `face_user` (
-  `id` int(11) NOT NULL,
-  `openid` varchar(32) NOT NULL DEFAULT '',
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `openid` varchar(32) CHARACTER SET utf8 NOT NULL DEFAULT '',
   `nickname` varchar(32) NOT NULL DEFAULT '',
-  `username` varchar(32) NOT NULL DEFAULT '' COMMENT '姓名',
-  `sex` tinyint(1) DEFAULT NULL,
+  `avatar` varchar(255) CHARACTER SET utf8 NOT NULL DEFAULT '' COMMENT '头像',
+  `username` varchar(32) CHARACTER SET utf8 NOT NULL DEFAULT '' COMMENT '姓名',
+  `sex` tinyint(1) DEFAULT NULL COMMENT '1男 0女',
   `subscribe_time` int(11) DEFAULT NULL COMMENT '关注时间',
-  `city` varchar(32) NOT NULL DEFAULT '',
-  `province` varchar(32) NOT NULL DEFAULT '',
-  `country` varchar(32) NOT NULL DEFAULT '',
+  `city` varchar(32) CHARACTER SET utf8 NOT NULL DEFAULT '',
+  `province` varchar(32) CHARACTER SET utf8 NOT NULL DEFAULT '',
+  `country` varchar(32) CHARACTER SET utf8 NOT NULL DEFAULT '',
   `is_subscribe` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否关注 1关注 0未关注',
+  `personal_signature` varchar(255) NOT NULL DEFAULT '' COMMENT '个人签名',
+  `user_state` tinyint(1) NOT NULL DEFAULT '1' COMMENT '用户状态 1正常 2禁用',
   `created_at` int(11) DEFAULT NULL,
   `updated_at` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC;
 
 /*Data for the table `face_user` */
+
+insert  into `face_user`(`id`,`openid`,`nickname`,`avatar`,`username`,`sex`,`subscribe_time`,`city`,`province`,`country`,`is_subscribe`,`personal_signature`,`user_state`,`created_at`,`updated_at`) values (2,'oLfzT6HKHJagFJm5GrS7w2WxEXFQ','低调的小香菇?','http://thirdwx.qlogo.cn/mmopen/fU6cXgFxgovYcP0sHjfc9ZoxXXfhCxkx8leZiccelWQSibuSCPMicJKmRg7T0EchQYttL7fxUa3ibebwfLNs2WquyHWcMM41fVDR/132','',1,1611646689,'','','冰岛',1,'',1,1611646689,1611646689);
 
 /*Table structure for table `system_menu` */
 
@@ -108,7 +115,7 @@ CREATE TABLE `system_menu` (
   PRIMARY KEY (`id`),
   KEY `title` (`title`),
   KEY `href` (`href`)
-) ENGINE=InnoDB AUTO_INCREMENT=303 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='系统菜单表';
+) ENGINE=InnoDB AUTO_INCREMENT=300 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='系统菜单表';
 
 /*Data for the table `system_menu` */
 
