@@ -118,13 +118,10 @@ class WechatController extends Controller
      * @return mixed
      */
     public function subscribeMange($message,$wechat){
-        //下面是你点击关注时，进行的操作
         $openid = $message['FromUserName'];
-        $user = $wechat->user->get($openid);
-        $faceUser = $this->faceUserModel::whereOpenid($openid)->first();
-        \Log::info($faceUser);
 
-        /*$faceUser = $this->faceUserModel::whereOpenid($openid)->first();
+        //查询是否已经关注过
+        $faceUser = $this->faceUserModel::whereOpenid($openid)->first();
 
         if(empty($faceUser)){
             $user = $wechat->user->get($openid);
@@ -147,7 +144,7 @@ class WechatController extends Controller
         }else{
             $faceUser->is_subscribe = 1;
             $faceUser->save();
-        }*/
+        }
 
         //关注文案
         $content = '明月直入，无心可猜';
