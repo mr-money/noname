@@ -138,6 +138,8 @@ class WechatController extends Controller
                 'user_state' => 1,
                 'subscribe_time' => $user['subscribe_time'],
             ];
+            \Log::info($data);
+
 
             $id = $this->faceUserModel::create($data)->id;
             \Log::info($id);
