@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Model\FaceUserModel;
 use EasyWeChat\Kernel\Messages\Image;
 use EasyWeChat\Kernel\Messages\Text;
 
@@ -120,13 +121,11 @@ class WechatController extends Controller
     public function subscribeMange($message,$wechat){
         $openid = $message['FromUserName'];
 
-        //查询是否已经关注过
-        $faceUser = $this->faceUserModel::whereOpenid($openid)->first();
-
+        $faceUser = FaceUserModel::whereOpenid($openid)->first();
+        \Log::info($faceUser);
+        
         if(empty($faceUser)){
-            $content = '111';
-
-            /*$user = $wechat->user->get($openid);
+            $user = $wechat->user->get($openid);
 
             $data = [
                 'openid' => $openid,
@@ -141,17 +140,15 @@ class WechatController extends Controller
             ];
             \Log::info($data);
 
-            $this->faceUserModel->create($data);*/
+//            $this->faceUserModel->create($data);
 
         }else{
-            $content = '222';
-
-            /*$faceUser->is_subscribe = 1;
-            $faceUser->save();*/
+//            $faceUser->is_subscribe = 1;
+//            $faceUser->save();
         }
 
         //关注文案
-//        $content = '明月直入，无心可猜';
+        $content = '明月直入，无心可猜';
         return new Text($content);
     }
 
