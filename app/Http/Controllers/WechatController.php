@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 
-use App\Model\FaceUserModel;
 use EasyWeChat\Kernel\Messages\Image;
 use EasyWeChat\Kernel\Messages\Text;
 
@@ -68,8 +67,36 @@ class WechatController extends Controller
                 return '收到事件消息';
                 break;
             case 'text':
-//                return "收到\n文字消息<a href='http://www.baidu.com'>这是一个链接</a></br><br/>\r\n".$message['MsgType'];
-                break;
+                //TODO 关注逻辑测试
+                $openid = $message['FromUserName'];
+                return "收到\n文字消息<a href='http://www.baidu.com'>这是一个链接</a></br><br/>\r\n".$message['FromUserName'];
+
+                //查询是否已经关注过
+                $faceUser = $this->faceUserModel::whereOpenid($openid)->first();
+
+                if(empty($faceUser)){
+                    $user = $wechat->user->get($openid);
+
+                    $data = [
+                        'openid' => $openid,
+                        'nickname' => $user['nickname'],
+                        'avatar' => $user['headimgurl'],
+                        'sex' => $user['sex'],
+                        'city' => $user['city'],
+                        'province' => $user['province'],
+                        'country' => $user['country'],
+                        'is_subscribe' => 1,
+                        'subscribe_time' => $user['subscribe_time'],
+                    ];
+                    \Log::info($data);
+
+                    $this->faceUserModel->create($data);
+
+                }else{
+                    $faceUser->is_subscribe = 1;
+                    $faceUser->save();
+                }
+                return "收到\n文字消息<a href='http://www.baidu.com'>这是一个链接</a></br><br/>\r\n".$message['MsgType'];
             case 'image':
 //                return '收到图片消息';
                 break;
@@ -121,9 +148,9 @@ class WechatController extends Controller
     public function subscribeMange($message,$wechat){
         $openid = $message['FromUserName'];
 
-        $faceUser = FaceUserModel::whereOpenid($openid)->first();
-        \Log::info($faceUser);
-        
+        //查询是否已经关注过
+        $faceUser = $this->faceUserModel::whereOpenid($openid)->first();
+
         if(empty($faceUser)){
             $user = $wechat->user->get($openid);
 
@@ -140,11 +167,11 @@ class WechatController extends Controller
             ];
             \Log::info($data);
 
-//            $this->faceUserModel->create($data);
+            $this->faceUserModel->create($data);
 
         }else{
-//            $faceUser->is_subscribe = 1;
-//            $faceUser->save();
+            $faceUser->is_subscribe = 1;
+            $faceUser->save();
         }
 
         //关注文案
