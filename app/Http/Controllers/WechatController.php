@@ -117,7 +117,8 @@ class WechatController extends Controller
      * @param $wechat
      * @return mixed
      */
-    public function subscribeMange($message,$wechat){
+    public function subscribeMange($message,$wechat): Text
+    {
         $openid = $message['FromUserName'];
         $user = $wechat->user->get($openid); //微信用户
 
