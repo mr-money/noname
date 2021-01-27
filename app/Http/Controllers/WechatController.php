@@ -119,13 +119,13 @@ class WechatController extends Controller
      */
     public function subscribeMange($message,$wechat){
         $openid = $message['FromUserName'];
+        $user = $wechat->user->get($openid); //微信用户
 
         //查询是否已经关注过
         $faceUser = $this->faceUserModel::whereOpenid($openid)->first();
 
+        //未关注保存
         if(empty($faceUser)){
-            $user = $wechat->user->get($openid);
-
             $data = [
                 'openid' => $openid,
                 'nickname' => $user['nickname'],
@@ -140,16 +140,14 @@ class WechatController extends Controller
             ];
             \Log::info($data);
 
-
-            $id = $this->faceUserModel::create($data)->id;
-            \Log::info($id);
+            $this->faceUserModel::create($data)->id;
         }else{
             $faceUser->is_subscribe = 1;
             $faceUser->save();
         }
 
         //关注文案
-        $content = '明月直入，无心可猜';
+        $content = '哦~我亲爱的 '.$user['nickname']."\r\n您竟然屈尊关注了在下这个不止一提的小公众号，真是让我微信都在发光呢~\r\n你可真可爱~";
         return new Text($content);
     }
 
