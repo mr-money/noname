@@ -4,6 +4,7 @@ namespace Modules\Admin\Http\Controllers;
 
 use App\Http\Controllers\ApiReturn;
 use Illuminate\Contracts\View\Factory;
+use \Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -15,25 +16,29 @@ class UserController extends AdminBaseController
         parent::__construct();
     }
 
+
+    //用户列表
+
+    /**
+     * @return Application|Factory|View
+     */
     public function userList()
     {
-        $userData = array(
-            'openid' => 'oLfzT6HKHJagFJm5GrS7w2WxEXFQ',
-            'nickname' => '低调的小香菇😈',
-            'avatar' => 'http://thirdwx.qlogo.cn/mmopen/fU6cXgFxgovYcP0sHjfc9ZoxXXfhCxkx8leZiccelWQSibuSCPMicJKmRg7T0EchQYttL7fxUa3ibebwfLNs2WquyHWcMM41fVDR/132',
-            'sex' => 1,
-            'city' => '',
-            'province' => '',
-            'country' => '冰岛',
-            'is_subscribe' => 1,
-            'user_state' => 1,
-            'subscribe_time' => 1611646415,
-        );
+        return view('admin::user.userList');
+    }
 
-//        $user = $this->faceUserModel::whereOpenid('oLfzT6HKHJagFJm5GrS7w2WxEXFQ')->first();
 
-        $res = $this->faceUserModel::create($userData);
+    //获取用户列表ajax
+    public function getUserListAjax(Request $request): JsonResponse
+    {
+        $get = $request->all('page','limit');
 
-        dump($res);
+        $where = array();
+
+        //查询用户列表
+        $userList = $this->faceUserModel->where($where)->orderBy('created_at','desc');
+        $page = $this->layuiPage($userList,$get['page'],$get['limit']);
+
+        return ApiReturn::jsonApi(ApiReturn::SUCCESS,'',$page);
     }
 }

@@ -35,7 +35,7 @@ Route::group(
         $route->get('/editAdmin', 'AdminController@editAdmin'); //管理员信息修改
         $route->get('/adminLog', 'AdminController@adminLog'); //登录日志列表
 
-        $route->get('/wechat/userList', 'UserController@userList'); //用户列表
+        $route->get('/user/userList', 'UserController@userList'); //用户列表
     }
 );
 

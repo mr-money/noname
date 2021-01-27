@@ -220,7 +220,7 @@ class AdminBaseController extends Controller
      * @param int $limit
      * @return array
      */
-    protected function layuiPage($query, $current_page = 1, $limit = 15)
+    protected function layuiPage($query, $current_page = 1, $limit = 15): array
     {
         $skip = ($current_page - 1) < 0 ? 0 : ($current_page - 1) * $limit;
         $count = $query->count(); //总数据

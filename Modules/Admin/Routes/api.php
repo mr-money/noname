@@ -25,6 +25,8 @@ Route::group([
 //        'middleware' => ['web']
     ],
     function () {
+        /////////////////////
+        /// 后台管理
         Route::post('admin/loginAjax', 'AdminBaseController@loginAjax'); //后台登录ajax
         Route::post('admin/logoutAjax', 'AdminBaseController@logoutAjax'); //后台退出登录ajax
 
@@ -38,6 +40,10 @@ Route::group([
         Route::post('admin/editAdminAjax/{id}', 'AdminController@aditAdminAjax'); //修改管理员信息ajax
 
         Route::get('admin/getAdminLogAjax', 'AdminController@getAdminLogAjax'); //获取登录日志列表ajax
+
+        /////////////////////
+        /// 用户管理
+        Route::get('user/getUserListAjax', 'UserController@getUserListAjax'); //获取登录日志列表ajax
 
     }
 );
