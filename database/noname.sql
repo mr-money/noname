@@ -1,6 +1,6 @@
 /*
 SQLyog 企业版 - MySQL GUI v7.14 
-MySQL - 5.7.32-log : Database - noname
+MySQL - 5.5.53 : Database - noname
 *********************************************************************
 */
 
@@ -11,7 +11,7 @@ MySQL - 5.7.32-log : Database - noname
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`noname` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`noname` /*!40100 DEFAULT CHARACTER SET utf8 */;
 
 USE `noname`;
 
@@ -26,7 +26,7 @@ CREATE TABLE `admin_log` (
   `created_at` varchar(64) DEFAULT '' COMMENT '创建时间',
   `updated_at` varchar(64) DEFAULT '' COMMENT '修改时间',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
 
 /*Data for the table `admin_log` */
 
@@ -46,8 +46,9 @@ insert  into `admin_log`(`id`,`admin_id`,`ip_adress`,`created_at`,`updated_at`) 
 insert  into `admin_log`(`id`,`admin_id`,`ip_adress`,`created_at`,`updated_at`) values (14,5,'127.0.0.1','1609400705','1609400705');
 insert  into `admin_log`(`id`,`admin_id`,`ip_adress`,`created_at`,`updated_at`) values (15,5,'127.0.0.1','1609831424','1609831424');
 insert  into `admin_log`(`id`,`admin_id`,`ip_adress`,`created_at`,`updated_at`) values (16,5,'127.0.0.1','1610961355','1610961355');
-insert  into `admin_log`(`id`,`admin_id`,`ip_adress`,`created_at`,`updated_at`) values (17,5,'223.166.74.56','1611209912','1611209912');
-insert  into `admin_log`(`id`,`admin_id`,`ip_adress`,`created_at`,`updated_at`) values (18,5,'223.166.75.32','1611643084','1611643084');
+insert  into `admin_log`(`id`,`admin_id`,`ip_adress`,`created_at`,`updated_at`) values (17,5,'127.0.0.1','1611210028','1611210028');
+insert  into `admin_log`(`id`,`admin_id`,`ip_adress`,`created_at`,`updated_at`) values (18,5,'127.0.0.1','1611629564','1611629564');
+insert  into `admin_log`(`id`,`admin_id`,`ip_adress`,`created_at`,`updated_at`) values (19,5,'127.0.0.1','1611725809','1611725809');
 
 /*Table structure for table `admin_users` */
 
@@ -89,11 +90,12 @@ CREATE TABLE `face_user` (
   `created_at` int(11) DEFAULT NULL,
   `updated_at` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC;
 
 /*Data for the table `face_user` */
 
-insert  into `face_user`(`id`,`openid`,`nickname`,`avatar`,`username`,`sex`,`subscribe_time`,`city`,`province`,`country`,`is_subscribe`,`personal_signature`,`user_state`,`created_at`,`updated_at`) values (2,'oLfzT6HKHJagFJm5GrS7w2WxEXFQ','低调的小香菇?','http://thirdwx.qlogo.cn/mmopen/fU6cXgFxgovYcP0sHjfc9ZoxXXfhCxkx8leZiccelWQSibuSCPMicJKmRg7T0EchQYttL7fxUa3ibebwfLNs2WquyHWcMM41fVDR/132','',1,1611646689,'','','冰岛',1,'',1,1611646689,1611646689);
+insert  into `face_user`(`id`,`openid`,`nickname`,`avatar`,`username`,`sex`,`subscribe_time`,`city`,`province`,`country`,`is_subscribe`,`personal_signature`,`user_state`,`created_at`,`updated_at`) values (2,'oLfzT6HKHJagFJm5GrS7w2WxEXFQ','低调的小香菇?','http://thirdwx.qlogo.cn/mmopen/fU6cXgFxgovYcP0sHjfc9ZoxXXfhCxkx8leZiccelWQSibuSCPMicJKmRg7T0EchQYttL7fxUa3ibebwfLNs2WquyHWcMM41fVDR/132','钱京',1,1611646689,'','','冰岛',1,'',1,1611646689,1611646689);
+insert  into `face_user`(`id`,`openid`,`nickname`,`avatar`,`username`,`sex`,`subscribe_time`,`city`,`province`,`country`,`is_subscribe`,`personal_signature`,`user_state`,`created_at`,`updated_at`) values (3,'oLfzT6KHuSZojGYUyXKHvJcHtFYY','Sharon','http://thirdwx.qlogo.cn/mmopen/fU6cXgFxgovYcP0sHjfc9XczXNFYKhkxiapwrS6RA9SZbrsVZyV0ahqgobYqpnSyQLZDwTO3TJVmCPiciakVuWSXpy4sGzmwQYG/132','大宝',2,1611726924,'','','中国',1,'',1,1611726924,1611726924);
 
 /*Table structure for table `system_menu` */
 
@@ -115,7 +117,7 @@ CREATE TABLE `system_menu` (
   PRIMARY KEY (`id`),
   KEY `title` (`title`),
   KEY `href` (`href`)
-) ENGINE=InnoDB AUTO_INCREMENT=300 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='系统菜单表';
+) ENGINE=InnoDB AUTO_INCREMENT=301 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='系统菜单表';
 
 /*Data for the table `system_menu` */
 
@@ -126,31 +128,17 @@ insert  into `system_menu`(`id`,`pid`,`title`,`icon`,`href`,`target`,`sort`,`sta
 insert  into `system_menu`(`id`,`pid`,`title`,`icon`,`href`,`target`,`sort`,`status`,`remark`,`create_id`,`created_at`,`updated_at`) values (267,264,'主页三','fa fa-tachometer','page/welcome-3.html','_self',0,1,NULL,5,'1605757317','1607762921');
 insert  into `system_menu`(`id`,`pid`,`title`,`icon`,`href`,`target`,`sort`,`status`,`remark`,`create_id`,`created_at`,`updated_at`) values (268,263,'菜单管理','fa fa fa fa-window-maximize','admin/menuList','_self',0,1,NULL,5,'1605757317','1609230330');
 insert  into `system_menu`(`id`,`pid`,`title`,`icon`,`href`,`target`,`sort`,`status`,`remark`,`create_id`,`created_at`,`updated_at`) values (269,263,'系统设置','fa fa fa fa-gears','','_self',0,1,'网站系统设置管理',5,'1605757317','1609230350');
-insert  into `system_menu`(`id`,`pid`,`title`,`icon`,`href`,`target`,`sort`,`status`,`remark`,`create_id`,`created_at`,`updated_at`) values (270,263,'表格示例','fa fa-file-text','page/table.html','_self',0,1,NULL,5,'1605757317','1607762921');
-insert  into `system_menu`(`id`,`pid`,`title`,`icon`,`href`,`target`,`sort`,`status`,`remark`,`create_id`,`created_at`,`updated_at`) values (271,263,'表单示例','fa fa-calendar','','_self',0,1,NULL,5,'1605757317','1607762921');
-insert  into `system_menu`(`id`,`pid`,`title`,`icon`,`href`,`target`,`sort`,`status`,`remark`,`create_id`,`created_at`,`updated_at`) values (272,271,'普通表单','fa fa-list-alt','page/form.html','_self',0,1,NULL,5,'1605757317','1607762921');
-insert  into `system_menu`(`id`,`pid`,`title`,`icon`,`href`,`target`,`sort`,`status`,`remark`,`create_id`,`created_at`,`updated_at`) values (273,271,'分步表单','fa fa-navicon','page/form-step.html','_self',0,1,NULL,5,'1605757317','1607762921');
-insert  into `system_menu`(`id`,`pid`,`title`,`icon`,`href`,`target`,`sort`,`status`,`remark`,`create_id`,`created_at`,`updated_at`) values (274,263,'登录模板','fa fa-flag-o','','_self',0,1,NULL,5,'1605757317','1607762921');
-insert  into `system_menu`(`id`,`pid`,`title`,`icon`,`href`,`target`,`sort`,`status`,`remark`,`create_id`,`created_at`,`updated_at`) values (275,274,'登录-1','fa fa-stumbleupon-circle','page/login-1.html','_blank',0,1,NULL,5,'1605757317','1607762921');
-insert  into `system_menu`(`id`,`pid`,`title`,`icon`,`href`,`target`,`sort`,`status`,`remark`,`create_id`,`created_at`,`updated_at`) values (276,274,'登录-2','fa fa-viacoin','page/login-2.html','_blank',0,1,NULL,5,'1605757317','1607762921');
-insert  into `system_menu`(`id`,`pid`,`title`,`icon`,`href`,`target`,`sort`,`status`,`remark`,`create_id`,`created_at`,`updated_at`) values (277,274,'登录-3','fa fa-tags','page/login-3.html','_blank',0,1,NULL,5,'1605757317','1607762921');
-insert  into `system_menu`(`id`,`pid`,`title`,`icon`,`href`,`target`,`sort`,`status`,`remark`,`create_id`,`created_at`,`updated_at`) values (280,263,'其它界面','fa fa-snowflake-o','','',0,1,NULL,5,'1605757317','1607762921');
-insert  into `system_menu`(`id`,`pid`,`title`,`icon`,`href`,`target`,`sort`,`status`,`remark`,`create_id`,`created_at`,`updated_at`) values (281,280,'按钮示例','fa fa-snowflake-o','page/button.html','_self',0,1,NULL,5,'1605757317','1607762921');
-insert  into `system_menu`(`id`,`pid`,`title`,`icon`,`href`,`target`,`sort`,`status`,`remark`,`create_id`,`created_at`,`updated_at`) values (282,280,'弹出层','fa fa-shield','page/layer.html','_self',0,1,NULL,5,'1605757317','1607762921');
 insert  into `system_menu`(`id`,`pid`,`title`,`icon`,`href`,`target`,`sort`,`status`,`remark`,`create_id`,`created_at`,`updated_at`) values (283,0,'组件管理','fa fa-lemon-o','','_self',0,1,NULL,5,'1605757317','1605757317');
 insert  into `system_menu`(`id`,`pid`,`title`,`icon`,`href`,`target`,`sort`,`status`,`remark`,`create_id`,`created_at`,`updated_at`) values (285,283,'图标选择','fa fa-adn','page/icon-picker.html','_self',0,1,NULL,5,'1605757317','1605757317');
 insert  into `system_menu`(`id`,`pid`,`title`,`icon`,`href`,`target`,`sort`,`status`,`remark`,`create_id`,`created_at`,`updated_at`) values (286,283,'颜色选择','fa fa-dashboard','page/color-select.html','_self',0,1,NULL,5,'1605757317','1605757317');
 insert  into `system_menu`(`id`,`pid`,`title`,`icon`,`href`,`target`,`sort`,`status`,`remark`,`create_id`,`created_at`,`updated_at`) values (288,283,'文件上传','fa fa-arrow-up','page/upload.html','_self',0,1,NULL,5,'1605757317','1605757317');
 insert  into `system_menu`(`id`,`pid`,`title`,`icon`,`href`,`target`,`sort`,`status`,`remark`,`create_id`,`created_at`,`updated_at`) values (289,283,'富文本编辑器','fa fa-edit','page/editor.html','_self',0,1,NULL,5,'1605757317','1605757317');
 insert  into `system_menu`(`id`,`pid`,`title`,`icon`,`href`,`target`,`sort`,`status`,`remark`,`create_id`,`created_at`,`updated_at`) values (290,283,'省市县区选择器','fa fa-rocket','page/area.html','_self',0,1,NULL,5,'1605757317','1605757317');
-insert  into `system_menu`(`id`,`pid`,`title`,`icon`,`href`,`target`,`sort`,`status`,`remark`,`create_id`,`created_at`,`updated_at`) values (291,0,'其它管理','fa fa-slideshare','','_self',0,1,NULL,5,'1605757317','1608191328');
-insert  into `system_menu`(`id`,`pid`,`title`,`icon`,`href`,`target`,`sort`,`status`,`remark`,`create_id`,`created_at`,`updated_at`) values (292,291,'多级菜单','fa fa-meetup','','',0,1,NULL,5,'1605757317','1608191328');
-insert  into `system_menu`(`id`,`pid`,`title`,`icon`,`href`,`target`,`sort`,`status`,`remark`,`create_id`,`created_at`,`updated_at`) values (293,292,'按钮1','fa fa-calendar','page/button.html?v=1','_self',0,1,NULL,5,'1605757317','1608191328');
-insert  into `system_menu`(`id`,`pid`,`title`,`icon`,`href`,`target`,`sort`,`status`,`remark`,`create_id`,`created_at`,`updated_at`) values (294,291,'失效菜单','fa fa-superpowers','page/error.html','_self',0,1,NULL,5,'1605757317','1608191328');
 insert  into `system_menu`(`id`,`pid`,`title`,`icon`,`href`,`target`,`sort`,`status`,`remark`,`create_id`,`created_at`,`updated_at`) values (296,0,'测试添加','fa fa-area-chart','','_self',0,1,'阿斯顿发斯蒂芬',5,'1608192228','1608192228');
 insert  into `system_menu`(`id`,`pid`,`title`,`icon`,`href`,`target`,`sort`,`status`,`remark`,`create_id`,`created_at`,`updated_at`) values (297,296,'测试2226666','fa fa-bell-o','','_self',0,1,'咳咳444444444444',5,'1608192317','1608198457');
 insert  into `system_menu`(`id`,`pid`,`title`,`icon`,`href`,`target`,`sort`,`status`,`remark`,`create_id`,`created_at`,`updated_at`) values (298,269,'基本设置','fa fa-cog','admin/setting','_self',0,1,'系统基本信息设置',5,'1609230393','1609230455');
 insert  into `system_menu`(`id`,`pid`,`title`,`icon`,`href`,`target`,`sort`,`status`,`remark`,`create_id`,`created_at`,`updated_at`) values (299,269,'登录日志','fa fa-file-text-o','admin/adminLog','_self',0,1,'管理员登录日志列表',5,'1609230889','1609230889');
+insert  into `system_menu`(`id`,`pid`,`title`,`icon`,`href`,`target`,`sort`,`status`,`remark`,`create_id`,`created_at`,`updated_at`) values (300,263,'用户管理','fa fa fa-user','','_self',0,1,'用户管理下拉菜单',5,'1611727124','1611727145');
 
 /*Table structure for table `system_setting` */
 
