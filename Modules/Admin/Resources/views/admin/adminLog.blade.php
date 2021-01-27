@@ -2,7 +2,7 @@
 
 @section('title')登录日志@endsection
 
-@section('stylesheet')
+@section('body')
     <div class="layuimini-container">
         <div class="layuimini-main">
             {{--<script type="text/html" id="topToolbar">

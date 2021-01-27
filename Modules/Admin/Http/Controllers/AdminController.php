@@ -319,18 +319,6 @@ class AdminController extends AdminBaseController
      */
     public function adminLog()
     {
-        $adminLog = $this->adminLogModel::with('adminUser')->orderBy('created_at','desc');
-
-        $page = $this->layuiPage($adminLog);
-
-        foreach ($page['data'] as $key=>$value) {
-            $page['data'][$key]['nickname'] = $value['admin_user']['nickname'];
-            $page['data'][$key]['phone'] = $value['admin_user']['phone'];
-            $page['data'][$key]['account'] = $value['admin_user']['account'];
-
-            unset($page['data'][$key]['admin_user']);
-        }
-
         return view($this->adminViewDir . 'adminLog');
     }
 
