@@ -144,6 +144,7 @@ class WechatController extends Controller
             $this->faceUserModel::create($data)->id;
         }else{
             $faceUser->is_subscribe = 1;
+            $faceUser->subscribe_time = $user['subscribe_time'];
             $faceUser->save();
         }
 
