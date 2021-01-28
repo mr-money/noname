@@ -25,27 +25,15 @@
                     <form class="layui-form layui-form-pane" action="">
                         <div class="layui-form-item">
                             <div class="layui-inline">
-                                <label class="layui-form-label">用户姓名</label>
+                                <label class="layui-form-label">姓名</label>
                                 <div class="layui-input-inline">
                                     <input type="text" name="username" autocomplete="off" class="layui-input">
                                 </div>
                             </div>
                             <div class="layui-inline">
-                                <label class="layui-form-label">用户性别</label>
+                                <label class="layui-form-label">电话</label>
                                 <div class="layui-input-inline">
                                     <input type="text" name="sex" autocomplete="off" class="layui-input">
-                                </div>
-                            </div>
-                            <div class="layui-inline">
-                                <label class="layui-form-label">用户城市</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" name="city" autocomplete="off" class="layui-input">
-                                </div>
-                            </div>
-                            <div class="layui-inline">
-                                <label class="layui-form-label">用户职业</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" name="classify" autocomplete="off" class="layui-input">
                                 </div>
                             </div>
                             <div class="layui-inline">
@@ -108,7 +96,8 @@
                     {type: "checkbox", width: 50},
                     {field: 'id', width: 80, title: 'ID', sort: true},
                     {field: 'nickname',minWidth:80, title: '昵称'},
-                    {field: 'username',minWidth:80, title: '用户名'},
+                    {field: 'username',width:80, title: '姓名'},
+                    {field: 'phone',minWidth:80, title: '手机'},
                     {
                         field: 'avatar', width: 80, title: '头像',
                         templet: function (res) {
