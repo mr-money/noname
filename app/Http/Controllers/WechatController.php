@@ -160,8 +160,10 @@ class WechatController extends Controller
      */
     public function unsubscribeManage($message,$wechat){
         $openid = $message['FromUserName'];
+        $data['is_subscribe'] = 0;
+        $this->faceUserModel::whereOpenid($openid)->update($data);
 
-        return $openid;
+        return $data;
     }
 
 
