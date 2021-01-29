@@ -29,15 +29,41 @@ class UserController extends AdminBaseController
 
 
     //获取用户列表ajax
-    public function getUserListAjax(Request $request): JsonResponse
+    public function getUserListAjax(Request $request)
     {
-        $get = $request->all('page','limit');
-
+        $param =  $request->post();
         $where = array();
 
+        //搜索条件
+        !empty($param['phone']) ? $where[] = ['phone', '=', $param['phone']] : '';
+        !empty($param['username']) ? $where[] = ['username', 'like', '%'.$param['username'].'%'] : '';
+
+        //时间条件
+        //开始时间
+        if (!empty($param['start_time'])) {
+            $start_time = strtotime($param['start_time']);
+            $where[] = array(
+                'created_at',
+                '>=',
+                $start_time,
+            );
+        }
+
+        //结束时间
+        if (!empty($param['start_time'])) {
+            $end_time = strtotime($param['end_time'] . '23:59:59');
+            $where[] = array(
+                'created_at',
+                '<=',
+                $end_time,
+            );
+        }
+
         //查询用户列表
-        $userList = $this->faceUserModel->where($where)->orderBy('created_at','desc');
-        $page = $this->layuiPage($userList,$get['page'],$get['limit']);
+        $userList = $this->faceUserModel->where($where)
+            ->select('id','nickname','username','phone','sex','subscribe_time','avatar')
+            ->orderBy('created_at','desc');
+        $page = $this->layuiPage($userList,$param['page'],$param['limit']);
 
         return ApiReturn::jsonApi(ApiReturn::SUCCESS,'',$page);
     }
