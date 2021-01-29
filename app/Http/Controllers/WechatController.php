@@ -30,7 +30,6 @@ class WechatController extends Controller
             \Log::info($message);
 
             //消息事件处理
-            ob_clean();
             return $this->messageMange($message,$wechat);
         });
 
