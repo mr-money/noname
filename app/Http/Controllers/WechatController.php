@@ -22,7 +22,7 @@ class WechatController extends Controller
      *
      * @return string
      */
-    public function serve()
+    public function serve(): string
     {
         $wechat = app('wechat.official_account.default');
 
@@ -148,7 +148,7 @@ class WechatController extends Controller
         }
 
         //关注文案
-        $content = '哦~我亲爱的 '.$user['nickname']."\r\n您竟然屈尊关注了在下这个不止一提的小公众号，真是让我微信都在发光呢~\r\n你可真可爱~";
+        $content = '哦~亲爱的 '.$user['nickname']."\r\n你可真可爱~";
         return new Text($content);
     }
 

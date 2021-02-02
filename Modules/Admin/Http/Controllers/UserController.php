@@ -17,9 +17,9 @@ class UserController extends AdminBaseController
     }
 
 
-    //用户列表
 
     /**
+     * 用户列表
      * @return Application|Factory|View
      */
     public function userList()
@@ -28,8 +28,13 @@ class UserController extends AdminBaseController
     }
 
 
-    //获取用户列表ajax
-    public function getUserListAjax(Request $request)
+
+    /**
+     * 获取用户列表ajax
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function getUserListAjax(Request $request): JsonResponse
     {
         $param =  $request->post();
         $where = array();
