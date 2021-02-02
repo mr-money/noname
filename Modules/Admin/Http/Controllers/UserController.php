@@ -72,4 +72,5 @@ class UserController extends AdminBaseController
 
         return ApiReturn::jsonApi(ApiReturn::SUCCESS,'',$page);
     }
+
 }

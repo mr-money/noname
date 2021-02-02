@@ -91,14 +91,15 @@
                     // layer.msg('删除' + data.id);
                     //删除菜单
                     layer.confirm('确认删除吗', function (index) { //确定
-                        $.post(
-                            "{{url('api/admin/delMenuAjax')}}/" + data.id,
-                            {
+                        $.ajax({
+                            url:"{{url('api/admin/delMenuAjax')}}/" + data.id,
+                            type:"DELETE",
+                            data:{
                                 _token: "{!! csrf_token() !!}"
                             },
-                            function (result) {
-                                // console.log(result);
-
+                            success:function (result) {
+                                // 请求成功后的回调函数
+                                // console.log(result);return;
                                 if (result.code == 200) {
                                     // layer.msg(result.msg);
                                     renderTable();
@@ -106,8 +107,8 @@
                                     layer.msg(result.msg, {'icon': 2});
                                 }
                             }
-                        );
-
+                        });
+                        
                         layer.close(index);
 
                     });
@@ -119,7 +120,7 @@
 
                 } else if (layEvent === 'disable' || layEvent === 'enable') {
                     //状态取反
-                    var changeStatus = data.status == 1 ? 0 : 1;
+                    const changeStatus = data.status == 1 ? 0 : 1;
 
                     //菜单状态修改
                     $.post(

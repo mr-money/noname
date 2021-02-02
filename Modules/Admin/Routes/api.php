@@ -34,7 +34,7 @@ Route::group([
         Route::post('admin/changeMenuStateAjax/{id}/{status}', 'AdminController@changeMenuStateAjax'); //修改菜单状态ajax
         Route::get('admin/getMenuDirAjax', 'AdminController@getMenuDirAjax'); //获取菜单目录ajax
         Route::post('admin/editMenuAjax', 'AdminController@editMenuAjax'); //添加修改菜单ajax
-        Route::post('admin/delMenuAjax/{id}', 'AdminController@delMenuAjax'); //删除菜单ajax
+        Route::delete('admin/delMenuAjax/{id}', 'AdminController@delMenuAjax'); //删除菜单ajax
 
         Route::post('admin/editSettingAjax', 'AdminController@editSettingAjax'); //编辑网站设置ajax
         Route::post('admin/editAdminAjax/{id}', 'AdminController@aditAdminAjax'); //修改管理员信息ajax
@@ -44,6 +44,5 @@ Route::group([
         /////////////////////
         /// 用户管理
         Route::get('user/getUserListAjax', 'UserController@getUserListAjax'); //获取登录日志列表ajax
-
     }
 );
