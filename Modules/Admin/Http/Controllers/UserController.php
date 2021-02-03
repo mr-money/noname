@@ -74,16 +74,21 @@ class UserController extends AdminBaseController
     }
 
 
-    //用户修改状态（禁用/启用）
-    public function changeUserStateAjax(Request $request)
+    /**
+     * 用户修改状态（禁用/启用）
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function changeUserStateAjax(Request $request): JsonResponse
     {
         $post = $request->post();
 
-        $res = $this->faceUserModel::whereId($post['id'])
+        $this->faceUserModel::whereId($post['id'])
             ->update([
                 'user_state'=>$post['user_state']
             ]);
-        return $res;
+
+        return ApiReturn::jsonApi();
     }
 
 

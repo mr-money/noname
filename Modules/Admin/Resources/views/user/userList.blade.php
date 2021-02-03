@@ -212,8 +212,13 @@
                                 _token: "{!! csrf_token() !!}",
                             },
                             function (result) {
-                                console.log(result);
-                                //TODO 重载表格
+                                // console.log(result);
+                                layer.msg(result.msg,{'icon':1});
+                                table.reload('currentTableId', {
+                                    url: "{{url('api/user/getUserListAjax')}}",
+                                    where: {} //设定异步数据接口的额外参数
+                                    //,height: 300
+                                });
                             }
                         );
 
