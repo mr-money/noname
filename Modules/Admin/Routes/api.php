@@ -43,6 +43,7 @@ Route::group([
 
         /////////////////////
         /// 用户管理
-        Route::get('user/getUserListAjax', 'UserController@getUserListAjax'); //获取登录日志列表ajax
+        Route::get('user/getUserListAjax', 'UserController@getUserListAjax'); //获取用户列表列表ajax
+        Route::post('user/changeUserStateAjax', 'UserController@changeUserStateAjax'); //用户修改状态ajax
     }
 );

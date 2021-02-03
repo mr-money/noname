@@ -66,11 +66,25 @@ class UserController extends AdminBaseController
 
         //查询用户列表
         $userList = $this->faceUserModel->where($where)
-            ->select('id','nickname','username','phone','sex','subscribe_time','avatar')
+            ->select('id','nickname','username','phone','sex','user_state','subscribe_time','avatar')
             ->orderBy('created_at','desc');
         $page = $this->layuiPage($userList,$param['page'],$param['limit']);
 
         return ApiReturn::jsonApi(ApiReturn::SUCCESS,'',$page);
     }
+
+
+    //用户修改状态（禁用/启用）
+    public function changeUserStateAjax(Request $request)
+    {
+        $post = $request->post();
+
+        $res = $this->faceUserModel::whereId($post['id'])
+            ->update([
+                'user_state'=>$post['user_state']
+            ]);
+        return $res;
+    }
+
 
 }
