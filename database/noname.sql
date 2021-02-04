@@ -1,24 +1,27 @@
-/*
-SQLyog 企业版 - MySQL GUI v7.14 
-MySQL - 5.5.53 : Database - noname
-*********************************************************************
-*/
+-- MySQL dump 10.13  Distrib 5.5.53, for Win32 (AMD64)
+--
+-- Host: 148.70.226.80    Database: noname
+-- ------------------------------------------------------
+-- Server version	5.7.32-log
 
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8 */;
-
-/*!40101 SET SQL_MODE=''*/;
-
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`noname` /*!40100 DEFAULT CHARACTER SET utf8 */;
-
-USE `noname`;
-
-/*Table structure for table `admin_log` */
+--
+-- Table structure for table `admin_log`
+--
 
 DROP TABLE IF EXISTS `admin_log`;
-
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `admin_log` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `admin_id` int(11) DEFAULT NULL COMMENT '管理员id',
@@ -26,34 +29,26 @@ CREATE TABLE `admin_log` (
   `created_at` varchar(64) DEFAULT '' COMMENT '创建时间',
   `updated_at` varchar(64) DEFAULT '' COMMENT '修改时间',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `admin_log` */
+--
+-- Dumping data for table `admin_log`
+--
 
-insert  into `admin_log`(`id`,`admin_id`,`ip_adress`,`created_at`,`updated_at`) values (1,5,'192.168.18.233','1608000578','1608000578');
-insert  into `admin_log`(`id`,`admin_id`,`ip_adress`,`created_at`,`updated_at`) values (2,5,'127.0.0.1','1608186390','1608186390');
-insert  into `admin_log`(`id`,`admin_id`,`ip_adress`,`created_at`,`updated_at`) values (3,5,'127.0.0.1','1608194289','1608194289');
-insert  into `admin_log`(`id`,`admin_id`,`ip_adress`,`created_at`,`updated_at`) values (4,5,'127.0.0.1','1608271802','1608271802');
-insert  into `admin_log`(`id`,`admin_id`,`ip_adress`,`created_at`,`updated_at`) values (5,5,'127.0.0.1','1608275106','1608275106');
-insert  into `admin_log`(`id`,`admin_id`,`ip_adress`,`created_at`,`updated_at`) values (6,5,'127.0.0.1','1608530044','1608530044');
-insert  into `admin_log`(`id`,`admin_id`,`ip_adress`,`created_at`,`updated_at`) values (7,5,'127.0.0.1','1608694023','1608694023');
-insert  into `admin_log`(`id`,`admin_id`,`ip_adress`,`created_at`,`updated_at`) values (8,5,'127.0.0.1','1608713319','1608713319');
-insert  into `admin_log`(`id`,`admin_id`,`ip_adress`,`created_at`,`updated_at`) values (9,5,'127.0.0.1','1609147043','1609147043');
-insert  into `admin_log`(`id`,`admin_id`,`ip_adress`,`created_at`,`updated_at`) values (10,5,'127.0.0.1','1609149117','1609149117');
-insert  into `admin_log`(`id`,`admin_id`,`ip_adress`,`created_at`,`updated_at`) values (11,5,'127.0.0.1','1609227510','1609227510');
-insert  into `admin_log`(`id`,`admin_id`,`ip_adress`,`created_at`,`updated_at`) values (12,5,'127.0.0.1','1609293732','1609293732');
-insert  into `admin_log`(`id`,`admin_id`,`ip_adress`,`created_at`,`updated_at`) values (13,5,'127.0.0.1','1609318368','1609318368');
-insert  into `admin_log`(`id`,`admin_id`,`ip_adress`,`created_at`,`updated_at`) values (14,5,'127.0.0.1','1609400705','1609400705');
-insert  into `admin_log`(`id`,`admin_id`,`ip_adress`,`created_at`,`updated_at`) values (15,5,'127.0.0.1','1609831424','1609831424');
-insert  into `admin_log`(`id`,`admin_id`,`ip_adress`,`created_at`,`updated_at`) values (16,5,'127.0.0.1','1610961355','1610961355');
-insert  into `admin_log`(`id`,`admin_id`,`ip_adress`,`created_at`,`updated_at`) values (17,5,'127.0.0.1','1611210028','1611210028');
-insert  into `admin_log`(`id`,`admin_id`,`ip_adress`,`created_at`,`updated_at`) values (18,5,'127.0.0.1','1611629564','1611629564');
-insert  into `admin_log`(`id`,`admin_id`,`ip_adress`,`created_at`,`updated_at`) values (19,5,'127.0.0.1','1611725809','1611725809');
+LOCK TABLES `admin_log` WRITE;
+/*!40000 ALTER TABLE `admin_log` DISABLE KEYS */;
+INSERT INTO `admin_log` VALUES (1,5,'192.168.18.233','1608000578','1608000578'),(2,5,'127.0.0.1','1608186390','1608186390'),(3,5,'127.0.0.1','1608194289','1608194289'),(4,5,'127.0.0.1','1608271802','1608271802'),(5,5,'127.0.0.1','1608275106','1608275106'),(6,5,'127.0.0.1','1608530044','1608530044'),(7,5,'127.0.0.1','1608694023','1608694023'),(8,5,'127.0.0.1','1608713319','1608713319'),(9,5,'127.0.0.1','1609147043','1609147043'),(10,5,'127.0.0.1','1609149117','1609149117'),(11,5,'127.0.0.1','1609227510','1609227510'),(12,5,'127.0.0.1','1609293732','1609293732'),(13,5,'127.0.0.1','1609318368','1609318368'),(14,5,'127.0.0.1','1609400705','1609400705'),(15,5,'127.0.0.1','1609831424','1609831424'),(16,5,'127.0.0.1','1610961355','1610961355'),(17,5,'223.166.74.56','1611209912','1611209912'),(18,5,'223.166.75.32','1611643084','1611643084'),(19,5,'223.166.75.32','1611739921','1611739921'),(20,5,'112.38.96.86','1612422628','1612422628'),(21,5,'222.64.183.38','1612423005','1612423005');
+/*!40000 ALTER TABLE `admin_log` ENABLE KEYS */;
+UNLOCK TABLES;
 
-/*Table structure for table `admin_users` */
+--
+-- Table structure for table `admin_users`
+--
 
 DROP TABLE IF EXISTS `admin_users`;
-
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `admin_users` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `nickname` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
@@ -64,21 +59,88 @@ CREATE TABLE `admin_users` (
   `updated_at` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `admin_users` */
+--
+-- Dumping data for table `admin_users`
+--
 
-insert  into `admin_users`(`id`,`nickname`,`account`,`phone`,`password`,`created_at`,`updated_at`) values (5,'超级管理员','admin','18651984625','$2y$10$5rNcg7g7eWJ1DhlaoZV7PuOTogwobp3QydxQB1wY0q4MA5LY2JZ.6','1609149126','1609229222');
+LOCK TABLES `admin_users` WRITE;
+/*!40000 ALTER TABLE `admin_users` DISABLE KEYS */;
+INSERT INTO `admin_users` VALUES (5,'超级管理员','admin','18651984625','$2y$10$5rNcg7g7eWJ1DhlaoZV7PuOTogwobp3QydxQB1wY0q4MA5LY2JZ.6','1609149126','1609229222');
+/*!40000 ALTER TABLE `admin_users` ENABLE KEYS */;
+UNLOCK TABLES;
 
-/*Table structure for table `face_user` */
+--
+-- Table structure for table `face_physique`
+--
+
+DROP TABLE IF EXISTS `face_physique`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `face_physique` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `part_name` varchar(255) NOT NULL DEFAULT '' COMMENT '部位名称',
+  `part_value` varchar(255) NOT NULL DEFAULT '' COMMENT '部位数据',
+  `user_id` int(11) NOT NULL COMMENT '用户表id',
+  `created_at` int(11) DEFAULT NULL,
+  `updated_at` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `face_physique_face_user_id_fk` (`user_id`),
+  KEY `face_physique_part_name_index` (`part_name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='身体部位数据表';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `face_physique`
+--
+
+LOCK TABLES `face_physique` WRITE;
+/*!40000 ALTER TABLE `face_physique` DISABLE KEYS */;
+/*!40000 ALTER TABLE `face_physique` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `face_physique_setting`
+--
+
+DROP TABLE IF EXISTS `face_physique_setting`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `face_physique_setting` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `part_name` varchar(255) NOT NULL DEFAULT '' COMMENT '部位名称',
+  `default_value` varchar(255) NOT NULL DEFAULT '' COMMENT '默认值',
+  `created_at` int(11) DEFAULT NULL,
+  `updated_at` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `face_physique_setting_part_name_uindex` (`part_name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='身体部位配置';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `face_physique_setting`
+--
+
+LOCK TABLES `face_physique_setting` WRITE;
+/*!40000 ALTER TABLE `face_physique_setting` DISABLE KEYS */;
+/*!40000 ALTER TABLE `face_physique_setting` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `face_user`
+--
 
 DROP TABLE IF EXISTS `face_user`;
-
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `face_user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `openid` varchar(32) CHARACTER SET utf8 NOT NULL DEFAULT '',
   `nickname` varchar(32) NOT NULL DEFAULT '',
   `avatar` varchar(255) CHARACTER SET utf8 NOT NULL DEFAULT '' COMMENT '头像',
   `username` varchar(32) CHARACTER SET utf8 NOT NULL DEFAULT '' COMMENT '姓名',
+  `phone` varchar(32) CHARACTER SET utf8 NOT NULL DEFAULT '' COMMENT '手机',
   `sex` tinyint(1) DEFAULT NULL COMMENT '1男 0女',
   `subscribe_time` int(11) DEFAULT NULL COMMENT '关注时间',
   `city` varchar(32) CHARACTER SET utf8 NOT NULL DEFAULT '',
@@ -90,17 +152,26 @@ CREATE TABLE `face_user` (
   `created_at` int(11) DEFAULT NULL,
   `updated_at` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC COMMENT='用户表（微信用户关联）';
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `face_user` */
+--
+-- Dumping data for table `face_user`
+--
 
-insert  into `face_user`(`id`,`openid`,`nickname`,`avatar`,`username`,`sex`,`subscribe_time`,`city`,`province`,`country`,`is_subscribe`,`personal_signature`,`user_state`,`created_at`,`updated_at`) values (2,'oLfzT6HKHJagFJm5GrS7w2WxEXFQ','低调的小香菇?','http://thirdwx.qlogo.cn/mmopen/fU6cXgFxgovYcP0sHjfc9ZoxXXfhCxkx8leZiccelWQSibuSCPMicJKmRg7T0EchQYttL7fxUa3ibebwfLNs2WquyHWcMM41fVDR/132','钱京',1,1611646689,'','','冰岛',1,'',1,1611646689,1611646689);
-insert  into `face_user`(`id`,`openid`,`nickname`,`avatar`,`username`,`sex`,`subscribe_time`,`city`,`province`,`country`,`is_subscribe`,`personal_signature`,`user_state`,`created_at`,`updated_at`) values (3,'oLfzT6KHuSZojGYUyXKHvJcHtFYY','Sharon','http://thirdwx.qlogo.cn/mmopen/fU6cXgFxgovYcP0sHjfc9XczXNFYKhkxiapwrS6RA9SZbrsVZyV0ahqgobYqpnSyQLZDwTO3TJVmCPiciakVuWSXpy4sGzmwQYG/132','大宝',2,1611726924,'','','中国',1,'',1,1611726924,1611726924);
+LOCK TABLES `face_user` WRITE;
+/*!40000 ALTER TABLE `face_user` DISABLE KEYS */;
+INSERT INTO `face_user` VALUES (2,'oLfzT6HKHJagFJm5GrS7w2WxEXFQ','低调的小香菇?','http://thirdwx.qlogo.cn/mmopen/fU6cXgFxgovYcP0sHjfc9ZoxXXfhCxkx8leZiccelWQSibuSCPMicJKmRg7T0EchQYttL7fxUa3ibebwfLNs2WquyHWcMM41fVDR/132','钱京','18651984625',1,1611646689,'','','冰岛',1,'',2,1611646689,1612424579),(3,'oLfzT6KHuSZojGYUyXKHvJcHtFYY','Sharon','http://thirdwx.qlogo.cn/mmopen/fU6cXgFxgovYcP0sHjfc9XczXNFYKhkxiapwrS6RA9SZbrsVZyV0ahqgobYqpnSyQLZDwTO3TJVmCPiciakVuWSXpy4sGzmwQYG/132','大宝','',2,1611726924,'','','中国',1,'',1,1611726924,1612424485),(4,'oLfzT6Hhlh8u88bq3rQ9PsJz5iMs','浅夏','http://thirdwx.qlogo.cn/mmopen/yUlN9bcicPLozw3RmaJ2Pb0GHk8XafE9gFz8uxxbYR0wmzPnj9oV5IUNAa5bHibCBT8cIlich9N3ic9UNejH3CvptAOVBhW4udyib/132','','',2,1612081392,'石家庄','河北','中国',1,'',1,1612081394,1612081394);
+/*!40000 ALTER TABLE `face_user` ENABLE KEYS */;
+UNLOCK TABLES;
 
-/*Table structure for table `system_menu` */
+--
+-- Table structure for table `system_menu`
+--
 
 DROP TABLE IF EXISTS `system_menu`;
-
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `system_menu` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
   `pid` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '父ID',
@@ -117,33 +188,26 @@ CREATE TABLE `system_menu` (
   PRIMARY KEY (`id`),
   KEY `title` (`title`),
   KEY `href` (`href`)
-) ENGINE=InnoDB AUTO_INCREMENT=301 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='系统菜单表';
+) ENGINE=InnoDB AUTO_INCREMENT=302 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='系统菜单表';
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `system_menu` */
+--
+-- Dumping data for table `system_menu`
+--
 
-insert  into `system_menu`(`id`,`pid`,`title`,`icon`,`href`,`target`,`sort`,`status`,`remark`,`create_id`,`created_at`,`updated_at`) values (263,0,'常规管理','fa fa-address-book','','_self',0,1,NULL,5,'1605757317','1607762921');
-insert  into `system_menu`(`id`,`pid`,`title`,`icon`,`href`,`target`,`sort`,`status`,`remark`,`create_id`,`created_at`,`updated_at`) values (264,263,'主页模板','fa fa-home','','_self',0,1,NULL,5,'1605757317','1607762921');
-insert  into `system_menu`(`id`,`pid`,`title`,`icon`,`href`,`target`,`sort`,`status`,`remark`,`create_id`,`created_at`,`updated_at`) values (265,264,'主页一','fa fa-tachometer','page/welcome-1.html','_self',0,1,NULL,5,'1605757317','1607762921');
-insert  into `system_menu`(`id`,`pid`,`title`,`icon`,`href`,`target`,`sort`,`status`,`remark`,`create_id`,`created_at`,`updated_at`) values (266,264,'主页二','fa fa-tachometer','page/welcome-2.html','_self',0,1,NULL,5,'1605757317','1607764154');
-insert  into `system_menu`(`id`,`pid`,`title`,`icon`,`href`,`target`,`sort`,`status`,`remark`,`create_id`,`created_at`,`updated_at`) values (267,264,'主页三','fa fa-tachometer','page/welcome-3.html','_self',0,1,NULL,5,'1605757317','1607762921');
-insert  into `system_menu`(`id`,`pid`,`title`,`icon`,`href`,`target`,`sort`,`status`,`remark`,`create_id`,`created_at`,`updated_at`) values (268,263,'菜单管理','fa fa fa fa-window-maximize','admin/menuList','_self',0,1,NULL,5,'1605757317','1609230330');
-insert  into `system_menu`(`id`,`pid`,`title`,`icon`,`href`,`target`,`sort`,`status`,`remark`,`create_id`,`created_at`,`updated_at`) values (269,263,'系统设置','fa fa fa fa-gears','','_self',0,1,'网站系统设置管理',5,'1605757317','1609230350');
-insert  into `system_menu`(`id`,`pid`,`title`,`icon`,`href`,`target`,`sort`,`status`,`remark`,`create_id`,`created_at`,`updated_at`) values (283,0,'组件管理','fa fa-lemon-o','','_self',0,1,NULL,5,'1605757317','1605757317');
-insert  into `system_menu`(`id`,`pid`,`title`,`icon`,`href`,`target`,`sort`,`status`,`remark`,`create_id`,`created_at`,`updated_at`) values (285,283,'图标选择','fa fa-adn','page/icon-picker.html','_self',0,1,NULL,5,'1605757317','1605757317');
-insert  into `system_menu`(`id`,`pid`,`title`,`icon`,`href`,`target`,`sort`,`status`,`remark`,`create_id`,`created_at`,`updated_at`) values (286,283,'颜色选择','fa fa-dashboard','page/color-select.html','_self',0,1,NULL,5,'1605757317','1605757317');
-insert  into `system_menu`(`id`,`pid`,`title`,`icon`,`href`,`target`,`sort`,`status`,`remark`,`create_id`,`created_at`,`updated_at`) values (288,283,'文件上传','fa fa-arrow-up','page/upload.html','_self',0,1,NULL,5,'1605757317','1605757317');
-insert  into `system_menu`(`id`,`pid`,`title`,`icon`,`href`,`target`,`sort`,`status`,`remark`,`create_id`,`created_at`,`updated_at`) values (289,283,'富文本编辑器','fa fa-edit','page/editor.html','_self',0,1,NULL,5,'1605757317','1605757317');
-insert  into `system_menu`(`id`,`pid`,`title`,`icon`,`href`,`target`,`sort`,`status`,`remark`,`create_id`,`created_at`,`updated_at`) values (290,283,'省市县区选择器','fa fa-rocket','page/area.html','_self',0,1,NULL,5,'1605757317','1605757317');
-insert  into `system_menu`(`id`,`pid`,`title`,`icon`,`href`,`target`,`sort`,`status`,`remark`,`create_id`,`created_at`,`updated_at`) values (296,0,'测试添加','fa fa-area-chart','','_self',0,1,'阿斯顿发斯蒂芬',5,'1608192228','1608192228');
-insert  into `system_menu`(`id`,`pid`,`title`,`icon`,`href`,`target`,`sort`,`status`,`remark`,`create_id`,`created_at`,`updated_at`) values (297,296,'测试2226666','fa fa-bell-o','','_self',0,1,'咳咳444444444444',5,'1608192317','1608198457');
-insert  into `system_menu`(`id`,`pid`,`title`,`icon`,`href`,`target`,`sort`,`status`,`remark`,`create_id`,`created_at`,`updated_at`) values (298,269,'基本设置','fa fa-cog','admin/setting','_self',0,1,'系统基本信息设置',5,'1609230393','1609230455');
-insert  into `system_menu`(`id`,`pid`,`title`,`icon`,`href`,`target`,`sort`,`status`,`remark`,`create_id`,`created_at`,`updated_at`) values (299,269,'登录日志','fa fa-file-text-o','admin/adminLog','_self',0,1,'管理员登录日志列表',5,'1609230889','1609230889');
-insert  into `system_menu`(`id`,`pid`,`title`,`icon`,`href`,`target`,`sort`,`status`,`remark`,`create_id`,`created_at`,`updated_at`) values (300,263,'用户管理','fa fa fa-user','','_self',0,1,'用户管理下拉菜单',5,'1611727124','1611727145');
+LOCK TABLES `system_menu` WRITE;
+/*!40000 ALTER TABLE `system_menu` DISABLE KEYS */;
+INSERT INTO `system_menu` VALUES (263,0,'常规管理','fa fa-address-book','','_self',0,1,NULL,5,'1605757317','1607762921'),(264,263,'主页模板','fa fa-home','','_self',0,1,NULL,5,'1605757317','1607762921'),(265,264,'主页一','fa fa-tachometer','page/welcome-1.html','_self',0,1,NULL,5,'1605757317','1607762921'),(266,264,'主页二','fa fa-tachometer','page/welcome-2.html','_self',0,1,NULL,5,'1605757317','1607764154'),(267,264,'主页三','fa fa-tachometer','page/welcome-3.html','_self',0,1,NULL,5,'1605757317','1607762921'),(268,263,'菜单管理','fa fa fa fa-window-maximize','admin/menuList','_self',0,1,NULL,5,'1605757317','1609230330'),(269,263,'系统设置','fa fa fa fa-gears','','_self',0,1,'网站系统设置管理',5,'1605757317','1609230350'),(283,0,'组件管理','fa fa-lemon-o','','_self',0,1,NULL,5,'1605757317','1605757317'),(285,283,'图标选择','fa fa-adn','page/icon-picker.html','_self',0,1,NULL,5,'1605757317','1605757317'),(286,283,'颜色选择','fa fa-dashboard','page/color-select.html','_self',0,1,NULL,5,'1605757317','1605757317'),(288,283,'文件上传','fa fa-arrow-up','page/upload.html','_self',0,1,NULL,5,'1605757317','1605757317'),(289,283,'富文本编辑器','fa fa-edit','page/editor.html','_self',0,1,NULL,5,'1605757317','1605757317'),(290,283,'省市县区选择器','fa fa-rocket','page/area.html','_self',0,1,NULL,5,'1605757317','1605757317'),(296,0,'测试添加','fa fa-area-chart','','_self',0,1,'阿斯顿发斯蒂芬',5,'1608192228','1608192228'),(298,269,'基本设置','fa fa-cog','admin/setting','_self',0,1,'系统基本信息设置',5,'1609230393','1609230455'),(299,269,'登录日志','fa fa-file-text-o','admin/adminLog','_self',0,1,'管理员登录日志列表',5,'1609230889','1609230889'),(300,263,'用户管理','fa fa fa-user','','_self',0,1,'用户管理下拉菜单',5,'1611727124','1611727145'),(301,300,'用户列表','fa fa-align-left','admin/user/userList','_self',0,1,'用户列表页面',5,'1611823927','1611823927');
+/*!40000 ALTER TABLE `system_menu` ENABLE KEYS */;
+UNLOCK TABLES;
 
-/*Table structure for table `system_setting` */
+--
+-- Table structure for table `system_setting`
+--
 
 DROP TABLE IF EXISTS `system_setting`;
-
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `system_setting` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `sitename` varchar(50) NOT NULL DEFAULT '' COMMENT '网站名称',
@@ -157,10 +221,25 @@ CREATE TABLE `system_setting` (
   `updated_at` varchar(32) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `system_setting` */
+--
+-- Dumping data for table `system_setting`
+--
 
-insert  into `system_setting`(`id`,`sitename`,`domain`,`title`,`keywords`,`descript`,`copyright`,`create_id`,`created_at`,`updated_at`) values (1,'noname','http://noname.test','不知名APP管理后台','大宝,不知名,不知名APP,不知名APP管理后台','大宝的不知名APP 也不知道有啥用 快乐就完事了','© 2020 noname.test MIT license',5,'1608538197','1608538234');
+LOCK TABLES `system_setting` WRITE;
+/*!40000 ALTER TABLE `system_setting` DISABLE KEYS */;
+INSERT INTO `system_setting` VALUES (1,'noname','http://noname.test','不知名APP管理后台','大宝,不知名,不知名APP,不知名APP管理后台','大宝的不知名APP 也不知道有啥用 快乐就完事了','© 2020 noname.test MIT license',5,'1608538197','1608538234');
+/*!40000 ALTER TABLE `system_setting` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2021-02-04 17:53:50
