@@ -4,6 +4,8 @@ namespace Modules\Admin\Http\Controllers;
 
 use App\AdminUser;
 use App\Http\Controllers\ApiReturn;
+use App\Model\FacePhysiqueModel;
+use App\Model\FacePhysiqueSettingModel;
 use App\Model\FaceUserModel;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -25,6 +27,8 @@ class AdminBaseController extends Controller
     protected $adminLogModel; //管理员登录记录模型
     protected $systemSettingModel; //网站设置模型
     protected $faceUserModel; //用户模型
+    protected $facePhysiqueSettingModel; //用户身体部位管理模型
+    protected $facePhysiqueModel; //用户形象管理模型
 
     public function __construct()
     {
@@ -33,6 +37,8 @@ class AdminBaseController extends Controller
         $this->adminLogModel = new AdminLogModel();
         $this->systemSettingModel = new SystemSettingModel();
         $this->faceUserModel = new FaceUserModel();
+        $this->facePhysiqueSettingModel = new FacePhysiqueSettingModel();
+        $this->facePhysiqueModel = new FacePhysiqueModel();
     }
 
 
