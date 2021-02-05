@@ -83,7 +83,7 @@
                     {
                         field: "created_at", minWidth: 80, title: '创建时间', sort: true,
                         templet: function (res) {
-                            return layui.util.toDateString(res.created_at * 1000, "yyyy-MM-dd HH:mm:ss");
+                            return layui.util.toDateString(res.created_at, "yyyy-MM-dd HH:mm:ss");
                         }
                     },
                     {title: '操作', minWidth: 100, toolbar: '#currentTableBar', align: "center"}
