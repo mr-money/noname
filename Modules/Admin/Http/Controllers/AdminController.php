@@ -13,8 +13,6 @@ use function GuzzleHttp\Psr7\str;
 
 class AdminController extends AdminBaseController
 {
-    protected $adminViewDir = 'admin::admin.'; //admin页面view路径
-
 
     public function __construct()
     {
@@ -35,7 +33,7 @@ class AdminController extends AdminBaseController
 
         $setting = Cache::get('site_setting');
 
-        return view($this->adminViewDir . 'index')->with('setting', $setting);
+        return view('admin::admin.index')->with('setting', $setting);
     }
 
     /**
@@ -44,7 +42,7 @@ class AdminController extends AdminBaseController
      */
     public function home()
     {
-        return view($this->adminViewDir . 'home');
+        return view('admin::admin.home');
     }
 
     /**
@@ -76,7 +74,7 @@ class AdminController extends AdminBaseController
      */
     public function editAdmin()
     {
-        return view($this->adminViewDir . 'editAdmin');
+        return view('admin::admin.editAdmin');
     }
 
 
@@ -123,7 +121,7 @@ class AdminController extends AdminBaseController
      */
     public function menuList()
     {
-        return view($this->adminViewDir . 'menuList');
+        return view('admin::admin.menuList');
     }
 
     /**
@@ -208,7 +206,7 @@ class AdminController extends AdminBaseController
                 ->first();
         }
 
-        return view($this->adminViewDir . 'editMenu')->with('menu', $menu);
+        return view('admin::admin.editMenu')->with('menu', $menu);
     }
 
 
@@ -278,7 +276,7 @@ class AdminController extends AdminBaseController
     {
         $setting = $this->systemSettingModel::whereCreateId(session('admin.id'))->first();
 
-        return view($this->adminViewDir . 'setting')
+        return view('admin::admin.setting')
             ->with('setting', $setting);
     }
 
@@ -319,7 +317,7 @@ class AdminController extends AdminBaseController
      */
     public function adminLog()
     {
-        return view($this->adminViewDir . 'adminLog');
+        return view('admin::admin.adminLog');
     }
 
     /**
