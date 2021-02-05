@@ -27,6 +27,8 @@ Route::group(
         'prefix' => 'admin',
     ],
     function ($route) {
+        /////////////////////
+        /// 系统管理
         $route->get('/', 'AdminController@index'); //首页
         $route->get('/home', 'AdminController@home'); //主页统计
         $route->get('/menuList', 'AdminController@menuList'); //菜单列表
@@ -42,6 +44,7 @@ Route::group(
         /////////////////////
         /// 形象管理
         $route->get('/physique/physiqueSetList', 'PhysiqueController@physiqueSetList'); //身体部位管理列表
+        $route->get('/physique/editPhysiqueSet/{id}', 'PhysiqueController@editPhysiqueSet'); //编辑身体部位管理
         $route->get('/physique/physiqueList', 'PhysiqueController@physiqueList'); //形象库管理列表
     }
 );

@@ -26,7 +26,7 @@ Route::group([
     ],
     function () {
         /////////////////////
-        /// 后台管理
+        /// 系统管理
         Route::post('admin/loginAjax', 'AdminBaseController@loginAjax'); //后台登录ajax
         Route::post('admin/logoutAjax', 'AdminBaseController@logoutAjax'); //后台退出登录ajax
 
@@ -45,5 +45,11 @@ Route::group([
         /// 用户管理
         Route::get('user/getUserListAjax', 'UserController@getUserListAjax'); //获取用户列表列表ajax
         Route::post('user/changeUserStateAjax', 'UserController@changeUserStateAjax'); //用户修改状态ajax
+
+        /////////////////////
+        /// 形象管理
+        Route::get('physique/getPhysiqueSetAjax', 'PhysiqueController@getPhysiqueSetAjax'); //获取身体部位ajax
+        Route::post('physique/editphysiqueSetAjax', 'PhysiqueController@editphysiqueSetAjax'); //编辑身体部位ajax
+
     }
 );
