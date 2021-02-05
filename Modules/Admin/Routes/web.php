@@ -41,8 +41,8 @@ Route::group(
 
         /////////////////////
         /// 形象管理
-        $route->get('/physique/physiqueSetList', 'physiqueController@physiqueSetList'); //身体部位管理列表
-        $route->get('/physique/physiqueList', 'physiqueController@physiqueList'); //形象库管理列表
+        $route->get('/physique/physiqueSetList', 'PhysiqueController@physiqueSetList'); //身体部位管理列表
+        $route->get('/physique/physiqueList', 'PhysiqueController@physiqueList'); //形象库管理列表
     }
 );
 
