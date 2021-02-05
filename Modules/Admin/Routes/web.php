@@ -35,7 +35,14 @@ Route::group(
         $route->get('/editAdmin', 'AdminController@editAdmin'); //管理员信息修改
         $route->get('/adminLog', 'AdminController@adminLog'); //登录日志列表
 
+        /////////////////////
+        /// 用户管理
         $route->get('/user/userList', 'UserController@userList'); //用户列表
+
+        /////////////////////
+        /// 形象管理
+        $route->get('/physique/physiqueSetList', 'physiqueController@physiqueSetList'); //身体部位管理列表
+        $route->get('/physique/physiqueList', 'physiqueController@physiqueList'); //形象库管理列表
     }
 );
 
