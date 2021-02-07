@@ -178,9 +178,9 @@ class AdminController extends AdminBaseController
         $res = $this->systemMenuModel->whereIn('id', $openMenuIds)->delete();
 
         if ($res > 0) {
-            return ApiReturn::jsonApi(ApiReturn::SUCCESS, '修改成功', $res);
+            return ApiReturn::jsonApi(ApiReturn::SUCCESS, '删除成功', $res);
         } else {
-            return ApiReturn::jsonApi(ApiReturn::DB_SAVE_ERROR, '修改失败', $res);
+            return ApiReturn::jsonApi(ApiReturn::DB_SAVE_ERROR, '删除失败', $res);
         }
     }
 
