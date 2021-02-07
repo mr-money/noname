@@ -67,7 +67,7 @@
                 data.field._token = "{!! csrf_token() !!}";
 
                 $.post(
-                    "{{url('api/physique/editphysiqueSetAjax')}}",
+                    "{{url('api/physique/editPhysiqueSetAjax')}}",
                     data.field,
                     function (result) {
                         layer.close(load);

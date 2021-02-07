@@ -63,7 +63,7 @@ class PhysiqueController extends AdminBaseController
      * @param Request $request
      * @return JsonResponse
      */
-    public function editphysiqueSetAjax(Request $request)
+    public function editPhysiqueSetAjax(Request $request): JsonResponse
     {
         $param = $request->post();
 
@@ -83,6 +83,8 @@ class PhysiqueController extends AdminBaseController
 
         return ApiReturn::jsonApi(ApiReturn::SUCCESS, '', $res);
     }
+
+    
 
 
     //形象库管理列表
