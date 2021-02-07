@@ -41,7 +41,11 @@ class PhysiqueController extends AdminBaseController
         return ApiReturn::jsonApi(ApiReturn::SUCCESS, '', $page);
     }
 
-    //编辑身体部位
+    /**
+     * 编辑身体部位
+     * @param int $id
+     * @return Application|Factory|View
+     */
     public function editPhysiqueSet(int $id = 0)
     {
         $physique = array();
@@ -54,7 +58,11 @@ class PhysiqueController extends AdminBaseController
         return view('admin::physique/editPhysiqueSet')->with('physique',$physique);
     }
 
-    //编辑身体部位ajax
+    /**
+     * 编辑身体部位ajax
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function editphysiqueSetAjax(Request $request)
     {
         $param = $request->post();
@@ -62,6 +70,7 @@ class PhysiqueController extends AdminBaseController
         $data = array(
             'part_name' => $param['part_name'],
             'default_value' => $param['default_value'],
+            'unit' => $param['unit'],
             'remark' => $param['remark'],
         );
 

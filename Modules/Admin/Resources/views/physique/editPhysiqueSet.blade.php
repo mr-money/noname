@@ -18,7 +18,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">单位</label>
                     <div class="layui-input-block">
-                        <input type="text" name="default_value" autocomplete="off"
+                        <input type="text" name="unit" autocomplete="off"
                                value="{{empty($physique['unit'])?'':$physique['unit']}}" placeholder="请输入单位"
                                class="layui-input">
                     </div>
@@ -72,7 +72,7 @@
                     function (result) {
                         layer.close(load);
 
-                        console.log(data);return;
+                        // console.log(data);return;
                         if (result.code == 200) {
                             layer.closeAll('iframe');
                             window.parent.location.reload();

@@ -123,11 +123,23 @@
             //按钮监听
             table.on('tool(currentTableFilter)', function (obj) {
                 const data = obj.data;
-                console.log('222');
-                console.log(data);
-                return;
-                if (obj.event === 'delete') {
+                //编辑
+                if(obj.event === 'edit') {
+                    const index = layer.open({
+                        title: '编辑部位设置',
+                        type: 2,
+                        shade: 0.2,
+                        maxmin:true,
+                        shadeClose: true,
+                        area: ['70%', '70%'],
+                        content: "{{url('admin/physique/editPhysiqueSet')}}/"+data.id,
+                    });
+                    $(window).on("resize", function () {
+                        layer.full(index);
+                    });
+                }else if (obj.event === 'delete') { //删除
                     layer.confirm('确认删除吗', function (index) { //确定
+                        return console.log(data);
                         $.ajax({
                             url:"{{url('api/admin/delMenuAjax')}}/" + data.id,
                             type:"DELETE",
