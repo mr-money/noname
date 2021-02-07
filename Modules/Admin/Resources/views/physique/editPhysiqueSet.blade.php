@@ -7,7 +7,7 @@
         <div class="layuimini-main">
             <form class="layui-form" action="">
                 <div class="layui-form-item">
-                    <label class="layui-form-label">部位名称</label>
+                    <label class="layui-form-label">*部位名称</label>
                     <div class="layui-input-block">
                         <input type="text" name="part_name" lay-verify="required" autocomplete="off"
                                value="{{empty($physique['part_name'])?'':$physique['part_name']}}" placeholder="请输入部位名称"
@@ -16,27 +16,27 @@
                 </div>
 
                 <div class="layui-form-item">
-                    <label class="layui-form-label">单位</label>
+                    <label class="layui-form-label">*单位</label>
                     <div class="layui-input-block">
-                        <input type="text" name="unit" autocomplete="off"
+                        <input type="text" name="unit" lay-verify="required" autocomplete="off"
                                value="{{empty($physique['unit'])?'':$physique['unit']}}" placeholder="请输入单位"
                                class="layui-input">
                     </div>
                 </div>
 
                 <div class="layui-form-item">
-                    <label class="layui-form-label">默认数据</label>
+                    <label class="layui-form-label">*默认数据</label>
                     <div class="layui-input-block">
-                        <input type="text" name="default_value" autocomplete="off"
+                        <input type="text" name="default_value" lay-verify="required" autocomplete="off"
                                value="{{empty($physique['default_value'])?'':$physique['default_value']}}" placeholder="请输入默认数据"
                                class="layui-input">
                     </div>
                 </div>
 
                 <div class="layui-form-item layui-form-text">
-                    <label class="layui-form-label">部位描述</label>
+                    <label class="layui-form-label">*部位描述</label>
                     <div class="layui-input-block">
-                        <textarea name="remark" placeholder="请输入部位描述"
+                        <textarea name="remark" placeholder="请输入部位描述" lay-verify="required"
                                   class="layui-textarea">{{empty($physique['remark'])?'':$physique['remark']}}</textarea>
                     </div>
                 </div>
@@ -74,8 +74,11 @@
 
                         // console.log(data);return;
                         if (result.code == 200) {
-                            layer.closeAll('iframe');
-                            window.parent.location.reload();
+                            layer.msg(result.msg,{'icon':1},function (){
+                                layer.closeAll('iframe');
+                                window.parent.location.reload();
+                            });
+
                         } else {
                             layer.msg(result.msg, {
                                 icon: 2,

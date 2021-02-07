@@ -42,7 +42,6 @@
     <script>
         layui.use(['form', 'table', 'laydate'], function () {
             var $ = layui.jquery,
-                form = layui.form,
                 laydate = layui.laydate,
                 table = layui.table;
 
@@ -137,11 +136,12 @@
                     $(window).on("resize", function () {
                         layer.full(index);
                     });
+
                 }else if (obj.event === 'delete') { //删除
                     layer.confirm('确认删除吗', function (index) { //确定
                         return console.log(data);
                         $.ajax({
-                            url:"{{url('api/admin/delMenuAjax')}}/" + data.id,
+                            url:"{{url('api/admin/delMenuAjax')}}",
                             type:"DELETE",
                             data:{
                                 _token: "{!! csrf_token() !!}"
@@ -150,8 +150,7 @@
                                 // 请求成功后的回调函数
                                 // console.log(result);return;
                                 if (result.code == 200) {
-                                    // layer.msg(result.msg);
-                                    renderTable();
+                                    layer.msg(result.msg,obj.del());
                                 } else {
                                     layer.msg(result.msg, {'icon': 2});
                                 }
