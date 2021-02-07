@@ -84,7 +84,25 @@ class PhysiqueController extends AdminBaseController
         return ApiReturn::jsonApi(ApiReturn::SUCCESS, '', $res);
     }
 
-    
+
+    /**
+     * 删除身体部位ajax
+     * @param Request $request
+     * @return JsonResponse
+     * @throws \Exception
+     */
+    public function delPhysiqueSetAjax(Request $request): JsonResponse
+    {
+        $ids = $request->post('ids');
+
+        $res = $this->facePhysiqueSettingModel->whereIn('id',$ids)->delete();
+
+        if ($res > 0) {
+            return ApiReturn::jsonApi(ApiReturn::SUCCESS, '删除成功', $res);
+        } else {
+            return ApiReturn::jsonApi(ApiReturn::DB_SAVE_ERROR, '删除失败', $res);
+        }
+    }
 
 
     //形象库管理列表

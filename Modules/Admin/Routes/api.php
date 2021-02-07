@@ -50,6 +50,7 @@ Route::group([
         /// 形象管理
         Route::get('physique/getPhysiqueSetAjax', 'PhysiqueController@getPhysiqueSetAjax'); //获取身体部位ajax
         Route::post('physique/editPhysiqueSetAjax', 'PhysiqueController@editPhysiqueSetAjax'); //编辑身体部位ajax
+        Route::delete('physique/delPhysiqueSetAjax', 'PhysiqueController@delPhysiqueSetAjax'); //删除身体部位ajax
 
     }
 );

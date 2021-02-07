@@ -23,7 +23,8 @@
             <script type="text/html" id="toolbar">
                 <div class="layui-btn-container">
                     <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add"> 添加</button>
-                    <button class="layui-btn layui-btn-sm layui-btn-danger data-delete-btn" lay-event="delete"> 删除</button>
+                    <button class="layui-btn layui-btn-sm layui-btn-danger data-delete-btn" lay-event="delete"> 删除
+                    </button>
                 </div>
             </script>
 
@@ -102,7 +103,7 @@
                         title: '添加部位设置',
                         type: 2,
                         shade: 0.2,
-                        maxmin:true,
+                        maxmin: true,
                         shadeClose: true,
                         area: ['70%', '70%'],
                         content: "{{url('admin/physique/editPhysiqueSet/0')}}",
@@ -123,34 +124,34 @@
             table.on('tool(currentTableFilter)', function (obj) {
                 const data = obj.data;
                 //编辑
-                if(obj.event === 'edit') {
+                if (obj.event === 'edit') {
                     const index = layer.open({
                         title: '编辑部位设置',
                         type: 2,
                         shade: 0.2,
-                        maxmin:true,
+                        maxmin: true,
                         shadeClose: true,
                         area: ['70%', '70%'],
-                        content: "{{url('admin/physique/editPhysiqueSet')}}/"+data.id,
+                        content: "{{url('admin/physique/editPhysiqueSet')}}/" + data.id,
                     });
                     $(window).on("resize", function () {
                         layer.full(index);
                     });
 
-                }else if (obj.event === 'delete') { //删除
+                } else if (obj.event === 'delete') { //删除
                     layer.confirm('确认删除吗', function (index) { //确定
-                        return console.log(data);
                         $.ajax({
-                            url:"{{url('api/admin/delMenuAjax')}}",
-                            type:"DELETE",
-                            data:{
+                            url: "{{url('api/physique/delPhysiqueSetAjax')}}",
+                            type: "DELETE",
+                            data: {
+                                ids: [data.id],
                                 _token: "{!! csrf_token() !!}"
                             },
-                            success:function (result) {
+                            success: function (result) {
                                 // 请求成功后的回调函数
-                                // console.log(result);return;
+                                // console.log(result);
                                 if (result.code == 200) {
-                                    layer.msg(result.msg,obj.del());
+                                    layer.msg(result.msg, {'icon': 1}, obj.del());
                                 } else {
                                     layer.msg(result.msg, {'icon': 2});
                                 }
