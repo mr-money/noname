@@ -153,6 +153,9 @@
                             lay-filter="login">登 入
                     </button>
                 </div>
+                <div class="layui-form-item">
+                    <a href="javascript:;"><i class="layui-icon layui-icon-login-wechat"></i>登录</a>
+                </div>
             </form>
         </div>
     </div>
