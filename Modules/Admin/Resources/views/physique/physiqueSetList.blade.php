@@ -111,6 +111,9 @@
                     $(window).on("resize", function () {
                         layer.full(index);
                     });
+
+
+                    //TODO 批量删除身体部位
                 } else if (obj.event === 'delete') {  // 监听删除操作
                     const checkStatus = table.checkStatus('currentTableId')
                         , data = checkStatus.data;
