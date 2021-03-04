@@ -113,12 +113,41 @@
                     });
 
 
-                    //TODO 批量删除身体部位
+                    //批量删除身体部位
                 } else if (obj.event === 'delete') {  // 监听删除操作
-                    const checkStatus = table.checkStatus('currentTableId')
-                        , data = checkStatus.data;
-                    console.log('111');
-                    console.log(data);
+                    const checkStatus = table.checkStatus('currentTableId'),
+                        data = checkStatus.data;
+                    let ids = [];
+                    for (const value of data) {
+                        ids.push(value.id);
+                    }
+
+                    if(ids.length === 0){
+                        return layer.msg('未选中选项',{'icon': 2});
+                    }
+
+                    layer.confirm('确认删除吗', function (index) { //确定
+                        $.ajax({
+                            url: "{{url('api/physique/delPhysiqueSetAjax')}}",
+                            type: "DELETE",
+                            data: {
+                                ids: ids,
+                                _token: "{!! csrf_token() !!}"
+                            },
+                            success: function (result) {
+                                // 请求成功后的回调函数
+                                // console.log(result);
+                                if (result.code == 200) {
+                                    layer.msg(result.msg, {'icon': 1}, table.reload('currentTableId'));
+                                } else {
+                                    layer.msg(result.msg, {'icon': 2});
+                                }
+                            }
+                        });
+
+                        layer.close(index);
+
+                    });
                 }
 
             });
