@@ -41,18 +41,9 @@
 
 @section('script')
     <script>
-        layui.use(['form', 'table', 'laydate'], function () {
+        layui.use(['form', 'table'], function () {
             var $ = layui.jquery,
-                laydate = layui.laydate,
                 table = layui.table;
-
-            //日期
-            laydate.render({
-                elem: '#start_time'
-            });
-            laydate.render({
-                elem: '#end_time'
-            });
 
             table.render({
                 elem: '#currentTableId',

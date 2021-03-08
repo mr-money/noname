@@ -105,9 +105,23 @@ class PhysiqueController extends AdminBaseController
     }
 
 
-    //形象库管理列表
+    /**
+     * 形象库管理列表
+     * @return Application|Factory|View
+     */
     public function physiqueList()
     {
-        echo 'physiqueList';
+        return view('admin::physique/physiqueList');
+    }
+
+    //获取形象库ajax
+    public function getPhysiqueAjax(Request $request)
+    {
+        $param = $request->post();
+
+        $physique = $this->facePhysiqueModel->orderBy('created_at', 'asc');
+        $page = $this->layuiPage($physique, $param['page'], $param['limit']);
+
+        return ApiReturn::jsonApi(ApiReturn::SUCCESS, '', $page);
     }
 }
