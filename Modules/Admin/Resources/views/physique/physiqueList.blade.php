@@ -22,17 +22,18 @@
 
 
             <script type="text/html" id="toolbar">
-                <div class="layui-btn-container">
-                    <input type="checkbox" name="zzz" lay-skin="switch" lay-text="开启|关闭">
-{{--                    <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add"> 添加</button>--}}
-{{--                    <button class="layui-btn layui-btn-sm layui-btn-danger data-delete-btn" lay-event="delete"> 删除</button>--}}
+                <div class="layui-btn-container layui-form">
+                    <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add"> 添加</button>
+                    <input type="checkbox" name="createUser" lay-filter="createUser" lay-skin="switch"
+                           lay-text="用户|官方">
+                    {{--<button class="layui-btn layui-btn-sm layui-btn-danger data-delete-btn" lay-event="delete"> 删除</button>--}}
                 </div>
             </script>
 
             <table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
 
             <script type="text/html" id="currentTableBar">
-                {{--<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">编辑</a>--}}
+                <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
                 <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
             </script>
 
@@ -42,8 +43,9 @@
 
 @section('script')
     <script>
-        layui.use(['form', 'table'], function () {
+        layui.use(['form', 'form', 'table'], function () {
             var $ = layui.jquery,
+                form = layui.form,
                 table = layui.table;
 
             table.render({
@@ -67,11 +69,9 @@
                     statusCode: 200 //规定成功的状态码，默认：0
                 },
                 cols: [[
-                    {type: "checkbox", width: 50},
                     {field: 'id', width: 80, title: 'ID', sort: true},
-                    {field: 'part_name', minWidth: 80, title: '部位名称'},
-                    {field: 'unit', minWidth: 80, title: '单位'},
-                    {field: 'default_value', minWidth: 80, title: '默认数据'},
+                    {field: 'part_name', minWidth: 80, title: '形象库名称'},
+                    {field: 'user_id', minWidth: 80, title: '创建人'},
                     {
                         field: "created_at", minWidth: 80, title: '创建时间', sort: true,
                         templet: function (res) {
@@ -84,6 +84,20 @@
                 limit: 15,
                 page: true,
                 skin: 'line'
+            });
+
+            //形象库创建人开关  开启用户，关闭管理员
+            form.on('switch(createUser)', function (data) {
+                console.log(data.elem); //得到checkbox原始DOM对象
+                console.log(data.elem.checked); //开关是否开启，true或者false
+                console.log(data.value); //开关value值，也可以通过data.elem.value得到
+                console.log(data.othis); //得到美化后的DOM对象
+
+                //开启用户开关
+                if(data.elem.checked === true){
+                    //重载列表
+
+                }
             });
 
             /**
@@ -114,8 +128,8 @@
                         ids.push(value.id);
                     }
 
-                    if(ids.length === 0){
-                        return layer.msg('未选中选项',{'icon': 2});
+                    if (ids.length === 0) {
+                        return layer.msg('未选中选项', {'icon': 2});
                     }
 
                     layer.confirm('确认删除吗', function (index) { //确定

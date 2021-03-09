@@ -124,4 +124,10 @@ class PhysiqueController extends AdminBaseController
 
         return ApiReturn::jsonApi(ApiReturn::SUCCESS, '', $page);
     }
+
+    //编辑形象库页面
+    public function editPhysique()
+    {
+        return view('admin::physique/editPhysique');
+    }
 }
