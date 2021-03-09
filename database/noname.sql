@@ -26,7 +26,7 @@ CREATE TABLE `admin_log` (
   `created_at` varchar(64) DEFAULT '' COMMENT '创建时间',
   `updated_at` varchar(64) DEFAULT '' COMMENT '修改时间',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
 
 /*Data for the table `admin_log` */
 
@@ -57,6 +57,8 @@ insert  into `admin_log`(`id`,`admin_id`,`ip_adress`,`created_at`,`updated_at`) 
 insert  into `admin_log`(`id`,`admin_id`,`ip_adress`,`created_at`,`updated_at`) values (25,5,'127.0.0.1','1612422030','1612422030');
 insert  into `admin_log`(`id`,`admin_id`,`ip_adress`,`created_at`,`updated_at`) values (26,5,'127.0.0.1','1612505756','1612505756');
 insert  into `admin_log`(`id`,`admin_id`,`ip_adress`,`created_at`,`updated_at`) values (27,5,'127.0.0.1','1612688430','1612688430');
+insert  into `admin_log`(`id`,`admin_id`,`ip_adress`,`created_at`,`updated_at`) values (28,5,'127.0.0.1','1614839895','1614839895');
+insert  into `admin_log`(`id`,`admin_id`,`ip_adress`,`created_at`,`updated_at`) values (29,5,'127.0.0.1','1615271332','1615271332');
 
 /*Table structure for table `admin_users` */
 
@@ -83,15 +85,15 @@ DROP TABLE IF EXISTS `face_physique`;
 
 CREATE TABLE `face_physique` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `part_name` varchar(255) NOT NULL DEFAULT '' COMMENT '部位名称',
-  `part_value` varchar(255) NOT NULL DEFAULT '' COMMENT '部位数据',
+  `physique_name` varchar(255) NOT NULL DEFAULT '' COMMENT '形象名称',
+  `physique_value` text COMMENT '形象数据',
   `user_id` int(11) NOT NULL COMMENT '用户表id',
   `created_at` int(11) DEFAULT NULL,
   `updated_at` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `face_physique_face_user_id_fk` (`user_id`),
-  KEY `face_physique_part_name_index` (`part_name`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='身体部位数据表';
+  KEY `face_physique_part_name_index` (`physique_name`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='形象库数据表';
 
 /*Data for the table `face_physique` */
 
@@ -109,7 +111,7 @@ CREATE TABLE `face_physique_setting` (
   `updated_at` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `face_physique_setting_part_name_uindex` (`part_name`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='身体部位配置';
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COMMENT='身体部位配置';
 
 /*Data for the table `face_physique_setting` */
 
