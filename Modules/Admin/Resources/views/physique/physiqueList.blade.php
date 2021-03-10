@@ -72,6 +72,7 @@
                     {field: 'id', width: 80, title: 'ID', sort: true},
                     {field: 'physique_name', minWidth: 80, title: '形象库名称'},
                     {field: 'user_id', minWidth: 80, title: '创建用户'},
+                    {field: 'remark', minWidth: 80, title: '形象描述'},
                     {
                         field: "created_at", minWidth: 80, title: '创建时间', sort: true,
                         templet: function (res) {
