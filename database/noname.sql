@@ -26,7 +26,7 @@ CREATE TABLE `admin_log` (
   `created_at` varchar(64) DEFAULT '' COMMENT '创建时间',
   `updated_at` varchar(64) DEFAULT '' COMMENT '修改时间',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=32 DEFAULT CHARSET=utf8;
 
 /*Data for the table `admin_log` */
 
@@ -59,6 +59,8 @@ insert  into `admin_log`(`id`,`admin_id`,`ip_adress`,`created_at`,`updated_at`) 
 insert  into `admin_log`(`id`,`admin_id`,`ip_adress`,`created_at`,`updated_at`) values (27,5,'127.0.0.1','1612688430','1612688430');
 insert  into `admin_log`(`id`,`admin_id`,`ip_adress`,`created_at`,`updated_at`) values (28,5,'127.0.0.1','1614839895','1614839895');
 insert  into `admin_log`(`id`,`admin_id`,`ip_adress`,`created_at`,`updated_at`) values (29,5,'127.0.0.1','1615271332','1615271332');
+insert  into `admin_log`(`id`,`admin_id`,`ip_adress`,`created_at`,`updated_at`) values (30,5,'127.0.0.1','1615356226','1615356226');
+insert  into `admin_log`(`id`,`admin_id`,`ip_adress`,`created_at`,`updated_at`) values (31,5,'127.0.0.1','1615363859','1615363859');
 
 /*Table structure for table `admin_users` */
 
@@ -88,14 +90,17 @@ CREATE TABLE `face_physique` (
   `physique_name` varchar(255) NOT NULL DEFAULT '' COMMENT '形象名称',
   `physique_value` text COMMENT '形象数据',
   `user_id` int(11) NOT NULL COMMENT '用户表id',
+  `remark` varchar(255) NOT NULL DEFAULT '',
   `created_at` int(11) DEFAULT NULL,
   `updated_at` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `face_physique_face_user_id_fk` (`user_id`),
   KEY `face_physique_part_name_index` (`physique_name`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='形象库数据表';
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='形象库数据表';
 
 /*Data for the table `face_physique` */
+
+insert  into `face_physique`(`id`,`physique_name`,`physique_value`,`user_id`,`remark`,`created_at`,`updated_at`) values (1,'测试形象1','{\"身高\":\"170\",\"体重\":\"50\"}',0,'测试形象1测试形象1',1615368800,1615368800);
 
 /*Table structure for table `face_physique_setting` */
 
