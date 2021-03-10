@@ -45,7 +45,9 @@ Route::group(
         /// 形象管理
         $route->get('/physique/physiqueSetList', 'PhysiqueController@physiqueSetList'); //身体部位管理列表
         $route->get('/physique/editPhysiqueSet/{id}', 'PhysiqueController@editPhysiqueSet'); //编辑身体部位管理
+
         $route->get('/physique/physiqueList', 'PhysiqueController@physiqueList'); //形象库管理列表
+        $route->get('/physique/editPhysique/{id}', 'PhysiqueController@editPhysique'); //编辑官方形象库
     }
 );
 

@@ -70,8 +70,8 @@
                 },
                 cols: [[
                     {field: 'id', width: 80, title: 'ID', sort: true},
-                    {field: 'part_name', minWidth: 80, title: '形象库名称'},
-                    {field: 'user_id', minWidth: 80, title: '创建人'},
+                    {field: 'physique_name', minWidth: 80, title: '形象库名称'},
+                    {field: 'user_id', minWidth: 80, title: '创建用户'},
                     {
                         field: "created_at", minWidth: 80, title: '创建时间', sort: true,
                         templet: function (res) {
@@ -106,13 +106,13 @@
             table.on('toolbar(currentTableFilter)', function (obj) {
                 if (obj.event === 'add') {  // 监听添加操作
                     const index = layer.open({
-                        title: '添加部位设置',
+                        title: '添加官方形象库',
                         type: 2,
                         shade: 0.2,
                         maxmin: true,
                         shadeClose: true,
                         area: ['70%', '70%'],
-                        content: "{{url('admin/physique/editPhysiqueSet/0')}}",
+                        content: "{{url('admin/physique/editPhysique/0')}}",
                     });
                     $(window).on("resize", function () {
                         layer.full(index);

@@ -8,6 +8,7 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use function GuzzleHttp\Psr7\str;
 
 class PhysiqueController extends AdminBaseController
 {
@@ -126,8 +127,40 @@ class PhysiqueController extends AdminBaseController
     }
 
     //编辑形象库页面
-    public function editPhysique()
+    public function editPhysique(int $id = 0)
     {
-        return view('admin::physique/editPhysique');
+        //查询默认设置
+        $physique_set = $this->facePhysiqueSettingModel->get();
+
+        //id不为零 查询形象库
+        $physique = array();
+        if($id !== 0){
+            $physique = $this->facePhysiqueModel::whereId($id)->first();
+        }
+        return view('admin::physique/editPhysique')->with([
+            'physique'=>$physique,
+            'physique_set'=>$physique_set,
+        ]);
+    }
+
+    //编辑形象库ajax
+    public function editPhysiqueAjax(Request $request)
+    {
+        $param = $request->post();
+
+        //json保存形象数据
+        $physique_value = json_encode($param['physique_value'],JSON_UNESCAPED_UNICODE);
+
+        //构建数据
+        $data = array(
+            'physique_name' => (string)$param['physique_name'],
+            'physique_value' => (string)$physique_value,
+            'remark' => (string)$param['remark'],
+            'user_id' => 0, //用户id 官方形象为0
+        );
+
+        $res = $this->facePhysiqueModel::create($data)->id;
+
+        return ApiReturn::jsonApi(ApiReturn::SUCCESS, '', $res);
     }
 }
