@@ -40,9 +40,9 @@ class WebhookDefault extends BaseController
 
 //        $json = json_decode($content, true);
 //        $repo = $json['commits'];
-        shell_exec("sudo git checkout master && sudo git reset --hard");
+        shell_exec("sudo cd ".$this->web_path." && sudo git checkout master && sudo git reset --hard");
 
-        $cmd = "sudo cd ".$this->web_path." && sudo git checkout master && sudo git pull origin master";
+        $cmd = "sudo cd ".$this->web_path." && sudo git pull origin master";
 
         $res = shell_exec($cmd);
         print_r($res);
