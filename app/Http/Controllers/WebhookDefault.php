@@ -7,10 +7,10 @@ use Illuminate\Routing\Controller as BaseController;
 class WebhookDefault extends BaseController
 {
     //生产环境web目录
-    private $web_path = '/www/wwwroot/noname';
+    private $web_path = '/www/wwwroot/';
 
     //作为接口传输的时候认证的密钥
-    private $valid_token = 'noName@0625';
+    private $valid_token = '123456';
 
 
     public function __construct()
